@@ -10,12 +10,12 @@ export const createCategory = async (data) => {
     }
 }
 
-export const getCategories = async () => {
+export const getCategories = async (nome) => {
     try {
-        const response = await api.get("/categories");
+        const response = await api.get(`/categories?name=${nome}`);
         return response.data;
     } catch (error) {
-        console.log("Error get clients")
+        console.log("Error get categories")
     }
 }
 

@@ -1,56 +1,54 @@
-import { useEffect, useState } from "react"
-import {deleteCategoryById, getCategories} from "../../../services/categoryService.jsx";
-import { useNavigate } from "react-router-dom";
-import '../../../Global.css'
+import { useEffect, useState } from "react";
+import { getCategories, getCategoryById, deleteCategoryById } from "../../../services/categoryService.jsx";
+import '../../../Global.css';
 
+function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
 
 export default function CategoriesList() {
-
-    const [categories, setCategories] = useState([]);
-    const [categoriesRender, setCategoriesRender] = useState([]);
     const [search, setSearch] = useState("");
-    const navigate = useNavigate();
-
-    async function getAllCategories() {
-        try {
-            const data = await getCategories();
-            setCategories(data);
-            setCategoriesRender(data);
-        } catch {
-            console.error("Error getClients")
-        }
-    }
+    const [categories, setCategories] = useState([]);
+    const [filteredCategories, setFilteredCategories] = useState([]);
 
     useEffect(() => {
         getAllCategories();
-    },[]);
+    }, []);
 
     useEffect(() => {
-        const filtered = categories.filter((category) =>
-            Object.values(category).some((value) =>
-                value.toString().toLowerCase().includes(search.toLowerCase())
-            )
+        const filtered = categories.filter(category =>
+            removeAccents(category.nome.toLowerCase()).includes(removeAccents(search.toLowerCase()))
         );
-        setCategoriesRender(filtered)
-    },[categories, search])
+        setFilteredCategories(filtered);
+    }, [categories, search]);
 
-    const deleteCategory = async (id) => {
+    async function getAllCategories() {
         try {
-            await deleteCategoryById(id);
-            getAllCategories();
-        } catch {
-            console.error("Error deleteClient")
+            const response = await getCategories();
+            setCategories(response);
+        } catch(error) {
+            console.log(error.message);
         }
     }
 
-    const handleSearchChange = (e) => {
-        const value = e.target.value;
-        setSearch(value);
-        if (value === "") {
-            getCategories();
-            setCategoriesRender(categories)
+    async function handleDeleteCategory(id) {
+        try {
+            await deleteCategoryById(id);
+            const updatedCategories = categories.filter(category => category.id !== id);
+            setCategories(updatedCategories);
+        } catch(error) {
+            console.log(error.message);
         }
-    };
+    }
+
+    async function handleGetCategory(id) {
+        try {
+            const category = await getCategoryById(id);
+            console.log(category);
+        } catch(error) {
+            console.log(error.message);
+        }
+    }
 
     return (
         <div className="container mb-3">
@@ -61,31 +59,26 @@ export default function CategoriesList() {
                     className="form-control"
                     placeholder="Search..."
                     value={search}
-                    onChange={handleSearchChange}
+                    onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-            <button
-                className="btn btn-success btn-sm mb-3"
-                onClick={() => navigate(`/categories-add`)}
-            >
-                +
+            <button className="btn btn-success btn-sm mb-3">
+                Criar
             </button>
             <ul className="list-group">
-                {categoriesRender.map(category => (
-                    <li key={category.id} className="list-group-item d-flex justify-content-between align-items-center">
+                {filteredCategories.map(category => (
+                    <li className="list-group-item d-flex justify-content-between align-items-center" key={category.id}>
                         <div>
-                            <h4 className="mb-0">{category.name}</h4>
-                            <p className="mb-0">Categoria: {category.name}</p>
+                            <p className="mb-0">Categoria: {category.nome}</p>
                         </div>
                         <div>
-                            <button className="btn btn-primary btn-m me-2" onClick={() => navigate(`/categories/${category.id}`)}> Editar </button>
-                            <button className="btn btn-danger" onClick={() => deleteCategory(category.id)}> Excluir </button>
+                            <button className="btn btn-primary btn-m me-2"> Editar</button>
+                            <button className="btn btn-danger" onClick={() => handleDeleteCategory(category.id)}> Excluir</button>
+                            <button className="btn btn-info" onClick={() => handleGetCategory(category.id)}> Detalhes</button>
                         </div>
                     </li>
                 ))}
             </ul>
         </div>
-    )
-
+    );
 }
-
