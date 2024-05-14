@@ -7,6 +7,8 @@ export const createCategory = async (data) => {
         return response.data;
     } catch (error) {
         console.log("Error save client")
+        console.error(error.message);
+        throw error;
     }
 }
 
@@ -16,6 +18,8 @@ export const getCategories = async (nome) => {
         return response.data;
     } catch (error) {
         console.log("Error get categories")
+        console.error(error.message);
+        throw error;
     }
 }
 
@@ -25,6 +29,8 @@ export const getCategoryById = async (id) => {
         return response.data;
     } catch (error) {
         console.log("Error get client by id")
+        console.error(error.message);
+        throw error;
     }
 }
 
@@ -34,7 +40,9 @@ export const deleteCategoryById = async (id) => {
         const response = await api.delete(`/category/${id}`);
         return response.data;
     } catch (error) {
-        console.log("Error delete client")
+        console.log("Esta categoria está associada a eventos e não pode ser excluída.")
+        console.error(error.message);
+        throw error;
     }
 }
 
@@ -44,6 +52,8 @@ export const updateCategory = async (id, data) => {
         return response.data;
     } catch (error) {
         console.log("Error update client")
+        console.error(error.message);
+        throw error;
     }
 }
 

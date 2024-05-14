@@ -4,6 +4,10 @@ export default function Settings() {
     return (
         <section>
             <h1 className={'titulo'}>Minha Conta</h1>
+
+
+
+
             <form>
                 <div className="mb-3">
                     <label htmlFor="inputName" className="form-label">Nome</label>
@@ -21,12 +25,6 @@ export default function Settings() {
                 <div className="mb-3">
                     <label htmlFor="inputSenha" className="form-label">Senha</label>
                     <input type="password" className="form-control" id="inputSenha" placeholder='Digite sua senha'
-                           required/>
-                </div>
-
-                <div className="mb-3">
-                    <label htmlFor="inputCargo" className="form-label">Cargo</label>
-                    <input type="email" className="form-control" id="inputCargo" placeholder='Digite seu cargo'
                            required/>
                 </div>
 

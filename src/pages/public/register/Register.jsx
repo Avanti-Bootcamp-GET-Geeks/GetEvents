@@ -22,12 +22,6 @@ export default function Register() {
                            required/>
                 </div>
 
-                <div className="mb-3">
-                    <label htmlFor="inputCargo" className="form-label">Cargo</label>
-                    <input type="email" className="form-control" id="inputCargo" placeholder='Digite seu cargo'
-                           required/>
-                </div>
-
                 <div className="mb-3 form-check">
                     <input className="form-check-input" type="radio" name="flexRadioDefault" id="organizador" checked/>
                     <label className="form-check-label" htmlFor="organizador">
