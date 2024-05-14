@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 export default function Home() {
     return (
@@ -13,6 +14,15 @@ import { findAllEvents } from "../../../services/eventService";
 import { Pagination } from "../../../components/pagination/Pagination";
 
 export default function Home() {
+=======
+import { useEffect, useState } from "react";
+import { Card } from "../../../components/card/Card";
+import { EventList } from "../../../components/eventList/EventList";
+import { findAllEvents } from "../../../services/eventService";
+import { Pagination } from "../../../components/pagination/Pagination";
+
+export default function Home() {
+>>>>>>> c157ecf6fb7becb101292814dec654e78fce4f5f
     
     const [events, setEvents] = useState([]);
     const [categoria, setCategoria] = useState("");
@@ -61,6 +71,9 @@ export default function Home() {
             <Pagination currentPage={currentPage} handlePageChange={handlePageChange} events={events} />
         </div>
         </>
+<<<<<<< HEAD
+>>>>>>> c157ecf6fb7becb101292814dec654e78fce4f5f
+=======
 >>>>>>> c157ecf6fb7becb101292814dec654e78fce4f5f
     )
 }
