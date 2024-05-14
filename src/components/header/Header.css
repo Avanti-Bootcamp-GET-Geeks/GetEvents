@@ -1,52 +1,19 @@
-header {
+header nav  {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-header .search-container {
-    position: relative;
-}
+   }
 
 header .search-input {
-
-    max-width: 500px;
     box-sizing: border-box;
     padding-right: 30px;
     padding-left: 40px;
     background: 10px 10px url('../../assets/img/lupa.svg') no-repeat;
 }
 
-header .search-button {
-    position: absolute;
-    background: transparent;
-    top: 4px;
-    right: 0;
-    width: 95px;
-    height: 30px;
-    border: none;
-    cursor: pointer;
-    text-transform: uppercase;
+p.text-xl-end{
     color: #0097FF;
-    font-size: 12px;
-}
-
-header nav {
-
-}
-
-header nav ul {
-    display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 20px;
     margin: 0;
-}
-
-header a {
-    text-decoration: none;
-    color: #0097FF;
 }

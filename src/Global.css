@@ -4,29 +4,35 @@
     max-width: 1280px;
     margin: 0 auto;
     padding: 2rem;
-    text-align: center;
     font-family: "Roboto", sans-serif;
 }
-ul{
-    margin: 0;
-    padding: 0;
+main{
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0 20px 0;
 }
-li {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+main section{
+    width: 100%;
+    max-width: 600px ;
+    margin: auto;
+}
+h1.titulo {
+    color: #0097FF;
+    font-weight: bold;
+    margin: 30px 0 20px 0;
+}
+label{
+    color: #0097FF;
+    text-transform: uppercase;
 }
 
-form {
-    position: relative;
+a {
+    color: #0097FF !important;
+    text-transform: uppercase;
 }
 
 .btn {
     text-transform: uppercase;
-}
-
-.container {
-
 }
 
 .logo {
