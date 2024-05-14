@@ -29,14 +29,25 @@ export default function Register() {
                 </div>
 
                 <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="isAdmin"/>
-                    <label className="form-check-label" htmlFor="isAdmin">Admin</label>
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="organizador" checked/>
+                    <label className="form-check-label" htmlFor="organizador">
+                        Organizador
+                    </label>
                 </div>
 
-                <button type="submit" className="btn btn-success">Criar</button>
+                <div className=" mb-3 form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="visitante"
+                           />
+                    <label className="form-check-label" htmlFor="visitante">
+                        Visitante
+                    </label>
+                </div>
+
+                <div className=" mb-3">
+                    <button type="submit" className="btn btn-success">Criar</button>
+                </div>
 
             </form>
-
         </section>
     )
 }

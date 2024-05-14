@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { getCategories, getCategoryById, deleteCategoryById } from "../../../services/categoryService.jsx";
+import {useEffect, useState} from "react";
+import {getCategories, getCategoryById, deleteCategoryById} from "../../../services/categoryService.jsx";
+
 import '../../../Global.css';
 
 function removeAccents(str) {
@@ -10,6 +11,7 @@ export default function CategoriesList() {
     const [search, setSearch] = useState("");
     const [categories, setCategories] = useState([]);
     const [filteredCategories, setFilteredCategories] = useState([]);
+
 
     useEffect(() => {
         getAllCategories();
@@ -26,7 +28,7 @@ export default function CategoriesList() {
         try {
             const response = await getCategories();
             setCategories(response);
-        } catch(error) {
+        } catch (error) {
             console.log(error.message);
         }
     }
@@ -36,7 +38,7 @@ export default function CategoriesList() {
             await deleteCategoryById(id);
             const updatedCategories = categories.filter(category => category.id !== id);
             setCategories(updatedCategories);
-        } catch(error) {
+        } catch (error) {
             console.log(error.message);
         }
     }
@@ -45,7 +47,7 @@ export default function CategoriesList() {
         try {
             const category = await getCategoryById(id);
             console.log(category);
-        } catch(error) {
+        } catch (error) {
             console.log(error.message);
         }
     }
@@ -72,9 +74,12 @@ export default function CategoriesList() {
                             <p className="mb-0">Categoria: {category.nome}</p>
                         </div>
                         <div>
-                            <button className="btn btn-primary btn-m me-2"> Editar</button>
-                            <button className="btn btn-danger" onClick={() => handleDeleteCategory(category.id)}> Excluir</button>
-                            <button className="btn btn-info" onClick={() => handleGetCategory(category.id)}> Detalhes</button>
+                            <button className="btn btn-primary btn-m me-2"
+                                    onClick={() => handleGetCategory(category.id)}> Editar
+                            </button>
+                            <button className="btn btn-danger"
+                                    onClick={() => handleDeleteCategory(category.id)}> Excluir
+                            </button>
                         </div>
                     </li>
                 ))}

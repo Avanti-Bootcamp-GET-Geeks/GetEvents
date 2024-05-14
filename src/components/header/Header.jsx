@@ -8,7 +8,7 @@ export default function Header() {
     const [search, setSearch] = useState("");
     const [eventRender, setEventRender] = useState([]);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [settings, setSettings] = useState(true);
+    const [settings, setSettings] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
