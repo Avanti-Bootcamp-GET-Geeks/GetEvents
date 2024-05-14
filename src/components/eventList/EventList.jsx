@@ -1,8 +1,8 @@
-import styles from './eventList.module.css'
+import './EventList.css'
 
 export const EventList = ({children}) => {
     return(
-        <div className={styles.cardList}>
+        <div className="cardList">
                 {children}
         </div>
     )
