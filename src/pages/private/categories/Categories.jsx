@@ -1,6 +1,4 @@
-import './Settings.css'
-
-export default function Settings() {
+export default function Categories() {
     return (
         <section>
             <h1 className={'titulo'}>Minha Conta</h1>
@@ -34,11 +32,18 @@ export default function Settings() {
                     <input type="checkbox" className="form-check-input" id="isAdmin"/>
                     <label className="form-check-label" htmlFor="isAdmin">Admin</label>
                 </div>
-
+                <button type="submit" className="btn btn-primary">Criar</button>
                 <button type="submit" className="btn btn-primary">Editar</button>
                 <button type="submit" className="btn btn-danger">Excluir</button>
-
             </form>
+
+            <ul className="list-group">
+                <li className="list-group-item">An item</li>
+                <li className="list-group-item">A second item</li>
+                <li className="list-group-item">A third item</li>
+                <li className="list-group-item">A fourth item</li>
+                <li className="list-group-item">And a fifth one</li>
+            </ul>
         </section>
     )
 }
