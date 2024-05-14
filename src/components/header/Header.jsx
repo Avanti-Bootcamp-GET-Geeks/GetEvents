@@ -8,7 +8,7 @@ export default function Header() {
     const [search, setSearch] = useState("");
     const [eventRender, setEventRender] = useState([]);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [settings, setSettings] = useState(false);
+    const [settings, setSettings] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -68,11 +68,31 @@ export default function Header() {
                                 <input className="form-control me-2 search-input" type="search"
                                        placeholder="Pesquisar Eventos"
                                        aria-label="Pesquisar" onChange={e => setSearch(e.target.value)}/>
-                                <button className="btn btn-outline-primary" type="button" onClick={handleSearch}>Pesquisar</button>
+                                <button className="btn btn-outline-primary" type="button"
+                                        onClick={handleSearch}>Pesquisar
+                                </button>
                             </form>
                         </div>
                     ) : (
-                        <p className="text-xl-end">Bem vindo, ORGANIZADOR </p>
+                        <div className={`collapse navbar-collapse ${menuOpen ? 'show' : ''}`} id="navbarToggler">
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li className="nav-item">
+                                    <Link className="nav-link active" to="/">Crie seu Evento</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/settings">Bem vindo, ORGANIZADOR </Link>
+                                </li>
+                            </ul>
+                            <form className="d-flex" role="search">
+                                <input className="form-control me-2 search-input" type="search"
+                                       placeholder="Pesquisar Eventos"
+                                       aria-label="Pesquisar" onChange={e => setSearch(e.target.value)}/>
+                                <button className="btn btn-outline-primary" type="button"
+                                        onClick={handleSearch}>Pesquisar
+                                </button>
+                            </form>
+                        </div>
+
                     )}
                 </div>
             </nav>
