@@ -1,24 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import './Header.css';
 import logo from '../../assets/img/logo.svg';
+import { findAllEvents } from "../../services/eventService.jsx";
 
 export default function Header() {
     const [search, setSearch] = useState("");
+    const [eventRender, setEventRender] = useState([]);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [settings, setSettings] = useState(false)
-
+    const [settings, setSettings] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const filtered = eventRender.filter((event) =>
+            Object.values(event).some((value) =>
+                value.toString().toLowerCase().includes(search.toLowerCase())
+            )
+        );
+        if (filtered.length !== eventRender.length) {
+            setEventRender(filtered);
+        }
+    }, [eventRender, search]);
+
 
     const handleRegister = () => {
         navigate("/register");
-    }
+    };
 
     const handleBurgerClick = () => {
         setMenuOpen(!menuOpen);
     };
 
-    console.log(menuOpen)
+    const handleSearch = () => {
+        findAllEvents()
+            .then((events) => {
+                setEventRender(events);
+            })
+            .catch((error) => {
+                console.error("Error fetching events:", error);
+            });
+    };
 
     return (
         <header>
@@ -36,7 +57,7 @@ export default function Header() {
                                     <Link className="nav-link active" to="/">Crie seu Evento</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/settings">Acesse sua conta</Link>
+                                    <Link className="nav-link" to="/login">Acesse sua conta</Link>
                                 </li>
                                 <li className="nav-item">
                                     <button className="btn btn-primary" onClick={handleRegister}>Cadastre-se
@@ -47,12 +68,11 @@ export default function Header() {
                                 <input className="form-control me-2 search-input" type="search"
                                        placeholder="Pesquisar Eventos"
                                        aria-label="Pesquisar" onChange={e => setSearch(e.target.value)}/>
-                                <button className="btn btn-outline-primary" type="button">Pesquisar</button>
+                                <button className="btn btn-outline-primary" type="button" onClick={handleSearch}>Pesquisar</button>
                             </form>
                         </div>
                     ) : (
                         <p className="text-xl-end">Bem vindo, ORGANIZADOR </p>
-
                     )}
                 </div>
             </nav>
