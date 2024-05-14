@@ -1,0 +1,144 @@
+.logo {
+    background-color: var(--color-title);
+    color: var(--color-light);
+    font-size: 2rem;
+    font-weight: 300;    
+    text-shadow: 0 0 .5rem var(--color-shadow);
+    padding: 1rem 0 2rem 2rem;
+    cursor: pointer;
+}
+
+.banner {
+    width: 100%;
+    z-index: 0;
+    position: relative;
+    
+    & .imgBanner {
+        width: 100%;
+        height: 55vh;
+        opacity: .4;
+    }
+}
+
+div.featuredImage {
+    width: 100%;
+    position: absolute;
+    top: -1rem;
+    z-index: 999;
+    
+    & img {
+        display: block;
+        width: 80%;
+        height: 60vh;
+        margin: 0 auto;
+        border-radius: 1rem;
+        box-shadow: 0 0 .4rem var(--color-shadow);
+    }
+}
+
+.headerInfo {
+    border-bottom: .1rem solid #bbb;
+    padding: 1rem 1.6rem;
+    margin-top: 1rem;
+
+    & h1  {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--color-title) !important;
+        font-size: 1.6rem !important;
+        text-transform: uppercase;
+        font-weight: bold !important;
+        font-family: 'roboto';
+
+        & span {
+            color: var(--color-secondary);
+            cursor: pointer;
+        }
+    }
+
+    & .dateInfo {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        font-size: .8rem;
+        color: var(--color-title);
+    }
+
+    & span.icon {
+        font-size: .8rem;
+    }
+
+    & h4 {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--color-title);
+        margin-top: .5rem;
+    }
+}
+
+
+.eventDescription {
+    padding: 1rem 1.6rem;
+    margin-bottom: 2rem;
+
+    & h2 {
+        font-size: 1.2rem !important;
+        color: var(--color-title);
+    }
+
+    & p {
+        font-size: .9rem;
+        color: var(--color-title);
+        margin-top: 1rem;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .logo {
+        font-size: 1.6rem;
+        padding: 1rem;
+    }
+     
+    .banner {   
+        & .imgBanner {
+            display: none;
+        }
+    }
+    
+    div.featuredImage {
+        position: static;
+        & img {
+            width: 100%;
+            height: 40vh;
+            border-radius: 0;
+            box-shadow: none;
+        }
+    }
+
+    .headerInfo {
+        border-bottom: .1rem solid #bbb;
+        padding: 1rem;
+        margin-top: .5rem;
+    }
+
+    .eventDescription {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 425px) {
+
+    div.featuredImage {       
+        & img {
+            width: 100%;
+            height: 25vh;
+            
+       }
+   }
+
+}
