@@ -4,6 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import {PencilSquare, Trash, PlusLg, Floppy} from "react-bootstrap-icons";
 import '../../../Global.css';
 import {Col, Container} from "react-bootstrap";
 
@@ -115,7 +116,7 @@ export default function CategoriesList() {
             />
 
             <Button
-                className="btn btn-success btn-sm mb-3"
+                className="btn btn-success mb-3"
                 onClick={() => handleShowCreate()}
             > Criar </Button>
 
@@ -124,16 +125,18 @@ export default function CategoriesList() {
             <ListGroup>
                 {filteredCategories.map(category => (
                     <ListGroup.Item key={category.id}
-                                    className="d-flex align-items-center">
+                                    className="d-flex align-items-center ">
                         <Col>
-                            <p className="mb-0">Categoria: {category.nome}</p>
+                            <p className="mb-0">{category.nome}</p>
                         </Col>
 
-                        <Button className="btn btn-primary btn-m me-2"
-                                onClick={() => handleShowEdit(category)}> Editar </Button>
+                        <Button className="me-2 bi-pencil-fill"
+                                onClick={() => handleShowEdit(category)}> <PencilSquare/>
+                        </Button>
 
                         <Button className="btn btn-danger"
-                                onClick={() => handleShowMessageDelete(category.id)}> Excluir </Button>
+                                onClick={() => handleShowMessageDelete(category.id)}> <Trash/>
+                        </Button>
 
                     </ListGroup.Item>
                 ))}
@@ -154,8 +157,10 @@ export default function CategoriesList() {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseCreate}> Fechar </Button>
-                    <Button variant="success" onClick={() => handleCreateCategory(category)}>Criar </Button>
+                   <Button variant="secondary" onClick={handleCloseCreate}> Fechar </Button>
+                    <Button variant="success" onClick={() => handleCreateCategory(category)}>
+                       Criar
+                    </Button>
                 </Modal.Footer>
             </Modal>
 
@@ -175,9 +180,9 @@ export default function CategoriesList() {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseEdit}> Fechar </Button>
+                   <Button variant="secondary" onClick={handleCloseEdit}> Fechar </Button>
                     <Button variant="primary"
-                            onClick={() => handleUpdateCategory(categoryId, category)}>Salvar </Button>
+                            onClick={() => handleUpdateCategory(categoryId, category)}>Salvar</Button>
                 </Modal.Footer>
             </Modal>
 
