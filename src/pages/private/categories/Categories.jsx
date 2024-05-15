@@ -12,7 +12,7 @@ function removeAccents(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-export default function CategoriesList() {
+export default function Categories() {
     const [search, setSearch] = useState("");
     const [categories, setCategories] = useState([]);
     const [filteredCategories, setFilteredCategories] = useState([]);
@@ -137,7 +137,6 @@ export default function CategoriesList() {
                         <Button className="btn btn-sm btn-danger"
                                 onClick={() => handleShowMessageDelete(category.id)}> <Trash/>
                         </Button>
-
                     </ListGroup.Item>
                 ))}
             </ListGroup>
@@ -157,8 +156,14 @@ export default function CategoriesList() {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseCreate}> Fechar </Button>
-                    <Button variant="success" onClick={() => handleCreateCategory(category)}>
+                    <Button variant="secondary"
+                            className="btn-sm"
+                            onClick={handleCloseCreate}>
+                        Fechar
+                    </Button>
+                    <Button variant="success"
+                            className="btn-sm"
+                            onClick={() => handleCreateCategory(category)}>
                         Criar
                     </Button>
                 </Modal.Footer>
@@ -180,9 +185,15 @@ export default function CategoriesList() {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseEdit}> Fechar </Button>
+                    <Button variant="secondary"
+                            className="btn-sm"
+                            onClick={handleCloseEdit}> Fechar
+                    </Button>
                     <Button variant="primary"
-                            onClick={() => handleUpdateCategory(categoryId, category)}>Salvar</Button>
+                            className="btn-sm"
+                            onClick={() => handleUpdateCategory(categoryId, category)}>
+                        Salvar
+                    </Button>
                 </Modal.Footer>
             </Modal>
 
@@ -193,7 +204,11 @@ export default function CategoriesList() {
                 </Modal.Header>
                 <Modal.Body>Esta categoria está associada a eventos e não pode ser excluída.</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseMessage}> OK </Button>
+                    <Button variant="secondary"
+                            className="btn-sm"
+                            onClick={handleCloseMessage}>
+                        OK
+                    </Button>
                 </Modal.Footer>
             </Modal>
 
@@ -204,7 +219,11 @@ export default function CategoriesList() {
                 </Modal.Header>
                 <Modal.Body>Tem certeza que deseja excluir essa categoria? </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" onClick={() => handleDeleteCategory(idToDelete)}> Sim </Button>
+                    <Button variant="success"
+                            className="btn-sm"
+                            onClick={() => handleDeleteCategory(idToDelete)}>
+                        Sim
+                    </Button>
                 </Modal.Footer>
             </Modal>
 

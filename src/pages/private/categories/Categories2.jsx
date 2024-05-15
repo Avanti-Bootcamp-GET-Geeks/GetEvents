@@ -3,7 +3,7 @@ import {createCategory, getCategoryById, updateCategory} from "../../../services
 import {useNavigate, useParams} from "react-router-dom";
 
 
-export default function CategoriesForm() {
+export default function Categories2() {
     const [name, setName] = useState("");
     const {id} = useParams();
     const navigate = useNavigate();
