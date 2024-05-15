@@ -116,7 +116,7 @@ export default function CategoriesList() {
             />
 
             <Button
-                className="btn btn-success mb-3"
+                className="btn btn-success btn-sm mb-3"
                 onClick={() => handleShowCreate()}
             > Criar </Button>
 
@@ -130,11 +130,11 @@ export default function CategoriesList() {
                             <p className="mb-0">{category.nome}</p>
                         </Col>
 
-                        <Button className="me-2 bi-pencil-fill"
+                        <Button className="me-2 btn-sm bi-pencil-fill"
                                 onClick={() => handleShowEdit(category)}> <PencilSquare/>
                         </Button>
 
-                        <Button className="btn btn-danger"
+                        <Button className="btn btn-sm btn-danger"
                                 onClick={() => handleShowMessageDelete(category.id)}> <Trash/>
                         </Button>
 
