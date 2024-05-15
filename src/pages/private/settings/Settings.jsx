@@ -1,11 +1,9 @@
-import './Settings.css'
+
 
 export default function Settings() {
     return (
         <section>
             <h1 className={'titulo'}>Minha Conta</h1>
-
-
 
 
             <form>
@@ -37,7 +35,7 @@ export default function Settings() {
 
                 <div className=" mb-3 form-check">
                     <input className="form-check-input" type="radio" name="flexRadioDefault" id="visitante"
-                           />
+                    />
                     <label className="form-check-label" htmlFor="visitante">
                         Visitante
                     </label>
@@ -50,5 +48,5 @@ export default function Settings() {
 
             </form>
         </section>
-)
+    )
 }
