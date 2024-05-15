@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { useLocation } from "react-router-dom";
 
-export const Login = () => {
+export default function Login() {
     
     const { loginUser } = useContext(AuthContext);
     const {state} = useLocation();
@@ -60,4 +60,5 @@ export const Login = () => {
             </form>
         </div>
     );
+
 }
