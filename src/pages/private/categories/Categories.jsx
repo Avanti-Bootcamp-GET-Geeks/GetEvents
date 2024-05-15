@@ -127,7 +127,7 @@ export default function Categories() {
                     <ListGroup.Item key={category.id}
                                     className="d-flex align-items-center ">
                         <Col>
-                            <p className="mb-0">{category.nome}</p>
+                            <p className="mb-0 text-capitalize">{category.nome}</p>
                         </Col>
 
                         <Button className="me-2 btn-sm bi-pencil-fill"
