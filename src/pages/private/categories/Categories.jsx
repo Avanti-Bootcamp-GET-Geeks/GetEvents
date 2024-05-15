@@ -74,6 +74,7 @@ export default function Categories() {
             await getAllCategories();
             handleCloseCreate();
         } catch (error) {
+            handleShowMessage();
             console.log(error.message);
         }
     }
@@ -219,6 +220,10 @@ export default function Categories() {
                 </Modal.Header>
                 <Modal.Body>Tem certeza que deseja excluir essa categoria? </Modal.Body>
                 <Modal.Footer>
+                    <Button variant="secondary"
+                            className="btn-sm"
+                            onClick={handleCloseMessageDelete}> Não
+                    </Button>
                     <Button variant="success"
                             className="btn-sm"
                             onClick={() => handleDeleteCategory(idToDelete)}>
