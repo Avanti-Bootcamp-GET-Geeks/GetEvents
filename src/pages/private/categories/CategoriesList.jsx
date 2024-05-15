@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import {PencilSquare, Trash, PlusLg, Floppy} from "react-bootstrap-icons";
+import {PencilSquare, Trash} from "react-bootstrap-icons";
 import '../../../Global.css';
 import {Col, Container} from "react-bootstrap";
 
@@ -157,9 +157,9 @@ export default function CategoriesList() {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                   <Button variant="secondary" onClick={handleCloseCreate}> Fechar </Button>
+                    <Button variant="secondary" onClick={handleCloseCreate}> Fechar </Button>
                     <Button variant="success" onClick={() => handleCreateCategory(category)}>
-                       Criar
+                        Criar
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -180,7 +180,7 @@ export default function CategoriesList() {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                   <Button variant="secondary" onClick={handleCloseEdit}> Fechar </Button>
+                    <Button variant="secondary" onClick={handleCloseEdit}> Fechar </Button>
                     <Button variant="primary"
                             onClick={() => handleUpdateCategory(categoryId, category)}>Salvar</Button>
                 </Modal.Footer>
