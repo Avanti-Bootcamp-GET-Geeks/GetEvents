@@ -6,7 +6,7 @@ export const createCategory = async (data) => {
         const response = await api.post("/category", data);
         return response.data;
     } catch (error) {
-        console.log("Error save client")
+        console.log("Error save category")
         console.error(error.message);
         throw error;
     }
@@ -28,7 +28,7 @@ export const getCategoryById = async (id) => {
         const response = await api.get(`/category/${id}`);
         return response.data;
     } catch (error) {
-        console.log("Error get client by id")
+        console.log("Error get category by id")
         console.error(error.message);
         throw error;
     }
@@ -51,7 +51,7 @@ export const updateCategory = async (id, data) => {
         const response = await api.put(`/category/${id}`, data);
         return response.data;
     } catch (error) {
-        console.log("Error update client")
+        console.log("Error update category")
         console.error(error.message);
         throw error;
     }

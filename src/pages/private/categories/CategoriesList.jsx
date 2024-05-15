@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getCategories, deleteCategoryById, updateCategory} from "../../../services/categoryService.jsx";
+import {getCategories, deleteCategoryById, updateCategory, createCategory} from "../../../services/categoryService.jsx";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -17,10 +17,18 @@ export default function CategoriesList() {
     const [filteredCategories, setFilteredCategories] = useState([]);
     const [category, setCategory] = useState(""); // Estado para armazenar a categoria sendo editada
     const [categoryId, setCategoryId] = useState(null);
+    const [showCreate, setShowCreate] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const [showMessageDelete, setShowMessageDelete] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null); // Estado para armazenar o ID da categoria a ser excluída
+
+    const handleCloseCreate = () => setShowCreate(false);
+    const handleShowCreate = () => {
+        setShowCreate(true);
+        setCategory(""); // Limpar o valor do input
+        setCategoryId(null); // Limpar o ID da categoria
+    }
 
     const handleCloseEdit = () => setShowEdit(false);
     const handleShowEdit = (category) => {
@@ -58,11 +66,22 @@ export default function CategoriesList() {
         }
     }
 
+    async function handleCreateCategory(newName) {
+        try {
+            await createCategory({nome: newName});
+            // Criar categoria
+            await getAllCategories();
+            handleCloseCreate();
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     async function handleUpdateCategory(id, newName) {
         try {
             await updateCategory(id, {nome: newName});
             // Atualizar a lista de categorias após a edição
-            getAllCategories();
+            await getAllCategories();
             handleCloseEdit();
         } catch (error) {
             console.log(error.message);
@@ -95,8 +114,13 @@ export default function CategoriesList() {
                 onChange={(e) => setSearch(e.target.value)}
             />
 
-            <Button className="btn btn-success btn-sm mb-3"> Criar </Button>
+            <Button
+                className="btn btn-success btn-sm mb-3"
+                onClick={() => handleShowCreate()}
+            > Criar </Button>
 
+
+            {/*Listagem de categorias*/}
             <ListGroup>
                 {filteredCategories.map(category => (
                     <ListGroup.Item key={category.id}
@@ -115,6 +139,28 @@ export default function CategoriesList() {
                 ))}
             </ListGroup>
 
+            {/*Modal Criar categoria*/}
+            <Modal show={showCreate} onHide={handleCloseCreate}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Criar Categoria</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Control
+                        type="text"
+                        id="categoria"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        aria-describedby="categoria"
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseCreate}> Fechar </Button>
+                    <Button variant="success" onClick={() => handleCreateCategory(category)}>Criar </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+            {/*Modal editar categoria*/}
             <Modal show={showEdit} onHide={handleCloseEdit}>
                 <Modal.Header closeButton>
                     <Modal.Title>Editar Categoria</Modal.Title>
@@ -135,6 +181,7 @@ export default function CategoriesList() {
                 </Modal.Footer>
             </Modal>
 
+            {/*Modal de erro ao excluir categoria*/}
             <Modal show={showMessage} onHide={handleCloseMessage}>
                 <Modal.Header closeButton>
                     <Modal.Title>Mensagem</Modal.Title>
@@ -145,6 +192,7 @@ export default function CategoriesList() {
                 </Modal.Footer>
             </Modal>
 
+            {/*Modal de confirmação de exclusão*/}
             <Modal show={showMessageDelete} onHide={handleCloseMessageDelete}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmar Exclusão</Modal.Title>
