@@ -1,0 +1,74 @@
+/* /events */
+.icon-edit, .icon-trash {
+    font-size: 1.4rem;
+    cursor: pointer
+}
+
+.icon-edit {
+    color: var(--color-primary);
+}
+
+.icon-trash {
+    color: #f00;
+}
+
+
+table {
+
+    & th {
+        color: var(--color-title) !important;
+        font-weight: 500;
+    }
+    
+    & th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    & img {
+       width: 15rem;
+    }
+}
+
+
+/* all */
+h1  {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--color-primary) !important;
+    font-size: 1.4rem !important;
+    text-transform: uppercase;
+    font-weight: bold !important;
+    font-family: 'roboto';
+    margin-bottom: 2rem;
+
+    & span {
+        color: var(--color-secondary);
+        cursor: pointer;
+    }
+}
+
+/* Create e Update  */
+form {
+    label {
+        color: var(--color-title);
+        font-size: 1rem;
+        
+        & svg {
+            color: var(--color-primary);
+        }
+    }
+    
+    input, select, textarea {
+        color: var(--color-secondary) !important;
+        transition: all .5s ease-in-out;
+
+        &:focus {
+            color: var(--color-primary) !important;
+            box-shadow: none !important;
+            font-weight: 500;
+            border: .12rem solid var(--color-primary);
+        }
+    }
+}
