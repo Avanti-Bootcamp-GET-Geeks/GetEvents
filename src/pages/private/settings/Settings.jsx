@@ -1,12 +1,17 @@
-
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {useState, useEffect} from "react";
-
+import { useState, useEffect, useContext } from "react";
+import { findUserById, updateUser, deleteUser } from "../../../services/userService";
+import { findAllRoles } from "../../../services/roleService"
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function Settings() {
-    const [users, setUsers] = useState([]);
+
+    const { logoutUser } = useContext(AuthContext);
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+    const [roles, setRoles] = useState([]);
     const [formData, setFormData] = useState({
         nome: '',
         email: '',
@@ -14,6 +19,36 @@ export default function Settings() {
         senha: '',
         cargo: ''
     });
+
+    useEffect(() =>{
+        getRoles();
+        loadUserData();
+    },[])
+
+    const getRoles = async () => {
+        try {
+            const res = await findAllRoles();
+            res ? setRoles(res) : setRoles([]);
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    const loadUserData = async () => {
+        try {
+            const user = await findUserById(userInfo.id);
+            setFormData({
+                nome: user.nome,
+                email: user.email,
+                telefone: user.telefone,
+                senha: '', // Não carregue a senha real
+                cargo_id: user.cargo.id // Assumindo que o cargo é armazenado como cargo_id
+            });
+        } catch (error) {
+            console.error("Erro ao carregar os dados do usuário:", error);
+        }
+    };
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,46 +61,36 @@ export default function Settings() {
     const handleRadioChange = (e) => {
         setFormData({
             ...formData,
-            cargo: e.target.value
+            cargo_id: e.target.value
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Exemplo de como enviar os dados para uma API
         try {
-            const response = await updateUser();
-
-            if (!response.ok) {
-                throw new Error('Erro ao enviar dados para a API');
-            }
-
-            // Tratar a resposta da API conforme necessário
-            const result = await response.json();
-            console.log('Sucesso:', result);
+            await updateUser(userInfo.id, formData);
+            alert("Dados atualizados com sucesso!");
         } catch (error) {
-            console.error('Erro:', error);
+            console.error("Erro ao atualizar os dados:", error);
         }
     };
 
-    useEffect(() => {
-        getAllUsers();
-    }, []);
-
-    async function getAllUsers() {
-        try {
-            const response = await getUsers();
-            setUsers(response);
-        } catch (error) {
-            console.log(error.message);
+    const handleDelete = async () => {
+        if (window.confirm("Tem certeza de que deseja excluir sua conta?")) {
+            try {
+                await deleteUser(userInfo.id);
+                alert("Conta excluída com sucesso!");
+                logoutUser();
+            } catch (error) {
+                console.error("Erro ao excluir a conta:", error);
+            }
         }
-    }
+    };
 
     return (
         <section>
             <Container>
-                <h1 className={'titulo'}>Minha Conta</h1>
+                <h1 className="titulo">Minha Conta</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formNome">
                         <Form.Label>Nome</Form.Label>
@@ -75,6 +100,7 @@ export default function Settings() {
                             name="nome"
                             value={formData.nome}
                             onChange={handleChange}
+                            required
                         />
                     </Form.Group>
 
@@ -86,6 +112,7 @@ export default function Settings() {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
+                            required
                         />
                     </Form.Group>
 
@@ -97,6 +124,7 @@ export default function Settings() {
                             name="telefone"
                             value={formData.telefone}
                             onChange={handleChange}
+                            required
                         />
                     </Form.Group>
 
@@ -112,40 +140,31 @@ export default function Settings() {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formRadio">
-                        {['radio'].map((type) => (
-                            <div key={`default-${type}`} className="mb-3">
+                        {roles.map((role) => (
+                            role.nome !== 'admin' && (
                                 <Form.Check
-                                    label="Organizador"
-                                    name="cargo"
-                                    type={type}
-                                    id={`organizador-${type}`}
-                                    value="organizador"
-                                    checked={formData.cargo === "organizador"}
+                                    key={role.id}
+                                    label={role.nome}
+                                    name="cargo_id"
+                                    type="radio"
+                                    id={role.id}
+                                    value={role.id}
+                                    checked={formData.cargo_id === role.id}
                                     onChange={handleRadioChange}
                                 />
-                                <Form.Check
-                                    label="Visitante"
-                                    name="cargo"
-                                    type={type}
-                                    id={`visitante-${type}`}
-                                    value="visitante"
-                                    checked={formData.cargo === "visitante"}
-                                    onChange={handleRadioChange}
-                                />
-                            </div>
+                            )
                         ))}
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" className='btn btn-sm me-2'>
+                    <Button variant="primary" type="submit" className="btn btn-sm me-2">
                         Editar
                     </Button>
 
-                    <Button variant="danger" type="submit" className='btn btn-sm'>
+                    <Button variant="danger" type="button" className="btn btn-sm" onClick={handleDelete}>
                         Excluir
                     </Button>
-
                 </Form>
             </Container>
         </section>
-    )
+    );
 }
