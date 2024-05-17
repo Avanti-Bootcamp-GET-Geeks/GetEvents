@@ -1,6 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-// import { findAllEvents } from "../../services/eventService.jsx";
+import { useNavigate, Link } from "react-router-dom";
 import './Header.css';
 import logo from '../../assets/img/logo.svg';
 
@@ -42,23 +41,6 @@ export default function Header() {
         setMenuOpen(!menuOpen);
     };
 
-
-    // REFATORADO
-    // const handleSearch = (e) => {
-    //     e.preventDefault();
-
-    //     const filtered = events.filter(event =>
-    //         Object.values(event).some(value => value && value.toString().toLowerCase().includes(search.toLowerCase()))
-    //     );
-   
-    //   filtered.lenght !== 0 ? setEventsFound(filtered) : setEventsFound([]);
-    // };
-
-    // const handleChange = (e) => {
-    //     setCategory(e.target.value)
-    //     setLocalId(e.target.value)
-    // }
-
     const handleChange = (event) => {
         setFieldValue({
         ...fieldValue, 
@@ -84,20 +66,31 @@ export default function Header() {
                                     </Nav.Link>
                                 </Nav>
                                 <Form className="d-flex">
-                                    {/* <Form.Control
-                                        type="search"
-                                        placeholder="Pesquisar Eventos"
-                                        className="me-2"
-                                        aria-label="Search"
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
-                                    />
-                                    <Button variant="outline-primary"
-                                            type="button"
-                                            className='me-2'
-                                            onClick={handleSearch}>
-                                        <Search />
-                                    </Button> */}
+                                <>
+                                    {/* <div className="mb-3"> 
+                                    <label htmlFor="categoria" className="form-label"><Tag /> Categoria</label> <br/>
+                                        <select name="categoria_id" id="categoria" value={fieldValue.categoria_id} onChange={handleChange} className="form-select" aria-label="Default select example">
+                                            <option value="" disabled selected>Selecione uma categoria</option>
+                                            <option value="">Todas</option>
+                                                {categories.map(category => (
+                                                    <option value={category.id} key={category.id}>{category.nome}</option>
+                                                ))}
+                                        </select>
+                                    </div>
+
+                                    <div className="mb-3 flex">                    
+                                            <label htmlFor="local" className="form-label"><PinMap /> Local</label> <br/>
+                                                <select name="local_id" id="local" value={fieldValue.local_id} onChange={handleChange}
+                                        className="form-select" aria-label="Default select example">
+                                            <option value="" disabled selected>Selecione um local</option>
+                                            <option value="">Todos</option>
+
+                                            {locals.map(local => (
+                                            <option value={local.id} key={local.id}>{local.nome}</option>
+                                            ))}
+                                        </select>
+                                    </div> */}
+                                </>
 
                                     <Button variant="secondary" className=' me-2'
 
