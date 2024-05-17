@@ -1,27 +1,37 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import './Header.css';
 import logo from '../../assets/img/logo.svg';
-import { findAllEvents } from "../../services/eventService.jsx";
+
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Image from 'react-bootstrap/Image';
+import { BoxArrowRight, CalendarEvent, GearFill, PinMap, Search, Tag } from "react-bootstrap-icons";
+import { Col } from "react-bootstrap";
+import {AuthContext} from "../../context/AuthContext.jsx";
+import { SearchContext } from "../../context/SearchContext.jsx";
 
 export default function Header() {
-    const [search, setSearch] = useState("");
-    const [eventRender, setEventRender] = useState([]);
+
+    const {categories, setCategory, locals, setLocalId} = useContext(SearchContext);
+    const {userLogged, logoutUser} = useContext(AuthContext);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [settings, setSettings] = useState(false);
+    
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const filtered = eventRender.filter((event) =>
-            Object.values(event).some((value) =>
-                value.toString().toLowerCase().includes(search.toLowerCase())
-            )
-        );
-        if (filtered.length !== eventRender.length) {
-            setEventRender(filtered);
-        }
-    }, [eventRender, search]);
-
+    const [fieldValue, setFieldValue] = useState({
+        categoria_id: "",
+        local_id: ""
+    });
+    
+    useEffect(()=> {
+        setCategory(fieldValue.categoria_id);
+        setLocalId(fieldValue.local_id);
+    }, [fieldValue])
+    
 
     const handleRegister = () => {
         navigate("/register");
@@ -31,71 +41,110 @@ export default function Header() {
         setMenuOpen(!menuOpen);
     };
 
-    const handleSearch = () => {
-        findAllEvents()
-            .then((events) => {
-                setEventRender(events);
-            })
-            .catch((error) => {
-                console.error("Error fetching events:", error);
-            });
+    const handleChange = (event) => {
+        setFieldValue({
+        ...fieldValue, 
+        [event.target.name]: event.target.value 
+    });
     };
+
 
     return (
         <header>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
-                    <Link className="navbar-brand" to="/"><img alt={'Logo Get Eventos'} src={logo}/></Link>
-                    <button className="navbar-toggler" type="button" onClick={handleBurgerClick}>
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container fluid>
+                    <Navbar.Brand as={Link} to="/"><Image src={logo} fluid /></Navbar.Brand>
+                    <Navbar.Toggle aria-controls="navbarScroll" onClick={handleBurgerClick} />
+                    <Navbar.Collapse id="navbarScroll" className={menuOpen ? 'show' : ''}>
+                        {userLogged ? (
+                            <>
+                                <Nav className="me-auto my-2 my-lg-0">
+                                    <Nav.Link as={Link} to="/create/event">Crie seu Evento</Nav.Link>
+                                    <Nav.Link as={Link} to="/categories">Categorias</Nav.Link>
+                                    <Nav.Link as={Link} to="/settings" className={"link-underline-opacity-0-hover"}>
+                                        Bem Vindo, Organizador
+                                    </Nav.Link>
+                                </Nav>
+                                <Form className="d-flex">
+                                <>
+                                    {/* <div className="mb-3"> 
+                                    <label htmlFor="categoria" className="form-label"><Tag /> Categoria</label> <br/>
+                                        <select name="categoria_id" id="categoria" value={fieldValue.categoria_id} onChange={handleChange} className="form-select" aria-label="Default select example">
+                                            <option value="" disabled selected>Selecione uma categoria</option>
+                                            <option value="">Todas</option>
+                                                {categories.map(category => (
+                                                    <option value={category.id} key={category.id}>{category.nome}</option>
+                                                ))}
+                                        </select>
+                                    </div>
 
-                    {!settings ? (
-                        <div className={`collapse navbar-collapse ${menuOpen ? 'show' : ''}`} id="navbarToggler">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item">
-                                    <Link className="nav-link active" to="/">Crie seu Evento</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/login">Acesse sua conta</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <button className="btn btn-primary" onClick={handleRegister}>Cadastre-se
-                                    </button>
-                                </li>
-                            </ul>
-                            <form className="d-flex" role="search">
-                                <input className="form-control me-2 search-input" type="search"
-                                       placeholder="Pesquisar Eventos"
-                                       aria-label="Pesquisar" onChange={e => setSearch(e.target.value)}/>
-                                <button className="btn btn-outline-primary" type="button"
-                                        onClick={handleSearch}>Pesquisar
-                                </button>
-                            </form>
-                        </div>
-                    ) : (
-                        <div className={`collapse navbar-collapse ${menuOpen ? 'show' : ''}`} id="navbarToggler">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item">
-                                    <Link className="nav-link active" to="/">Crie seu Evento</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/settings">Bem vindo, ORGANIZADOR </Link>
-                                </li>
-                            </ul>
-                            <form className="d-flex" role="search">
-                                <input className="form-control me-2 search-input" type="search"
-                                       placeholder="Pesquisar Eventos"
-                                       aria-label="Pesquisar" onChange={e => setSearch(e.target.value)}/>
-                                <button className="btn btn-outline-primary" type="button"
-                                        onClick={handleSearch}>Pesquisar
-                                </button>
-                            </form>
-                        </div>
+                                    <div className="mb-3 flex">                    
+                                            <label htmlFor="local" className="form-label"><PinMap /> Local</label> <br/>
+                                                <select name="local_id" id="local" value={fieldValue.local_id} onChange={handleChange}
+                                        className="form-select" aria-label="Default select example">
+                                            <option value="" disabled selected>Selecione um local</option>
+                                            <option value="">Todos</option>
 
-                    )}
-                </div>
-            </nav>
+                                            {locals.map(local => (
+                                            <option value={local.id} key={local.id}>{local.nome}</option>
+                                            ))}
+                                        </select>
+                                    </div> */}
+                                </>
+
+                                    <Button variant="secondary" className=' me-2'
+
+                                             onClick={() => logoutUser()} >
+                                        <BoxArrowRight />
+                                    </Button>
+
+                                    <Button as={Link} className={'text-black  '}
+                                            to="/settings" variant='warning'>
+                                        <GearFill />
+                                    </Button>
+
+                                </Form>
+                            </>
+                        ) : (
+                            <>
+                                <Nav className="me-auto my-2 my-lg-0">
+                                    <Nav.Link as={Link} to="/create/event">Crie seu Evento</Nav.Link>
+                                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                                    <Col xs="auto" sm='auto'>
+                                        <Button variant="primary" onClick={handleRegister}>Cadastre-se</Button>
+                                    </Col>
+                                </Nav>
+                                <>
+                                    <div className="mb-3"> 
+                                    <label htmlFor="categoria" className="form-label"><Tag /> Categoria</label> <br/>
+                                        <select name="categoria_id" id="categoria" value={fieldValue.categoria_id} onChange={handleChange} className="form-select" aria-label="Default select example">
+                                            <option value="" disabled selected>Selecione uma categoria</option>
+                                            <option value="">Todas</option>
+                                                {categories.map(category => (
+                                                    <option value={category.id} key={category.id}>{category.nome}</option>
+                                                ))}
+                                        </select>
+                                    </div>
+
+                                    <div className="mb-3 flex">                    
+                                            <label htmlFor="local" className="form-label"><PinMap /> Local</label> <br/>
+                                                <select name="local_id" id="local" value={fieldValue.local_id} onChange={handleChange}
+                                        className="form-select" aria-label="Default select example">
+                                            <option value="" disabled selected>Selecione um local</option>
+                                            <option value="">Todos</option>
+
+                                            {locals.map(local => (
+                                            <option value={local.id} key={local.id}>{local.nome}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </>
+                            </>
+                        )}
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
         </header>
-    )
+    );
+
 }
