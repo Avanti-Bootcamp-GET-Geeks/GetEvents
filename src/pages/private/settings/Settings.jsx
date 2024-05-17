@@ -3,14 +3,17 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect, useContext } from "react";
 import { findUserById, updateUser, deleteUser } from "../../../services/userService";
-import { findAllRoles } from "../../../services/roleService"
+import { findAllRoles } from "../../../services/roleService";
 import { AuthContext } from "../../../context/AuthContext";
 
 export default function Settings() {
-
+    // Pega a função logoutUser do contexto de autenticação
     const { logoutUser } = useContext(AuthContext);
+
+    // Pega as informações do usuário do localStorage
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
+    // Define o estado para armazenar as roles e os dados do formulário
     const [roles, setRoles] = useState([]);
     const [formData, setFormData] = useState({
         nome: '',
@@ -20,20 +23,23 @@ export default function Settings() {
         cargo: ''
     });
 
-    useEffect(() =>{
+    // useEffect para carregar as roles e os dados do usuário quando o componente é montado
+    useEffect(() => {
         getRoles();
         loadUserData();
-    },[])
+    }, []);
 
+    // Função para pegar todas as roles do servidor
     const getRoles = async () => {
         try {
             const res = await findAllRoles();
             res ? setRoles(res) : setRoles([]);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
+    // Função para carregar os dados do usuário pelo ID
     const loadUserData = async () => {
         try {
             const user = await findUserById(userInfo.id);
@@ -49,7 +55,7 @@ export default function Settings() {
         }
     };
 
-
+    // Função para lidar com mudanças nos inputs do formulário
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -58,6 +64,7 @@ export default function Settings() {
         });
     };
 
+    // Função para lidar com mudanças nos inputs de radio button
     const handleRadioChange = (e) => {
         setFormData({
             ...formData,
@@ -65,6 +72,7 @@ export default function Settings() {
         });
     };
 
+    // Função para lidar com a submissão do formulário de edição
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -75,12 +83,13 @@ export default function Settings() {
         }
     };
 
+    // Função para lidar com a exclusão do usuário
     const handleDelete = async () => {
         if (window.confirm("Tem certeza de que deseja excluir sua conta?")) {
             try {
                 await deleteUser(userInfo.id);
                 alert("Conta excluída com sucesso!");
-                logoutUser();
+                logoutUser(); // Desloga o usuário após a exclusão da conta
             } catch (error) {
                 console.error("Erro ao excluir a conta:", error);
             }
@@ -92,6 +101,7 @@ export default function Settings() {
             <Container>
                 <h1 className="titulo">Minha Conta</h1>
                 <Form onSubmit={handleSubmit}>
+                    {/* Campo de nome */}
                     <Form.Group className="mb-3" controlId="formNome">
                         <Form.Label>Nome</Form.Label>
                         <Form.Control
@@ -104,6 +114,7 @@ export default function Settings() {
                         />
                     </Form.Group>
 
+                    {/* Campo de email */}
                     <Form.Group className="mb-3" controlId="formEmail">
                         <Form.Label>Email</Form.Label>
                         <Form.Control
@@ -116,6 +127,7 @@ export default function Settings() {
                         />
                     </Form.Group>
 
+                    {/* Campo de telefone */}
                     <Form.Group className="mb-3" controlId="formTelefone">
                         <Form.Label>Telefone</Form.Label>
                         <Form.Control
@@ -128,6 +140,7 @@ export default function Settings() {
                         />
                     </Form.Group>
 
+                    {/* Campo de senha */}
                     <Form.Group className="mb-3" controlId="formPassword">
                         <Form.Label>Senha</Form.Label>
                         <Form.Control
@@ -139,6 +152,7 @@ export default function Settings() {
                         />
                     </Form.Group>
 
+                    {/* Campos de roles */}
                     <Form.Group className="mb-3" controlId="formRadio">
                         {roles.map((role) => (
                             role.nome !== 'admin' && (
@@ -156,6 +170,7 @@ export default function Settings() {
                         ))}
                     </Form.Group>
 
+                    {/* Botões de editar e excluir */}
                     <Button variant="primary" type="submit" className="btn btn-sm me-2">
                         Editar
                     </Button>
