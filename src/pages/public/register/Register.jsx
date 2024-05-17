@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { findAllRoles } from "../../../services/roleService"
 import { createUser } from "../../../services/userService"
+import { useNavigate } from "react-router-dom"
 
 export default function Register() {
     const [nome, setName] = useState("")
@@ -10,6 +11,8 @@ export default function Register() {
     const [cargo, setRole] = useState("")
 
     const [cargos, setRoles] = useState([])
+
+    const navigate = useNavigate()
 
     async function getAllRoles() {
         try {
@@ -44,7 +47,10 @@ export default function Register() {
             senha,
             cargo_id: cargo,
         }
+        
         await createUser(data)
+
+        navigate("/login")
     }
 
     return (
