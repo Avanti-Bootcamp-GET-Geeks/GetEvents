@@ -49,7 +49,7 @@ export default function Home() {
                 </EventList>
 
                 {/* Botões para paginação */}
-                <Pagination currentPage={currentPage} handlePageChange={handlePageChange} events={events} />
+                <Pagination currentPage={currentPage} handlePageChange={handlePageChange} totalLimit={10} events={events} />
             </div>
         </>
     )
