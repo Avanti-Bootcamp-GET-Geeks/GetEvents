@@ -23,7 +23,7 @@ export const Card = ({event}) => {
     const differentDates = event.data_inicio !== event.data_fim;
 
     return(
-        <div className="card" onClick={() => navigate(`/event/${event.id}`, {state: event})}>
+        <div className="card" onClick={() => navigate(`/event-info/${event.id}`, {state: event})}>
             <img src={event.imagem} className="card-img-top" alt={event.nome} />           
             <div className="cardHeader">
             

@@ -10,12 +10,12 @@ export const AuthProvider = ({ children }) => {
     // Importa o hooks com suas funcionalidades de forma desestruturada
     const { userLogged, loading, loginUser, logoutUser  } = useAuth();
 
-    // Enquanto estiver carregando, renderiza o h1, ao finalizar carrega os componentes children
+    // Enquanto estiver carregando, renderiza o spinner, ao finalizar carrega os componentes children
     if (loading) {
         return(
-            <div class="d-flex justify-content-center">
-                  <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
+            <div className="d-flex justify-content-center">
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
                   </div>    
             </div>
         );
