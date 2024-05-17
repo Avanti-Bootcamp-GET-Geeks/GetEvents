@@ -73,33 +73,47 @@ export const CreateEvent = () => {
         </h1>
         
         <form onSubmit={handleSubmit} method="POST">
-                <div className="mb-3">
-                     <label htmlFor="imagem" className="form-label"><FileImage /> Imagem</label>
-                     <input type="text" className="form-control" name="imagem" value={fieldValue.imagem} id="imagem" onChange={handleChange} />
-                 </div>
-                <div className="mb-3">
-                     <label htmlFor="nome" className="form-label"><TextareaT /> Nome</label>
-                     <input type="text" className="form-control" name="nome" value={fieldValue.nome} id="nome" onChange={handleChange} />
-                 </div>
-                <div className="mb-3">
-                     <label htmlFor="descricao" className="form-label"><FileText /> Descrição</label>
-                     <textarea name="descricao" className="form-control" id="descricao" value={fieldValue.descricao} onChange={handleChange}></textarea>
-                     
-                 </div>
-                <div className="mb-3">
-                     <label htmlFor="dataInicio" className="form-label"><CalendarEvent /> Data de início</label>
-                     <input type="datetime-local" className="form-control" name="data_inicio" value={fieldValue.data_inicio} id="dataInicio" onChange={handleChange} />
-                 </div>
-                <div className="mb-3">
-                     <label htmlFor="dataFim" className="form-label"><CalendarEvent /> Último dia de evento</label>
-                     <input type="datetime-local" className="form-control" name="data_fim" value={fieldValue.data_fim} id="dataFim" onChange={handleChange} />
-                 </div>
+                {fieldValue.imagem !== '' &&
+                    (<figure className="mb-3 text-center">
+                        <img src={fieldValue.imagem} alt={fieldValue.nome} className="img-fluid" width={450} />
+                        <figcaption>Prévia da imagem</figcaption>
+                    </figure>
+                )}
 
-                 <div className="mb-3">
+                <div className="row mt-5 mb-3">
+                    <div className="col-md-6 mb-3">
+                        <label htmlFor="imagem" className="form-label"><FileImage /> Imagem</label>
+                        <input type="text" className="form-control" name="imagem" value={fieldValue.imagem} id="imagem" onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6 mb-3">
+                        <label htmlFor="nome" className="form-label"><TextareaT /> Nome</label>
+                        <input type="text" className="form-control" name="nome" value={fieldValue.nome} id="nome" onChange={handleChange} />
+                    </div>
+                </div>
+
+                  <div className="row mb-4">
+                        <div className="col-12">
+                            <label htmlFor="descricao" className="form-label"><FileText /> Descrição</label>
+                            <textarea name="descricao" className="form-control" id="descricao" value={fieldValue.descricao} rows={5} onChange={handleChange}></textarea>
+                        </div>
+                </div>
+
+                <div className="row mt-4 mb-3">
+                    <div className="col-md-3 mb-3">
+                        <label htmlFor="dataInicio" className="form-label"><CalendarEvent /> Data de início</label>
+                        <input type="datetime-local" className="form-control" name="data_inicio" value={fieldValue.data_inicio} id="dataInicio" onChange={handleChange} />
+                    </div>
+                    <div className="col-md-3 mb-3">
+                        <label htmlFor="dataFim" className="form-label"><CalendarEvent /> Último dia de evento</label>
+                        <input type="datetime-local" className="form-control" name="data_fim" value={fieldValue.data_fim} id="dataFim" onChange={handleChange} />
+                   </div>
+
+
+                   <div hidden>
                      <input type="text" className="form-control" name="usuario_id" value={fieldValue.usuario_id}  onChange={handleChange} hidden />
                  </div>
 
-                 <div className="mb-3">
+                 <div className="col-md-3 mb-3">
                      <label htmlFor="categoria" className="form-label"><Tag /> Categoria</label> <br/>
                      <select name="categoria_id" id="categoria" value={fieldValue.categoria_id} onChange={handleChange} className="form-select" aria-label="Default select example">
                         <option value="" disabled>Selecione uma das opções abaixo</option>
@@ -109,7 +123,7 @@ export const CreateEvent = () => {
                      </select>
                  </div>
 
-                 <div className="mb-3">                    
+                 <div className="col-md-3 mb-3">                    
                      <label htmlFor="local" className="form-label"><PinMap /> Local</label> <br/>
                      <select name="local_id" id="local" value={fieldValue.local_id} onChange={handleChange}
                      className="form-select" aria-label="Default select example">
@@ -121,7 +135,9 @@ export const CreateEvent = () => {
                      </select>
                  </div>
 
-               <button type="submit" className="btn btn-primary">Cadastrar</button>
+                </div>  
+
+               <button type="submit" className="btn btn-primary mt-2">Cadastrar</button>
             </form>
         </>
     );
