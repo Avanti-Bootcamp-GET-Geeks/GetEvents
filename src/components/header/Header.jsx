@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { findAllEvents } from "../../services/eventService.jsx";
 import './Header.css';
 import logo from '../../assets/img/logo.svg';
-import { SearchContext } from '../../contexts/SearchContext.jsx';
 
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -12,49 +12,46 @@ import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
 import { BoxArrowRight, GearFill, Search } from "react-bootstrap-icons";
 import { Col } from "react-bootstrap";
-
-function removeAccents(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
+import {AuthContext} from "../../context/AuthContext.jsx";
 
 export default function Header() {
     const [search, setSearch] = useState("");
-    const { events, getAllEvents } = useContext(SearchContext);
-    const [event, setEvent] = useState("");
-    const [filteredEvents, setFilteredEvents] = useState([]);
+    const [eventRender, setEventRender] = useState([]);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [admin, setAdmin] = useState(false);
+    const {userLogged, logoutUser} = useContext(AuthContext);
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        const filtered = events.filter(event =>
-            removeAccents(event.nome.toLowerCase()).includes(removeAccents(search.toLowerCase()))
+        const filtered = eventRender.filter((event) =>
+            Object.values(event).some((value) =>
+                value.toString().toLowerCase().includes(search.toLowerCase())
+            )
         );
-       console.log(filtered)
-        setFilteredEvents(filtered);
-    }, [events, search]);
+        if (filtered.length !== eventRender.length) {
+            setEventRender(filtered);
+        }
+    }, [eventRender, search]);
 
-    const handleBurgerClick = () => {
-        setMenuOpen(!menuOpen);
-    };
 
     const handleRegister = () => {
         navigate("/register");
     };
 
-    const handleSearch = async () => {
-        console.log('teste')
-        await getAllEvents();
+    const handleBurgerClick = () => {
+        setMenuOpen(!menuOpen);
     };
 
-    const handleLogin = () => {
-        setAdmin(true);
-        navigate("/login");
+    const handleSearch = () => {
+        findAllEvents()
+            .then((events) => {
+                setEventRender(events);
+            })
+            .catch((error) => {
+                console.error("Error fetching events:", error);
+            });
     };
 
-    const handleLogout = () => {
-        setAdmin(false);
-    };
 
     return (
         <header>
@@ -63,10 +60,10 @@ export default function Header() {
                     <Navbar.Brand as={Link} to="/"><Image src={logo} fluid /></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" onClick={handleBurgerClick} />
                     <Navbar.Collapse id="navbarScroll" className={menuOpen ? 'show' : ''}>
-                        {admin ? (
+                        {userLogged ? (
                             <>
                                 <Nav className="me-auto my-2 my-lg-0">
-                                    <Nav.Link as={Link} to="/">Crie seu Evento</Nav.Link>
+                                    <Nav.Link as={Link} to="/create/event">Crie seu Evento</Nav.Link>
                                     <Nav.Link as={Link} to="/categories">Categorias</Nav.Link>
                                     <Nav.Link as={Link} to="/settings" className={"link-underline-opacity-0-hover"}>
                                         Bem Vindo, Organizador
@@ -87,20 +84,25 @@ export default function Header() {
                                             onClick={handleSearch}>
                                         <Search />
                                     </Button>
-                                    <Button variant="secondary" className=' me-2' onClick={handleLogout}>
+
+                                    <Button variant="secondary" className=' me-2'
+
+                                             onClick={() => logoutUser()} >
                                         <BoxArrowRight />
                                     </Button>
+
                                     <Button as={Link} className={'text-black  '}
                                             to="/settings" variant='warning'>
                                         <GearFill />
                                     </Button>
+
                                 </Form>
                             </>
                         ) : (
                             <>
                                 <Nav className="me-auto my-2 my-lg-0">
-                                    <Nav.Link as={Link} to="/">Crie seu Evento</Nav.Link>
-                                    <Nav.Link onClick={handleLogin}>Login</Nav.Link>
+                                    <Nav.Link as={Link} to="/create/event">Crie seu Evento</Nav.Link>
+                                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
                                     <Col xs="auto" sm='auto'>
                                         <Button variant="primary" onClick={handleRegister}>Cadastre-se</Button>
                                     </Col>
@@ -126,4 +128,5 @@ export default function Header() {
             </Navbar>
         </header>
     );
+
 }
