@@ -15,12 +15,10 @@ export const EventInfo = () => {
         getEventById();
     }, [id])
 
-
     const getEventById = async () => {
         try {
             const response = await findEventById(id);
-            if(response)
-                setEvent(response);
+            response && setEvent(response);
         } catch (error) {
             console.error(error.message)
         }
@@ -57,7 +55,7 @@ export const EventInfo = () => {
             <div className="headerInfo">
                 <h1>
                     {event.nome} 
-                    <span title="Clique para voltar para tela inicial" onClick={() => navigate('/')}><ArrowLeftSquare /></span>
+                    <span title="Voltar" onClick={() => window.history.back()}><ArrowLeftSquare /></span>
                 </h1>
 
                 <div className="dateInfo">
@@ -70,7 +68,7 @@ export const EventInfo = () => {
                 </div>
 
                 <h4> <span className="icon"><PinMap /></span> {state.local.endereco} - {state.local.cidade}, {state.local.estado}
-                </h4>
+                </h4> 
             </div>
 
             <div className="eventDescription">
@@ -80,7 +78,6 @@ export const EventInfo = () => {
             </div>
 
         </div>
-
         </>      
     )
 };

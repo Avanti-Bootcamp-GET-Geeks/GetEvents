@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 import { Card } from "../../../components/card/Card";
 import { EventList } from "../../../components/eventList/EventList";
 import { Pagination } from "../../../components/pagination/Pagination";
@@ -11,9 +11,8 @@ export default function Home() {
         <>
             <div className="container">
                 {/* Lista eventos */}
-                <EventList>
-                
-                {eventsFound.length > 0
+                <EventList>              
+                    {eventsFound.length > 0
                         ? eventsFound.map(event => (<Card event={event} key={event.id} />))
                         : events.length > 0
                             ? events.map(event => (<Card event={event} key={event.id} />))
