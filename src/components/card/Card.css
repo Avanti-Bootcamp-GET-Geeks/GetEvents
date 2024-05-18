@@ -22,6 +22,29 @@
     }
 }
 
+.eventClosed {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(105, 105, 110, 0.363);
+    border-radius: 1rem;
+    position: absolute;
+    z-index: 10;
+
+    & .eventClosed-badge {
+        display: inline-block;
+        font-size: .8rem;
+        font-weight: bold;
+        background-color: #FFC107;
+        color: var(--color-title);
+        border-radius: 1rem;
+        padding: .4rem;
+
+        position: absolute;
+        top: -.5rem;
+        right: -.5rem;
+
+    }
+}
 
 .cardHeader {
     display: flex;
@@ -53,4 +76,38 @@
         font-size: .75rem; /*12px*/
         margin: 0;
     }
+}
+
+
+/* /my-events */
+.container-icons {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    z-index: 20;
+}
+
+.icon-eye, .icon-edit, .icon-trash {
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.1);
+        font-weight: bolder;
+        filter: drop-shadow(0 0 1rem var(--color-secondary));
+    }
+}
+
+.icon-eye {
+    color: #FFC107;
+} 
+
+.icon-edit {
+    color: var(--color-primary);
+}
+
+.icon-trash {
+    color: #f00;
+    /* z-index: ; */
 }
