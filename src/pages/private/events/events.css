@@ -1,8 +1,25 @@
 /* /events */
-.icon-edit, .icon-trash {
-    font-size: 1.4rem;
-    cursor: pointer
+.container-icons {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 1rem;
 }
+
+.icon-eye, .icon-edit, .icon-trash {
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.1);
+        font-weight: bolder;
+        filter: drop-shadow(0 0 1rem var(--color-secondary));
+    }
+}
+
+.icon-eye {
+    color: #FFC107;
+} 
 
 .icon-edit {
     color: var(--color-primary);
