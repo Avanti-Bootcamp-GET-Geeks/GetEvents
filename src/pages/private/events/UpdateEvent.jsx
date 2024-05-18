@@ -95,7 +95,7 @@ export const UpdateEvent = () => {
         <>
         <h1>
             Atualizar evento
-            <span title="Clique para voltar" onClick={() => navigate('/events')}><ArrowLeftSquare /></span>
+            <span title="Voltar" onClick={() => navigate('/my-events')}><ArrowLeftSquare /></span>
             </h1>
         
         <form onSubmit={handleSubmit}>
