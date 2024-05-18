@@ -1,7 +1,10 @@
 .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex: 1 !important;
     min-width: 12rem !important;
-    max-width: 12rem !important;
+    max-width: 12rem !important; 
     padding: 0 !important;
     border: .1rem solid rgba(117, 118, 121, .2);
     border-radius: 1rem !important;
