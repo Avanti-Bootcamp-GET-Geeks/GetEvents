@@ -1,7 +1,7 @@
 /* /events */
 .container-icons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding-bottom: 1rem;
 }
 
