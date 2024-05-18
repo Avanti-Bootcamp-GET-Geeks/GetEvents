@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import InputMask from "react-input-mask";
 import { findUserById, updateUser, deleteUser } from "../../../services/userService";
 import { findAllRoles } from "../../../services/roleService";
 import { AuthContext } from "../../../context/AuthContext";
