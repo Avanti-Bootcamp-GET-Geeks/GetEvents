@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import { findUserById, updateUser, deleteUser } from "../../../services/userService";
 import { findAllRoles } from "../../../services/roleService";
 import { AuthContext } from "../../../context/AuthContext";
-import MaskedInput from "react-text-mask/dist/reactTextMask.js";
+import MaskedInput from "react-text-mask";
 
 export default function Settings() {
     const { logoutUser } = useContext(AuthContext);
