@@ -11,8 +11,6 @@ const useAuth = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('COMPONENTE NASCEU USEAUTH!');
-
         // Busca usuário no localStorage e converte para objeto JS
         const userInfo = JSON.parse(localStorage.getItem('userInfo')); 
 
@@ -27,8 +25,8 @@ const useAuth = () => {
         setloading(false);
     }, []);
 
-
-    // Função para ser utilizada na página de login
+    
+     // Função para ser utilizada na página de login
     const loginUser = async (inputValues) => {
         try {
             const response = await login(inputValues);
@@ -51,7 +49,6 @@ const useAuth = () => {
             // alert(error.response.data.message);
             navigate('/login', {state: {message, status}}); // Chama a rota de login com a message  de erro
         }
-
     };
 
 
@@ -62,7 +59,6 @@ const useAuth = () => {
 
         navigate('/login'); // Redireciona para pág login
     };
-
 
     // Retorna um objeto com todas as variáveis de estado e funções
     return { userLogged, loading, loginUser, logoutUser };

@@ -99,7 +99,6 @@ export const UpdateEvent = () => {
             </h1>
         
         <form onSubmit={handleSubmit}>
-
                 {fieldValue.imagem !== '' &&
                 (<figure className="mb-3 text-center">
                      <img src={fieldValue.imagem} alt={event.nome} className="img-fluid" width={450} />
@@ -107,56 +106,64 @@ export const UpdateEvent = () => {
                 </figure>
                 )}
                 
-                <div className="mb-3">
-                     <label htmlFor="imagem" className="form-label"><FileImage /> Imagem</label>
-                     <input type="text" className="form-control" name="imagem" value={fieldValue.imagem} id="imagem" onChange={handleChange} />
-                 </div>
-                <div className="mb-3">
-                     <label htmlFor="nome" className="form-label"><TextareaT /> Nome do evento</label>
-                     
-                     <input type="text" className="form-control" name="nome" value={fieldValue.nome} id="nome" onChange={handleChange} />
-                 </div>
-                <div className="mb-3">
-                     <label htmlFor="descricao" className="form-label"><FileText /> Descrição</label>
-                     <textarea name="descricao" className="form-control" id="descricao" value={fieldValue.descricao} onChange={handleChange}></textarea>
-                     
-                 </div>
-                <div className="mb-3">
-                     <label htmlFor="dataInicio" className="form-label"><CalendarEvent /> Data de início</label>
-                     <input type="datetime-local" className="form-control" name="data_inicio" value={fieldValue.data_inicio} id="dataInicio" onChange={handleChange} />
-                 </div>
-                <div className="mb-3">
-                     <label htmlFor="dataFim" className="form-label"><CalendarEvent /> Último dia</label>
-                     <input type="datetime-local" className="form-control" name="data_fim" value={fieldValue.data_fim} id="dataFim" onChange={handleChange} />
-                 </div>
+                <div className="row mt-5 mb-3">
+                    <div className="col-md-6 mb-3">
+                        <label htmlFor="imagem" className="form-label"><FileImage /> Imagem</label>
+                        <input type="text" className="form-control" name="imagem" value={fieldValue.imagem} id="imagem" onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6 mb-3">
+                        <label htmlFor="nome" className="form-label"><TextareaT /> Nome do evento</label>
+                        
+                        <input type="text" className="form-control" name="nome" value={fieldValue.nome} id="nome" onChange={handleChange} />
+                    </div>
+                </div>
 
-                 <div className="mb-3">
-                     <input type="text" className="form-control" name="usuario_id" value={fieldValue.usuario_id}  onChange={handleChange} hidden />
-                 </div>
+                <div className="row mb-4">
+                    <div className="col-12">
+                        <label htmlFor="descricao" className="form-label"><FileText /> Descrição</label>
+                        <textarea name="descricao" className="form-control" id="descricao" value={fieldValue.descricao} rows={5} onChange={handleChange}></textarea>                       
+                    </div>
+                </div>
 
-                 <div className="mb-3">
-                     <label htmlFor="categoria" className="form-label"><Tag /> Categoria</label> <br/>
-                     <select name="categoria_id" id="categoria" value={fieldValue.categoria_id} onChange={handleChange} className="form-select" aria-label="Default select example">
-                        <option value="" disabled>Selecione uma das opções abaixo</option>
-                        {categories.map(category => (
-                            <option value={category.id} key={category.id}>{category.nome}</option>
-                        ))}
-                     </select>
-                 </div>
+                <div className="row mt-4 mb-3">
+                    <div className="col-md-3 mb-3">
+                        <label htmlFor="dataInicio" className="form-label"><CalendarEvent /> Data de início</label>
+                        <input type="datetime-local" className="form-control" name="data_inicio" value={fieldValue.data_inicio} id="dataInicio" onChange={handleChange} />
+                    </div>
+                    <div className="col-md-3 mb-3">
+                        <label htmlFor="dataFim" className="form-label"><CalendarEvent /> Último dia</label>
+                        <input type="datetime-local" className="form-control" name="data_fim" value={fieldValue.data_fim} id="dataFim" onChange={handleChange} />
+                    </div>
 
-                 <div className="mb-3">                    
-                     <label htmlFor="local" className="form-label"><PinMap /> Local</label> <br/>
-                     <select name="local_id" id="local" value={fieldValue.local_id} onChange={handleChange}
-                     className="form-select" aria-label="Default select example">
-                        <option value="" disabled>Selecione uma das opções abaixo</option>
+                    <div hidden>
+                        <input type="text" className="form-control" name="usuario_id" value={fieldValue.usuario_id}  onChange={handleChange} hidden />
+                    </div>
 
-                        {locals.map(local => (
-                           <option value={local.id} key={local.id}>{local.nome}</option>
-                        ))}
-                     </select>
-                 </div>
+                    <div className="col-md-3 mb-3">
+                        <label htmlFor="categoria" className="form-label"><Tag /> Categoria</label> <br/>
+                        <select name="categoria_id" id="categoria" value={fieldValue.categoria_id} onChange={handleChange} className="form-select" aria-label="Default select example">
+                            <option value="" disabled>Selecione uma das opções abaixo</option>
+                            {categories.map(category => (
+                                <option value={category.id} key={category.id}>{category.nome}</option>
+                            ))}
+                        </select>
+                    </div>
 
-               <button type="submit" className="btn btn-primary">Atualizar</button>
+                    <div className="col-md-3 mb-3">                    
+                        <label htmlFor="local" className="form-label"><PinMap /> Local</label> <br/>
+                        <select name="local_id" id="local" value={fieldValue.local_id} onChange={handleChange}
+                        className="form-select" aria-label="Default select example">
+                            <option value="" disabled>Selecione uma das opções abaixo</option>
+
+                            {locals.map(local => (
+                            <option value={local.id} key={local.id}>{local.nome}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+
+               <button type="submit" className="btn btn-primary mt-2">Atualizar</button>
             </form>
         </>
     );

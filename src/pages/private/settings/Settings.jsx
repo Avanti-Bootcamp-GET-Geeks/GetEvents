@@ -172,7 +172,7 @@ export default function Settings() {
 
                     {/* Botões de editar e excluir */}
                     <Button variant="primary" type="submit" className="btn btn-sm me-2">
-                        Editar
+                        Salvar
                     </Button>
 
                     <Button variant="danger" type="button" className="btn btn-sm" onClick={handleDelete}>

@@ -87,7 +87,7 @@ export default function Header() {
 
                                     <Button variant="secondary" className=' me-2'
 
-                                             onClick={() => logoutUser()} >
+                                            onClick={() => logoutUser()} >
                                         <BoxArrowRight />
                                     </Button>
 
