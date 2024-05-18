@@ -21,10 +21,16 @@ export const CardPrivate = ({event, handleDelete}) => {
     });
 
     const differentDates = event.data_inicio !== event.data_fim;
+    const eventEndDate = new Date(event.data_fim).getTime();
+    const currentDate = new Date().getTime();
+    const EVENT_CLOSED = currentDate >= eventEndDate;
 
     return(
         <div className="card">
-            <img src={event.imagem} className="card-img-top" alt={event.nome} />           
+            <img src={event.imagem} className="card-img-top" alt={event.nome} /> 
+            <div className={EVENT_CLOSED && 'eventClosed'}>
+                <span className={EVENT_CLOSED ? 'eventClosed-badge' : 'd-none'}>Evento encerrado!</span>
+            </div>          
             <div className="cardHeader">
             
             <Calendar2Event /> 
@@ -42,15 +48,15 @@ export const CardPrivate = ({event, handleDelete}) => {
                 </p>
             </div>
 
-            <div className="container-icons">
+            <div className={EVENT_CLOSED ? 'container-icons justify-content-center' : 'container-icons'}>
                 <div className="col-3 text-center">
-                        <Eye className="icon-eye" onClick={() => navigate(`/event-info/${event.id}`, {state: event})} title='Visualizar na visão do público' />
+                        <Eye className={EVENT_CLOSED ? 'icon-eye text-dark' : 'icon-eye'} onClick={() => navigate(`/event-info/${event.id}`, {state: event})} title='Visualizar na visão do público' />
+                    </div>
+                    <div className={EVENT_CLOSED ? 'd-none' : 'col-3 text-center'}>
+                        <PencilSquare className={EVENT_CLOSED ? 'icon-edit text-dark' : 'icon-edit'} onClick={() => navigate(`/update/event/${event.id}`)} title='Editar' />
                     </div>
                     <div className="col-3 text-center">
-                        <PencilSquare className="icon-edit" onClick={() => navigate(`/update/event/${event.id}`)} title='Editar' />
-                    </div>
-                    <div className="col-3 text-center">
-                        <Trash3 className="icon-trash" onClick={() => handleDelete(event.id)} title='Excluir' /> 
+                        <Trash3 className={EVENT_CLOSED ? 'icon-trash text-dark' : 'icon-trash'} onClick={() => handleDelete(event.id)} title='Excluir' /> 
                     </div>
             </div>
         </div>
