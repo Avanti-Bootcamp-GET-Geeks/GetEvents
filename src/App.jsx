@@ -7,8 +7,9 @@ import PublicRoutes from './routes/PublicRoutes.jsx';
 import PrivateRoutes from './routes/PrivateRoutes.jsx';
 import { SearchProvider } from "./context/SearchContext.jsx";
 
+
 export default function App() {
-    return (
+    return(
         <AuthProvider>
             <SearchProvider>
                 <Header />

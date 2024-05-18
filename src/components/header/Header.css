@@ -1,4 +1,4 @@
-header nav  {
+/*header nav  {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -10,10 +10,13 @@ header .search-input {
     padding-right: 30px;
     padding-left: 40px;
     background: 10px 10px url('../../assets/img/lupa.svg') no-repeat;
-}
+}*/
 
+/*
 p.text-xl-end{
     color: #0097FF;
     align-items: center;
     margin: 0;
 }
+*/
+

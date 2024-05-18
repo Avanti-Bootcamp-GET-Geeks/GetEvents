@@ -71,7 +71,7 @@ export default function Settings() {
             await updateUser(userInfo.id, formData);
             alert("Dados atualizados com sucesso!");
         } catch (error) {
-            alert('Digite a sua nova senha.')
+            alert("Preencha sua senha.")
             console.error("Erro ao atualizar os dados:", error);
         }
     };
