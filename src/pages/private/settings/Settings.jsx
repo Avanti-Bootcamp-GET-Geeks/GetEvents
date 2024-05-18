@@ -1,13 +1,14 @@
+import { useState, useEffect, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useState, useEffect, useContext } from "react";
+import InputMask from "react-input-mask";
 import { findUserById, updateUser, deleteUser } from "../../../services/userService";
-import { findAllRoles } from "../../../services/roleService"
+import { findAllRoles } from "../../../services/roleService";
 import { AuthContext } from "../../../context/AuthContext";
+import MaskedInput from "react-text-mask/dist/reactTextMask.js";
 
 export default function Settings() {
-
     const { logoutUser } = useContext(AuthContext);
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -20,19 +21,19 @@ export default function Settings() {
         cargo: ''
     });
 
-    useEffect(() =>{
+    useEffect(() => {
         getRoles();
         loadUserData();
-    },[])
+    }, []);
 
     const getRoles = async () => {
         try {
             const res = await findAllRoles();
-            res ? setRoles(res) : setRoles([]);
+            setRoles(res || []);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     const loadUserData = async () => {
         try {
@@ -48,7 +49,6 @@ export default function Settings() {
             console.error("Erro ao carregar os dados do usuário:", error);
         }
     };
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -70,6 +70,7 @@ export default function Settings() {
         try {
             await updateUser(userInfo.id, formData);
             alert("Dados atualizados com sucesso!");
+            logoutUser()
         } catch (error) {
             console.error("Erro ao atualizar os dados:", error);
         }
@@ -87,11 +88,20 @@ export default function Settings() {
         }
     };
 
+    // Função para determinar a máscara do telefone com base no valor atual
+    const getMask = (telefone) => {
+        return telefone.length >= 6 && telefone[5] === "9"
+          ? [ '(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]
+          : [ '(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ];
+    };
+
     return (
       <section>
           <Container>
               <h1 className="titulo">Minha Conta</h1>
               <Form onSubmit={handleSubmit}>
+
+                  {/* Campo para o nome */}
                   <Form.Group className="mb-3" controlId="formNome">
                       <Form.Label>Nome</Form.Label>
                       <Form.Control
@@ -104,6 +114,7 @@ export default function Settings() {
                       />
                   </Form.Group>
 
+                  {/* Campo para o email */}
                   <Form.Group className="mb-3" controlId="formEmail">
                       <Form.Label>Email</Form.Label>
                       <Form.Control
@@ -112,14 +123,16 @@ export default function Settings() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required
+                        disabled
                       />
                   </Form.Group>
 
+                  {/* Campo para o telefone com máscara */}
                   <Form.Group className="mb-3" controlId="formTelefone">
                       <Form.Label>Telefone</Form.Label>
-                      <Form.Control
-                        type="text"
+                      <MaskedInput
+                        mask={getMask(formData.telefone)}
+                        className="form-control"
                         placeholder="Digite seu telefone"
                         name="telefone"
                         value={formData.telefone}
@@ -128,6 +141,7 @@ export default function Settings() {
                       />
                   </Form.Group>
 
+                  {/* Campo para a senha */}
                   <Form.Group className="mb-3" controlId="formPassword">
                       <Form.Label>Senha</Form.Label>
                       <Form.Control
@@ -136,9 +150,11 @@ export default function Settings() {
                         name="senha"
                         value={formData.senha}
                         onChange={handleChange}
+                        required
                       />
                   </Form.Group>
 
+                  {/* Campos para selecionar o cargo usando radio buttons */}
                   <Form.Group className="mb-3" controlId="formRadio">
                       {roles.map((role) => (
                         role.nome !== 'admin' && (
@@ -156,10 +172,12 @@ export default function Settings() {
                       ))}
                   </Form.Group>
 
+                  {/* Botão para salvar as alterações */}
                   <Button variant="primary" type="submit" className="btn btn-sm me-2">
-                      Editar
+                      Salvar
                   </Button>
 
+                  {/* Botão para excluir a conta */}
                   <Button variant="danger" type="button" className="btn btn-sm" onClick={handleDelete}>
                       Excluir
                   </Button>
