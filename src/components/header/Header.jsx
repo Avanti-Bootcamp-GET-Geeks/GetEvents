@@ -1,8 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import {useNavigate, Link} from "react-router-dom";
-import './Header.css';
 import logo from '../../assets/img/logo.svg';
-
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
