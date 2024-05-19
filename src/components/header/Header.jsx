@@ -62,12 +62,11 @@ export default function Header() {
                 <Row className="m-auto">
                   <Col md={5} xs={12} className="">
                     <label className="labelSearch">
-                      <Tag className="icon-search"/>
-                      <Form.Select name="categoria_id"
-                                   id="categoria"
-                                   value={fieldValue.categoria_id}
-                                   onChange={handleChange}
-                                   aria-label="Categorias"
+                      <Tag className="icon-search"/> <Form.Select name="categoria_id"
+                                                                  id="categoria"
+                                                                  value={fieldValue.categoria_id}
+                                                                  onChange={handleChange}
+                                                                  aria-label="Categorias"
                     >
                       <option value="">Todas</option>
                       {categories.map(category => (
@@ -100,7 +99,7 @@ export default function Header() {
                 </Row>
               </Form>
 
-              <Row className="col-lg-6 p-2">
+              <Row className="col-lg-6 p-2 ms-auto">
                 <Col md={6} xs={10}>
                   <div className="">
                     <Nav className="me-auto">
@@ -142,12 +141,11 @@ export default function Header() {
                 <Row className="m-auto">
                   <Col md={5} xs={12} className="">
                     <label className="labelSearch">
-                      <Tag className="icon-search"/>
-                      <Form.Select name="categoria_id"
-                                   id="categoria"
-                                   value={fieldValue.categoria_id}
-                                   onChange={handleChange}
-                                   aria-label="Categorias"
+                      <Tag className="icon-search"/> <Form.Select name="categoria_id"
+                                                                  id="categoria"
+                                                                  value={fieldValue.categoria_id}
+                                                                  onChange={handleChange}
+                                                                  aria-label="Categorias"
                     >
                       <option value="">Todas</option>
                       {categories.map(category => (
@@ -180,26 +178,14 @@ export default function Header() {
               </Form>
 
 
-              <Row className="col-ms-6">
+              <Row className="col-ms-6 ms-auto">
                 <Col>
                   <div className="p-2 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between w-100">
                     <Nav className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                      <Nav.Link as={Link}
-                                to="/create/event"
-                                className="mb-2 mb-md-0 me-md-2 text-center text-md-start">
-                        Crie seu Evento
-                      </Nav.Link>
-                      <Nav.Link as={Link}
-                                to="/login"
-                                className="mb-2 mb-md-0 me-md-2 text-center text-md-start">
-                        Login
-                      </Nav.Link>
+                      <Nav.Link as={Link} to="/create/event" className="mb-2 mb-md-0 me-md-2 text-center text-md-start">Crie seu Evento</Nav.Link>
+                      <Nav.Link as={Link} to="/login" className="mb-2 mb-md-0 me-md-2 text-center text-md-start">Login</Nav.Link>
                     </Nav>
-                    <Button variant="outline-primary"
-                            onClick={handleRegister}
-                            className="mb-2 mb-md-0 ms-md-auto">
-                      Cadastre-se
-                    </Button>
+                    <Button variant="outline-primary" onClick={handleRegister} className="mb-2 mb-md-0 ms-md-auto">Cadastre-se</Button>
                   </div>
                 </Col>
               </Row>
