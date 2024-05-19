@@ -23,9 +23,6 @@ main {
     flex-direction: column;
     padding: 60px;
     background-color: white;
-    border-left: 1px solid var(--color-shadow);
-    border-right: 1px solid var(--color-shadow);
-    border-bottom: 1px solid var(--color-shadow);
 }
 
 main section {
