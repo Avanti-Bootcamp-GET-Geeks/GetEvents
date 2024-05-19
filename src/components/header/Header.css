@@ -5,3 +5,36 @@ form label{
 .navbar{
     border: 1px solid var(--color-shadow) !important;
 }
+
+nav {
+    & .labelSearch {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+
+    }
+
+    & .icon-search {
+        display: inline-block;
+        font-size: 1.4rem;
+    }
+}
+
+
+form label{
+    color: #0097FF;
+}
+
+.navbar{
+    border: 1px solid var(--color-shadow) !important;
+}
+
+@media (max-width: 749px) {
+    nav {
+
+        & .labelSearch {
+            margin-bottom: .5rem !important;
+        }
+    }
+}

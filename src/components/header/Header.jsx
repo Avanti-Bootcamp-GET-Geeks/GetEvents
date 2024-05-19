@@ -58,109 +58,28 @@ export default function Header() {
 
           {userLogged ? (
             <>
-
-          <Form >
-            <Row>
-              <Col xs="auto">
-                <div className="p-2">
-                  <Form.Label><Tag/> Categorias</Form.Label>
-                  <Form.Select name="categoria_id"
-                               id="categoria"
-                               value={fieldValue.categoria_id}
-                               onChange={handleChange}
-                               aria-label="Categorias"
-                  >
-                    <option>Selecione uma categoria</option>
-                    <option value="">Todas</option>
-                    {categories.map(category => (
-                      <option value={category.id} key={category.id}>{category.nome}</option>
-                    ))}
-                  </Form.Select>
-                </div>
-              </Col>
-              <Col xs="auto">
-                <div className="p-2">
-                  <Form.Label><PinMap/> Local</Form.Label>
-                  <Form.Select
-                    name="local_id"
-                    id="local"
-                    value={fieldValue.local_id}
-                    onChange={handleChange}
-                    aria-label="Local"
-                  >
-                    <option>Selecione uma categoria</option>
-                    <option value="">Todos</option>
-
-                    {locals.map(local => (
-                      <option value={local.id} key={local.id}>{local.nome}</option>
-                    ))}
-
-                  </Form.Select>
-                </div>
-              </Col>
-            </Row>
-          </Form>
-
-          <Row className="p-2 ms-auto">
-            <Col xs="auto">
-              <div className="p-2">
-                <Nav className="me-auto">
-                  <NavDropdown title="Menu">
-                    <NavDropdown.Item as={Link} to="/create/event">Crie seu Evento</NavDropdown.Item>
-                    <NavDropdown.Divider/>
-                    <NavDropdown.Item as={Link} to="/my-events">Meus Eventos</NavDropdown.Item>
-                    <NavDropdown.Divider/>
-                    <NavDropdown.Item as={Link} to="/categories">Categorias</NavDropdown.Item>
-                    <NavDropdown.Divider/>
-                    <NavDropdown.Item as={Link} to="/roles">Cargos</NavDropdown.Item>
-                  </NavDropdown>
-                </Nav>
-              </div>
-            </Col>
-            <Col xs="auto">
-              <div className="p-2 ">
-                <Button as={Link}
-                        to="/settings"
-                        className={'me-2 text-black'}
-                        variant='warning'>
-                  <GearFill/>
-                </Button>
-                <Button
-                  className={'me-2'}
-                  variant="secondary"
-                  onClick={() => logoutUser()}>
-                  <BoxArrowRight/>
-                </Button>
-              </div>
-            </Col>
-          </Row>
-
-            </>
-          ) : (
-
-            <>
-              <Form >
-                <Row>
-                  <Col xs="auto">
-                    <div className="p-2">
-                      <Form.Label><Tag/> Categorias</Form.Label>
+              <Form>
+                <Row className="m-auto">
+                  <Col md={5} xs={12} className="">
+                    <label className="labelSearch">
+                      <Tag className="icon-search"/>
                       <Form.Select name="categoria_id"
                                    id="categoria"
                                    value={fieldValue.categoria_id}
                                    onChange={handleChange}
                                    aria-label="Categorias"
-                      >
-                        <option>Selecione uma categoria</option>
-                        <option value="">Todas</option>
-                        {categories.map(category => (
-                          <option value={category.id} key={category.id}>{category.nome}</option>
-                        ))}
-                      </Form.Select>
-                    </div>
+                    >
+                      <option value="">Todas</option>
+                      {categories.map(category => (
+                        <option value={category.id} key={category.id}>{category.nome}</option>
+                      ))}
+                    </Form.Select>
+                    </label>
                   </Col>
-                  <Col xs="auto">
-                    <div className="p-2">
-                      <Form.Label><PinMap/> Local</Form.Label>
+
+                  <Col md={7} xs={12}>
+                    <label className="labelSearch">
+                      <PinMap className="icon-search"/>
                       <Form.Select
                         name="local_id"
                         id="local"
@@ -168,38 +87,126 @@ export default function Header() {
                         onChange={handleChange}
                         aria-label="Local"
                       >
-                        <option>Selecione uma categoria</option>
-                        <option value="">Todos</option>
 
+                        <option value="">Qualquer lugar</option>
                         {locals.map(local => (
                           <option value={local.id} key={local.id}>{local.nome}</option>
                         ))}
 
                       </Form.Select>
-                    </div>
+
+                    </label>
+                  </Col>
+                </Row>
+              </Form>
+
+              <Row className="col-lg-6 p-2">
+                <Col md={6} xs={10}>
+                  <div className="">
+                    <Nav className="me-auto">
+                      <NavDropdown title="Menu">
+                        <NavDropdown.Item as={Link} to="/create/event">Crie seu Evento</NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to="/my-events">Meus Eventos</NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to="/categories">Categorias</NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to="/roles">Cargos</NavDropdown.Item>
+                      </NavDropdown>
+                    </Nav>
+                  </div>
+                </Col>
+                <Col md={6} xs={2} className="">
+                  <div className="d-flex justify-content-end align-content-center">
+                    <Button as={Link}
+                            to="/settings"
+                            className={' ms-auto text-black'}
+                            variant='warning'>
+                      <GearFill/>
+                    </Button>
+                    <Button
+                      className={'ms-2'}
+                      variant="secondary"
+                      onClick={() => logoutUser()}>
+                      <BoxArrowRight/>
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
+
+            </>
+          ) : (
+
+            <>
+              <Form>
+                <Row className="m-auto">
+                  <Col md={5} xs={12} className="">
+                    <label className="labelSearch">
+                      <Tag className="icon-search"/>
+                      <Form.Select name="categoria_id"
+                                   id="categoria"
+                                   value={fieldValue.categoria_id}
+                                   onChange={handleChange}
+                                   aria-label="Categorias"
+                    >
+                      <option value="">Todas</option>
+                      {categories.map(category => (
+                        <option value={category.id} key={category.id}>{category.nome}</option>
+                      ))}
+                    </Form.Select>
+                    </label>
+                  </Col>
+
+                  <Col md={7} xs={12}>
+                    <label className="labelSearch">
+                      <PinMap className="icon-search"/>
+                      <Form.Select
+                        name="local_id"
+                        id="local"
+                        value={fieldValue.local_id}
+                        onChange={handleChange}
+                        aria-label="Local"
+                      >
+
+                        <option value="">Qualquer lugar</option>
+                        {locals.map(local => (
+                          <option value={local.id} key={local.id}>{local.nome}</option>
+                        ))}
+
+                      </Form.Select>
+                    </label>
                   </Col>
                 </Row>
               </Form>
 
 
-              <Row className="p-2 ms-auto">
-                <Col xs="auto">
-                  <div className="p-2">
-                    <Nav className="me-auto">
-                      <Nav.Link as={Link} to="/create/event">Crie seu Evento</Nav.Link>
-                      <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              <Row className="col-ms-6">
+                <Col>
+                  <div className="p-2 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between w-100">
+                    <Nav className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                      <Nav.Link as={Link}
+                                to="/create/event"
+                                className="mb-2 mb-md-0 me-md-2 text-center text-md-start">
+                        Crie seu Evento
+                      </Nav.Link>
+                      <Nav.Link as={Link}
+                                to="/login"
+                                className="mb-2 mb-md-0 me-md-2 text-center text-md-start">
+                        Login
+                      </Nav.Link>
                     </Nav>
-                  </div>
-                </Col>
-                <Col xs="auto">
-                  <div className="p-2">
-                    <Button variant="primary" onClick={handleRegister}>Cadastre-se</Button>
+                    <Button variant="outline-primary"
+                            onClick={handleRegister}
+                            className="mb-2 mb-md-0 ms-md-auto">
+                      Cadastre-se
+                    </Button>
                   </div>
                 </Col>
               </Row>
+
             </>
 
-            )}
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
