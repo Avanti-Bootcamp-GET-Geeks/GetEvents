@@ -14,8 +14,8 @@
     position: relative;
     
     & .imgBanner {
-        width: 100%;
-        height: 55vh;
+       max-width: 100%;
+        height: auto;
         opacity: .4;
     }
 }
@@ -28,8 +28,8 @@ div.featuredImage {
     
     & img {
         display: block;
-        width: 80%;
-        height: 60vh;
+        max-width: 80%;
+        height:auto;
         margin: 0 auto;
         border-radius: 1rem;
         box-shadow: 0 0 .4rem var(--color-shadow);
@@ -113,8 +113,8 @@ div.featuredImage {
     div.featuredImage {
         position: static;
         & img {
-            width: 100%;
-            height: 40vh;
+           max-width: 100%;
+            height: auto;
             border-radius: 0;
             box-shadow: none;
         }
@@ -135,8 +135,8 @@ div.featuredImage {
 
     div.featuredImage {       
         & img {
-            width: 100%;
-            height: 25vh;
+            max-width: 100%;
+            height: auto;
             
        }
    }
