@@ -97,7 +97,7 @@ export default function Header() {
               <Form className="d-flex mb-2 btn-icons">
                 <Button as={Link}
                         to="/settings"
-                        className={' me-2'}
+                        className={'me-2 text-black'}
                         variant='warning'>
                   <GearFill/>
                 </Button>
