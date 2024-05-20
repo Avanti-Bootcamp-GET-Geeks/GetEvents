@@ -8,15 +8,17 @@ import { SearchProvider } from "./context/SearchContext.jsx";
 
 export default function App() {
     return (
-        <AuthProvider>
-            <SearchProvider>
-                <Header />
-                    <main>
-                        <PublicRoutes />
-                        <PrivateRoutes />
-                    </main>
-                <Footer/>
-            </SearchProvider>
-        </AuthProvider>
+      <div className="app-container">
+          <AuthProvider>
+              <SearchProvider>
+                  <Header />
+                  <main>
+                      <PublicRoutes />
+                      <PrivateRoutes />
+                  </main>
+                  <Footer/>
+              </SearchProvider>
+          </AuthProvider>
+      </div>
     );
 }
