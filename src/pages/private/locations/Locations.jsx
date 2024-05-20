@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 import Form from "react-bootstrap/Form"
 import Alert from "react-bootstrap/Alert"
-import { PencilSquare, Trash, Funnel } from "react-bootstrap-icons"
+import { PencilSquare, Trash, Funnel, ArrowLeft, ArrowRight } from "react-bootstrap-icons"
 import { Col, Row, Container } from "react-bootstrap"
 
 function removeAccents(str) {
@@ -46,6 +46,18 @@ export default function Locations() {
     // Estado para controlar o alerta de erro e o carregamento dos dados
     const [showAlert, setShowAlert] = useState(false) // Alerta de erro
     const [loading, setLoading] = useState(true) // Indicador de carregamento
+
+    // Estado para controlar a página atual
+    const [currentPage, setCurrentPage] = useState(1)
+
+    // Estado para controlar a página atual
+    const [currentItems, setCurrentItems] = useState([])
+
+    // Calcula a quantidade total de páginas
+    const [totalPages, setTotalPages] = useState() 
+
+    // Número de linhas por página
+    const itemsPerPage = 10
 
     const closeAlert = () => setShowAlert(false) // Fecha o alerta de erro do formulário.
 
@@ -106,8 +118,16 @@ export default function Locations() {
 
             return matchNome && matchEndereco && matchCidade && matchEstado && matchPais
         })
+        setCurrentPage(1)
+        setTotalPages(Math.ceil(filtered.length / itemsPerPage))
         setFilteredLocations(filtered)
     }, [locations, searchNome, searchEndereco, searchCidade, searchEstado, searchPais])
+
+    useEffect(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage
+        const endIndex = startIndex + itemsPerPage
+        setCurrentItems(filteredLocations.slice(startIndex, endIndex))
+    }, [currentPage, filteredLocations])
 
     // Recupera todos os locais do serviço de API e atualiza o estado locations.
     async function getAllLocations() {
@@ -198,6 +218,16 @@ export default function Locations() {
         if (advancedSearch) clearAdvancedSearch()
     }
 
+    // Função para ir para a próxima página
+    const goToNextPage = () => {
+        setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))
+    }
+
+    // Função para ir para a página anterior
+    const goToPreviousPage = () => {
+        setCurrentPage(prevPage => Math.max(prevPage - 1, 1))
+    }
+
     return (
         <Container>
             <h1 className={"titulo"}>Lista de Locais</h1>
@@ -254,7 +284,7 @@ export default function Locations() {
                 <p>Carregando...</p>
             ) : (
                 <ListGroup>
-                    {filteredLocations.map((local) => (
+                    {currentItems.map((local) => (
                         <ListGroup.Item key={local.id} className='d-flex flex-column align-items-start'>
                             <div className='w-100'>
                                 <Row className='align-items-center'>
@@ -292,6 +322,18 @@ export default function Locations() {
                             )}
                         </ListGroup.Item>
                     ))}
+
+                    <div className="mt-4 d-flex justify-content-center align-items-center">
+                        <Button variant="primary" onClick={goToPreviousPage} disabled={currentPage === 1}>
+                            <ArrowLeft />
+                        </Button>
+                        <div className="mx-4 d-flex justify-content-center align-items-center ">
+                            <span>pág {currentPage}</span>
+                        </div>
+                        <Button variant="primary" onClick={goToNextPage} disabled={currentPage === totalPages}>
+                            <ArrowRight />
+                        </Button>
+                    </div>
                 </ListGroup>
             )}
 
