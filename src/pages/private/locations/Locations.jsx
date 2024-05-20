@@ -6,7 +6,6 @@ import Modal from "react-bootstrap/Modal"
 import Form from "react-bootstrap/Form"
 import Alert from "react-bootstrap/Alert"
 import { PencilSquare, Trash, Funnel } from "react-bootstrap-icons"
-import "../../../Global.css"
 import { Col, Row, Container } from "react-bootstrap"
 
 function removeAccents(str) {
@@ -257,32 +256,29 @@ export default function Locations() {
                 <ListGroup>
                     {filteredLocations.map((local) => (
                         <ListGroup.Item key={local.id} className='d-flex flex-column align-items-start'>
-                            <div className='d-flex w-100 justify-content-between align-items-center '>
-                                <Col>
-                                    <p className='mb-0 text-capitalize'>{selectedLocationId === local.id ? <strong>{local.nome}</strong> : local.nome}</p>
-                                </Col>
-
-                                <Button className='me-2 btn-sm' onClick={() => handleShowDetails(local.id)}>
-                                    Detalhes
-                                </Button>
-
-                                <Button
-                                    className='me-2 btn-sm bi-pencil-fill'
-                                    onClick={() => {
-                                        handleShowEdit(local)
-                                    }}
-                                >
-                                    <PencilSquare />
-                                </Button>
-
-                                <Button
-                                    className='btn btn-sm btn-danger'
-                                    onClick={() => {
-                                        handleShowMessageDelete(local.id)
-                                    }}
-                                >
-                                    <Trash />
-                                </Button>
+                            <div className='w-100'>
+                                <Row className='align-items-center'>
+                                    <Col xs={12} sm={7} md={7} className='mb-2 mb-md-0'>
+                                        <p className='mb-0 text-capitalize'>{selectedLocationId === local.id ? <strong>{local.nome}</strong> : local.nome}</p>
+                                    </Col>
+                                    <Col xs={12} sm={5} md={5} className='mb-2 mb-sm-0 d-flex justify-content-end'>
+                                        <Button className='me-2 btn-sm' onClick={() => handleShowDetails(local.id)}>
+                                            Detalhes
+                                        </Button>
+                                        <Button
+                                            className='me-2 btn-sm bi-pencil-fill'
+                                            onClick={() => handleShowEdit(local)}
+                                        >
+                                            <PencilSquare />
+                                        </Button>
+                                        <Button
+                                            className='btn btn-sm btn-danger'
+                                            onClick={() => handleShowMessageDelete(local.id)}
+                                        >
+                                            <Trash />
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </div>
 
                             {selectedLocationId === local.id && (

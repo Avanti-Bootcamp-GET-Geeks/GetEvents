@@ -110,6 +110,8 @@ export default function Header() {
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to="/categories">Categorias</NavDropdown.Item>
                         <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to="/locations">Locais</NavDropdown.Item>
+                        <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to="/roles">Cargos</NavDropdown.Item>
                       </NavDropdown>
                     </Nav>
