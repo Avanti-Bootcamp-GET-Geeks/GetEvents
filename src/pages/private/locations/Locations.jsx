@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { createLocal, findAllLocals, updateLocal, deleteLocal } from "../../../services/localService.jsx"
+
 import ListGroup from "react-bootstrap/ListGroup"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 import Form from "react-bootstrap/Form"
 import Alert from "react-bootstrap/Alert"
-import { PencilSquare, Trash, Funnel, ArrowLeft, ArrowRight } from "react-bootstrap-icons"
+import { PencilSquare, Trash, Funnel} from "react-bootstrap-icons"
 import { Col, Row, Container } from "react-bootstrap"
+import Paginationn from "../../../components/pagination/Paginationn.jsx"
 
 function removeAccents(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -47,17 +49,8 @@ export default function Locations() {
     const [showAlert, setShowAlert] = useState(false) // Alerta de erro
     const [loading, setLoading] = useState(true) // Indicador de carregamento
 
-    // Estado para controlar a página atual
-    const [currentPage, setCurrentPage] = useState(1)
-
-    // Estado para controlar a página atual
+    // Estado para os itens da página atual
     const [currentItems, setCurrentItems] = useState([])
-
-    // Calcula a quantidade total de páginas
-    const [totalPages, setTotalPages] = useState() 
-
-    // Número de linhas por página
-    const itemsPerPage = 10
 
     const closeAlert = () => setShowAlert(false) // Fecha o alerta de erro do formulário.
 
@@ -118,16 +111,8 @@ export default function Locations() {
 
             return matchNome && matchEndereco && matchCidade && matchEstado && matchPais
         })
-        setCurrentPage(1)
-        setTotalPages(Math.ceil(filtered.length / itemsPerPage))
         setFilteredLocations(filtered)
     }, [locations, searchNome, searchEndereco, searchCidade, searchEstado, searchPais])
-
-    useEffect(() => {
-        const startIndex = (currentPage - 1) * itemsPerPage
-        const endIndex = startIndex + itemsPerPage
-        setCurrentItems(filteredLocations.slice(startIndex, endIndex))
-    }, [currentPage, filteredLocations])
 
     // Recupera todos os locais do serviço de API e atualiza o estado locations.
     async function getAllLocations() {
@@ -218,15 +203,10 @@ export default function Locations() {
         if (advancedSearch) clearAdvancedSearch()
     }
 
-    // Função para ir para a próxima página
-    const goToNextPage = () => {
-        setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))
-    }
-
-    // Função para ir para a página anterior
-    const goToPreviousPage = () => {
-        setCurrentPage(prevPage => Math.max(prevPage - 1, 1))
-    }
+    // Função de callback para lidar com a mudança de página
+    const handlePageChange = useCallback((pageItems) => {
+        setCurrentItems(pageItems);
+    }, []);
 
     return (
         <Container>
@@ -292,7 +272,7 @@ export default function Locations() {
                                         <p className='mb-0 text-capitalize'>{selectedLocationId === local.id ? <strong>{local.nome}</strong> : local.nome}</p>
                                     </Col>
                                     <Col xs={12} sm={5} md={5} className='mb-2 mb-sm-0 d-flex justify-content-end'>
-                                        <Button className='me-2 btn-sm' onClick={() => handleShowDetails(local.id)}>
+                                        <Button className='me-2 btn-sm btn-warning' onClick={() => handleShowDetails(local.id)}>
                                             Detalhes
                                         </Button>
                                         <Button
@@ -323,17 +303,7 @@ export default function Locations() {
                         </ListGroup.Item>
                     ))}
 
-                    <div className="mt-4 d-flex justify-content-center align-items-center">
-                        <Button variant="primary" onClick={goToPreviousPage} disabled={currentPage === 1}>
-                            <ArrowLeft />
-                        </Button>
-                        <div className="mx-4 d-flex justify-content-center align-items-center ">
-                            <span>pág {currentPage}</span>
-                        </div>
-                        <Button variant="primary" onClick={goToNextPage} disabled={currentPage === totalPages}>
-                            <ArrowRight />
-                        </Button>
-                    </div>
+                    <Paginationn items={filteredLocations} onPageChange={handlePageChange} />
                 </ListGroup>
             )}
 
