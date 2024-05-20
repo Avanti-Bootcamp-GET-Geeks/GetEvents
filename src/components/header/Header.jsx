@@ -106,6 +106,8 @@ export default function Header() {
                         <NavDropdown.Item as={Link} to="/create/event">Crie seu Evento</NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to="/my-events">Meus Eventos</NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to="/locations">Locais</NavDropdown.Item>
                         
                         {isAdmin && (
                           <>
@@ -116,8 +118,6 @@ export default function Header() {
                           </>
                         )}
      
-
-
                       </NavDropdown>
                     </Nav>
                   </div>
