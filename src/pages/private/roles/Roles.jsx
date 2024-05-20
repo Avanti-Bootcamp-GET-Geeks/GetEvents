@@ -38,7 +38,7 @@ export default function Roles() {
         setRoleId(role.id) // Definir o ID do cargo
     }
 
-    const handleCloseMessage = () => setShowMessage(false)
+    const handleCloseMessage = () => setShowMessage({ show: false, message: "" })
     const handleShowMessage = (message) => setShowMessage({ show: true, message: message })
 
     const handleCloseMessageDelete = () => setShowMessageDelete(false)
@@ -177,7 +177,7 @@ export default function Roles() {
                 </Modal.Footer>
             </Modal>
 
-            {/*Modal de erro ao excluir cargo*/}
+            {/*Modal de erro no cargo*/}
             <Modal show={showMessage.show} onHide={handleCloseMessage}>
                 <Modal.Header closeButton>
                     <Modal.Title>Mensagem</Modal.Title>
