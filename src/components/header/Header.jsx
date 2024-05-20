@@ -17,8 +17,7 @@ import {SearchContext} from "../../context/SearchContext.jsx";
 export default function Header() {
 
   const {categories, setCategory, locals, setLocalId} = useContext(SearchContext);
-  const {userLogged, logoutUser} = useContext(AuthContext);
-
+  const {userLogged, logoutUser, isAdmin} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -108,11 +107,17 @@ export default function Header() {
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to="/my-events">Meus Eventos</NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to="/categories">Categorias</NavDropdown.Item>
-                        <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to="/locations">Locais</NavDropdown.Item>
-                        <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to="/roles">Cargos</NavDropdown.Item>
+                        
+                        {isAdmin && (
+                          <>
+                          <NavDropdown.Divider/>
+                          <NavDropdown.Item as={Link} to="/categories">Categorias</NavDropdown.Item>
+                          <NavDropdown.Divider/>
+                          <NavDropdown.Item as={Link} to="/roles">Cargos</NavDropdown.Item>
+                          </>
+                        )}
+     
                       </NavDropdown>
                     </Nav>
                   </div>

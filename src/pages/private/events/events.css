@@ -1,20 +1,5 @@
-/* /events */
-.icon-edit, .icon-trash {
-    font-size: 1.4rem;
-    cursor: pointer
-}
-
-.icon-edit {
-    color: var(--color-primary);
-}
-
-.icon-trash {
-    color: #f00;
-}
-
-
 table {
-
+    
     & th {
         color: var(--color-title) !important;
         font-weight: 500;
