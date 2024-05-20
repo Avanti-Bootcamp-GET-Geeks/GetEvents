@@ -11,7 +11,7 @@ const PublicRoutes = () => (
         <Route path='/event-info/:id' element={<EventInfo />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/notfound' element={<NotFound />} />
+        <Route path='*' element={<NotFound />} />
     </Routes>
 );
 
