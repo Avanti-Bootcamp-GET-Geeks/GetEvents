@@ -3,6 +3,7 @@ import Home from '../pages/public/home/Home';
 import {EventInfo} from '../pages/public/eventInfo/EventInfo';
 import Register from '../pages/public/register/Register';
 import Login from '../pages/public/login/Login';
+import NotFound from "../pages/public/notFound/NotFound.jsx";
 
 const PublicRoutes = () => (
     <Routes>
@@ -10,6 +11,7 @@ const PublicRoutes = () => (
         <Route path='/event-info/:id' element={<EventInfo />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/notfound' element={<NotFound />} />
     </Routes>
 );
 

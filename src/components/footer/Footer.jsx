@@ -1,7 +1,9 @@
+import './Footer.css'
+
 export default function Footer() {
     return (
-        <>
-            <h1>Footer</h1>
-        </>
+      <div className="footer-container">
+            <p>GET GEEKS - AVANTI S.A. © Copyright 2024</p>
+      </div>
     )
 }

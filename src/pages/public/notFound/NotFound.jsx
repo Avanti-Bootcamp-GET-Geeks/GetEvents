@@ -1,13 +1,11 @@
-import "./NotFound.css";
+import './NotFound.css';
 
 export default function NotFound() {
-    return (
-        <>
-            <div>
-                <h1>(^_^)</h1>
-                <p className="error">404 ERROR</p>
-                <p>Página não encontrada</p>
-            </div>
-        </>
-    )
+  return (
+    <div className="not-found-container">
+      <h1>(^_^)</h1>
+      <h2>404 ERROR</h2>
+      <p>Página não encontrada</p>
+    </div>
+  );
 }
