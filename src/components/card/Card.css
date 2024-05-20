@@ -83,7 +83,7 @@
 /* /my-events */
 .container-icons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding-bottom: 1rem;
     z-index: 20;
 }
@@ -110,5 +110,4 @@
 
 .icon-trash {
     color: #f00;
-    /* z-index: ; */
 }
