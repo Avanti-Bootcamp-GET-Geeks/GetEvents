@@ -1,14 +1,24 @@
-import { useContext} from "react";
+import { useContext, useEffect} from "react";
 import { Card } from "../../../components/card/Card";
 import { EventList } from "../../../components/eventList/EventList";
 import { Pagination } from "../../../components/pagination/Pagination";
 import { SearchContext } from "../../../context/SearchContext";
+import { useLocation } from "react-router-dom";
+import ToastAnimated, {showToast} from "../../../components/ui-lib/Toast";
 
 export default function Home() {
     const {events, eventsFound, currentPage, handlePageChange} = useContext(SearchContext);
+    const {state} = useLocation();
+
+    useEffect(()=> {
+        showToast({type: 'success', message: state});
+    },[])
     
     return(
         <>
+            {/* Componente de alerts */}
+            <ToastAnimated />
+
             <div className="container">
                 {/* Lista eventos */}
                 <EventList>              
