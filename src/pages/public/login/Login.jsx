@@ -46,7 +46,7 @@ export default function Login() {
 
 
     return(
-        <div className="container m-5">
+        <section>
 
          <h1 className="titulo">Login</h1>   
 
@@ -67,7 +67,7 @@ export default function Login() {
 
                <button type="submit" className="btn btn-primary">Entrar</button>
             </form>
-        </div>
+        </section>
     );
 
 }
