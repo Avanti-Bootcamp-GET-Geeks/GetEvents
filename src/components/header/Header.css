@@ -21,6 +21,11 @@ nav {
     }
 }
 
+.buttons{
+    z-index: 10;
+    position: relative;
+}
+
 .nav-link{
     font-weight: bold;
 }

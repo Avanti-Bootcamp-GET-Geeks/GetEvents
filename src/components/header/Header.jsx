@@ -131,7 +131,7 @@ export default function Header() {
                   </div>
                 </Col>
                 <Col md={6} xs={2} className="">
-                  <div className="d-flex justify-content-end align-content-center">
+                  <div className="d-flex justify-content-end align-content-center buttons">
                     <Button as={Link}
                             to="/app/settings"
                             className={' ms-auto text-black'}
