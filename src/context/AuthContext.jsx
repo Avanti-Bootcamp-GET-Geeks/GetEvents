@@ -5,8 +5,8 @@ import useAuth from '../hooks/useAuth'; // Hook criado para autenticação
 export const AuthContext = createContext();
 
 // Responsável em fornecer/Prover os dados
-export const AuthProvider = ({ children }) => {
-
+export const AuthProvider = ({children}) => {
+    
     // Importa o hooks com suas funcionalidades de forma desestruturada
     const { userLogged, loading, loginUser, logoutUser, isAdmin, setIsAdmin  } = useAuth();
 

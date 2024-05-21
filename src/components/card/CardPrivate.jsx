@@ -28,19 +28,19 @@ export const CardPrivate = ({event, handleDelete}) => {
     return(
         <div className="card">
             <img src={event.imagem} className="card-img-top" alt={event.nome} /> 
-            <div className={EVENT_CLOSED && 'eventClosed'}>
+            <div className={EVENT_CLOSED ? 'eventClosed' : ''}>
                 <span className={EVENT_CLOSED ? 'eventClosed-badge' : 'd-none'}>Evento encerrado!</span>
             </div>          
-            <div className="cardHeader">
             
-            <Calendar2Event /> 
-            {differentDates ? 
-                formattedDate2.format(new Date(event.data_inicio)) : formattedDate1.format(new Date(event.data_inicio)) 
-            }
-            { differentDates && (<ChevronRight />) }
-            { differentDates && formattedDate2.format(new Date(event.data_fim)) } 
+            <div className="cardHeader">                            <Calendar2Event /> 
+                {differentDates ? 
+                    formattedDate2.format(new Date(event.data_inicio)) : formattedDate1.format(new Date(event.data_inicio)) 
+                }
+                { differentDates && (<ChevronRight />) }
+                { differentDates && formattedDate2.format(new Date(event.data_fim)) } 
                                      
             </div>
+
             <div className="cardBody">
                 <h5 className="cardTitle"> {event.nome} </h5>
                 <p className="cardText">
