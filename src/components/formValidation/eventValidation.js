@@ -4,7 +4,7 @@ export function verifyURL(url) {
 }
 
 export function verifyEventName(name) {
-    const pattern = /^[\w|\s]{20,40}$/
+    const pattern = /^[\s|\S]{20,40}$/
     return pattern.test(name.trim());
 }
 
