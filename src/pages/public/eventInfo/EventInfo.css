@@ -1,8 +1,12 @@
+.container-event {
+    max-width: 1024px;
+}
+
 .logo {
     background-color: var(--color-title);
     color: var(--color-light);
     font-size: 2rem;
-    font-weight: 300;    
+    font-weight: 300;
     text-shadow: 0 0 .5rem var(--color-shadow);
     padding: 1rem 0 2rem 2rem;
     cursor: pointer;
@@ -12,10 +16,11 @@
     width: 100%;
     z-index: 0;
     position: relative;
-    
+
     & .imgBanner {
-       max-width: 100%;
-        height: auto;
+        width: 100%;
+        /* height: auto; */
+        max-height: 515px;
         opacity: .4;
     }
 }
@@ -25,11 +30,11 @@ div.featuredImage {
     position: absolute;
     top: -1rem;
     z-index: 999;
-    
+
     & img {
         display: block;
         max-width: 80%;
-        height:auto;
+        max-height: 530px;
         margin: 0 auto;
         border-radius: 1rem;
         box-shadow: 0 0 .4rem var(--color-shadow);
@@ -41,7 +46,7 @@ div.featuredImage {
     padding: 1rem 1.6rem;
     margin-top: 1rem;
 
-    & h1  {
+    & h1 {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -103,17 +108,18 @@ div.featuredImage {
         font-size: 1.6rem;
         padding: 1rem;
     }
-     
-    .banner {   
+
+    .banner {
         & .imgBanner {
             display: none;
         }
     }
-    
+
     div.featuredImage {
         position: static;
+
         & img {
-           max-width: 100%;
+            max-width: 100%;
             height: auto;
             border-radius: 0;
             box-shadow: none;
@@ -133,12 +139,12 @@ div.featuredImage {
 
 @media (max-width: 425px) {
 
-    div.featuredImage {       
+    div.featuredImage {
         & img {
             max-width: 100%;
             height: auto;
-            
-       }
-   }
+
+        }
+    }
 
 }

@@ -41,7 +41,7 @@ export const EventInfo = () => {
     const differentDates = state.data_inicio !== state.data_fim;
 
     return(
-    <>
+    <section className={'container-event'}>
     <div className="logo" onClick={() => navigate('/')}>GetEvents</div>
         <div className="banner">
             <img src={event.imagem} alt="img" className="imgBanner" />
@@ -78,6 +78,6 @@ export const EventInfo = () => {
             </div>
 
         </div>
-        </>      
+        </section>
     )
 };
