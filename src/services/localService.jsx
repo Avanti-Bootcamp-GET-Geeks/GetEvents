@@ -1,4 +1,15 @@
 import api from './api'
+import apiCep from './apiCep';
+
+export const findLocalCep = async (cep) => {
+    try {
+        const response = await apiCep.get(`/${cep}/json/`);
+        return response.data; 
+    } catch (error) {
+        console.error(error.message);
+        throw error; 
+    }
+} 
 
 export const createLocal = async (local) => {
     try {
@@ -9,6 +20,7 @@ export const createLocal = async (local) => {
         throw error;
     }
 }
+
 
 export const findAllLocals = async (limit, offset) => {
     try {

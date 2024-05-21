@@ -1,17 +1,47 @@
 import { useCallback, useEffect, useState } from "react"
-import { createLocal, findAllLocals, updateLocal, deleteLocal } from "../../../services/localService.jsx"
+import { createLocal, findAllLocals, updateLocal, deleteLocal, findLocalCep } from "../../../services/localService.jsx"
 
 import ListGroup from "react-bootstrap/ListGroup"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 import Form from "react-bootstrap/Form"
 import Alert from "react-bootstrap/Alert"
-import { PencilSquare, Trash, Funnel} from "react-bootstrap-icons"
+import { PencilSquare, Trash, Funnel, Search, Building, GeoAlt, Flag, Globe, Signpost, InfoCircle } from "react-bootstrap-icons"
 import { Col, Row, Container } from "react-bootstrap"
 import Paginationn from "../../../components/pagination/Paginationn.jsx"
 
 function removeAccents(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+}
+
+const estadosBrasil = {
+    AC: "Acre",
+    AL: "Alagoas",
+    AP: "Amapá",
+    AM: "Amazonas",
+    BA: "Bahia",
+    CE: "Ceará",
+    DF: "Distrito Federal",
+    ES: "Espírito Santo",
+    GO: "Goiás",
+    MA: "Maranhão",
+    MT: "Mato Grosso",
+    MS: "Mato Grosso do Sul",
+    MG: "Minas Gerais",
+    PA: "Pará",
+    PB: "Paraíba",
+    PR: "Paraná",
+    PE: "Pernambuco",
+    PI: "Piauí",
+    RJ: "Rio de Janeiro",
+    RN: "Rio Grande do Norte",
+    RS: "Rio Grande do Sul",
+    RO: "Rondônia",
+    RR: "Roraima",
+    SC: "Santa Catarina",
+    SP: "São Paulo",
+    SE: "Sergipe",
+    TO: "Tocantins",
 }
 
 export default function Locations() {
@@ -27,6 +57,7 @@ export default function Locations() {
     const [pais, setCountry] = useState("") // País do local
 
     // Estado para armazenar os critérios de pesquisa
+    const [searchCep, setSearchCep] = useState("") // Pesquisa por Cep
     const [searchNome, setSearchName] = useState("") // Pesquisa por nome
     const [searchEndereco, setSearchAddress] = useState("") // Pesquisa por endereço
     const [searchCidade, setSearchCity] = useState("") // Pesquisa por cidade
@@ -49,6 +80,8 @@ export default function Locations() {
     const [showAlert, setShowAlert] = useState(false) // Alerta de erro
     const [loading, setLoading] = useState(true) // Indicador de carregamento
 
+    const [errorCep, setErrorCep] = useState(false) // Se houver um erro no CEP
+
     // Estado para os itens da página atual
     const [currentItems, setCurrentItems] = useState([])
 
@@ -61,6 +94,7 @@ export default function Locations() {
     }
     const handleShowCreate = () => {
         setShowCreate(true)
+        setShowEdit(false)
         setLocalId(null) // Limpar o ID do local
         clearForm()
     }
@@ -69,6 +103,7 @@ export default function Locations() {
     const handleCloseEdit = () => setShowEdit(false)
     const handleShowEdit = (local) => {
         clearForm()
+        setShowCreate(false)
         setShowEdit(true)
         setLocalId(local.id) // Definir o ID do local
         setLocalName(local.nome)
@@ -123,6 +158,34 @@ export default function Locations() {
             console.error(error.message)
         } finally {
             setLoading(false)
+        }
+    }
+
+    async function getLocalCep(cep) {
+        // Limpa o CEP, mantendo apenas números e hífens
+        const sanitizedCep = cep.replace(/[^0-9-]/g, "")
+
+        // Verifica se o CEP tem um formato válido
+        const isValidCep = sanitizedCep.length === 8 || (sanitizedCep.length === 9 && sanitizedCep.includes("-"))
+
+        if (!isValidCep) {
+            setErrorCep(true)
+            return
+        }
+
+        try {
+            // Chama a função para encontrar o endereço a partir do CEP
+            const response = await findLocalCep(sanitizedCep)
+
+            // Atualiza o estado com as informações recebidas
+            setErrorCep(false)
+            setAddress(response.logradouro || "")
+            setCity(response.localidade || "")
+            setState(estadosBrasil[response.uf] || "")
+            setCountry("Brasil")
+        } catch (error) {
+            // Se houver um erro, define o estado de erro do CEP
+            setErrorCep(true)
         }
     }
 
@@ -190,6 +253,8 @@ export default function Locations() {
 
     // Limpa o formulário de criação/edição de locais.
     const clearForm = () => {
+        setErrorCep(false)
+        setSearchCep("")
         setLocalName("")
         setAddress("")
         setCity("")
@@ -205,8 +270,8 @@ export default function Locations() {
 
     // Função de callback para lidar com a mudança de página
     const handlePageChange = useCallback((pageItems) => {
-        setCurrentItems(pageItems);
-    }, []);
+        setCurrentItems(pageItems)
+    }, [])
 
     return (
         <Container>
@@ -272,19 +337,13 @@ export default function Locations() {
                                         <p className='mb-0 text-capitalize'>{selectedLocationId === local.id ? <strong>{local.nome}</strong> : local.nome}</p>
                                     </Col>
                                     <Col xs={12} sm={5} md={5} className='mb-2 mb-sm-0 d-flex justify-content-end'>
-                                        <Button className='me-2 btn-sm btn-warning' onClick={() => handleShowDetails(local.id)}>
-                                            Detalhes
+                                        <Button className='me-2 btn btn-warning' onClick={() => handleShowDetails(local.id)}>
+                                            <InfoCircle />
                                         </Button>
-                                        <Button
-                                            className='me-2 btn-sm bi-pencil-fill'
-                                            onClick={() => handleShowEdit(local)}
-                                        >
+                                        <Button className='me-2 btn bi-pencil-fill' onClick={() => handleShowEdit(local)}>
                                             <PencilSquare />
                                         </Button>
-                                        <Button
-                                            className='btn btn-sm btn-danger'
-                                            onClick={() => handleShowMessageDelete(local.id)}
-                                        >
+                                        <Button className='btn btn btn-danger' onClick={() => handleShowMessageDelete(local.id)}>
                                             <Trash />
                                         </Button>
                                     </Col>
@@ -294,10 +353,18 @@ export default function Locations() {
                             {selectedLocationId === local.id && (
                                 <div className='w-100'>
                                     <hr className='mt-2 mb-2' />
-                                    <p className='mb-1'>Endereço: {local.endereco}</p>
-                                    <p className='mb-1'>Cidade: {local.cidade}</p>
-                                    <p className='mb-1'>Estado: {local.estado}</p>
-                                    <p className='mb-1'>País: {local.pais}</p>
+                                    <p className='mb-1 d-flex align-items-center'>
+                                        <Signpost className='me-2' /> Endereço: {local.endereco}
+                                    </p>
+                                    <p className='mb-1 d-flex align-items-center'>
+                                        <GeoAlt className='me-2' /> Cidade: {local.cidade}
+                                    </p>
+                                    <p className='mb-1 d-flex align-items-center'>
+                                        <Flag className='me-2' /> Estado: {local.estado}
+                                    </p>
+                                    <p className='mb-1 d-flex align-items-center'>
+                                        <Globe className='me-2' /> País: {local.pais}
+                                    </p>
                                 </div>
                             )}
                         </ListGroup.Item>
@@ -307,83 +374,102 @@ export default function Locations() {
                 </ListGroup>
             )}
 
-            {/*Modal Criar local*/}
-            <Modal show={showCreate} onHide={handleCloseCreate}>
+            {/*Modal Criar e Editar local*/}
+            <Modal
+                show={showCreate || showEdit}
+                onHide={() => {
+                    handleCloseCreate()
+                    handleCloseEdit()
+                }}
+            >
                 <Modal.Header closeButton>
-                    <Modal.Title>Criar Local</Modal.Title>
+                    <Modal.Title>
+                        {showCreate && "Criar Local"} 
+                        {showEdit && "Editar Local"}
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Alert show={showAlert} variant='danger' onClose={closeAlert} dismissible>
-                        É necessário preencher todos os campos do cadastro!
-                    </Alert>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Nome</Form.Label>
+                        <Form.Label>Pesquisar Cep</Form.Label>
+                        <div className='d-flex align-items-start'>
+                            <div className='flex-grow-1 me-2'>
+                                <Form.Control
+                                    type='text'
+                                    className={errorCep ? "is-invalid" : ""}
+                                    value={searchCep}
+                                    onChange={(e) => setSearchCep(e.target.value)}
+                                    placeholder='CEP do Local'
+                                    maxLength={9}
+                                    required
+                                />
+                                {errorCep && <div className='invalid-feedback'>CEP incorreto. Por favor, insira um CEP válido no formato 00000-000.</div>}
+                            </div>
+                            <Button variant='success' className='btn' onClick={() => getLocalCep(searchCep)}>
+                                <Search />
+                            </Button>
+                        </div>
+                    </Form.Group>
+                    <hr className='mt-1 mb-2' />
+                    <Form.Group className='mb-3'>
+                        <Form.Label>
+                            <Building className='me-2' />
+                            Nome
+                        </Form.Label>
                         <Form.Control type='text' value={nome} onChange={(e) => setLocalName(e.target.value)} placeholder='Nome do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Endereço</Form.Label>
+                        <Form.Label>
+                            <Signpost className='me-2' />
+                            Endereço
+                        </Form.Label>
                         <Form.Control type='text' value={endereco} onChange={(e) => setAddress(e.target.value)} placeholder='Endereço do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Cidade</Form.Label>
+                        <Form.Label>
+                            <GeoAlt className='me-2' />
+                            Cidade
+                        </Form.Label>
                         <Form.Control type='text' value={cidade} onChange={(e) => setCity(e.target.value)} placeholder='Cidade do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Estado</Form.Label>
+                        <Form.Label>
+                            <Flag className='me-2' />
+                            Estado
+                        </Form.Label>
                         <Form.Control type='text' value={estado} onChange={(e) => setState(e.target.value)} placeholder='Estado do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>País</Form.Label>
+                        <Form.Label>
+                            <Globe className='me-2' />
+                            País
+                        </Form.Label>
                         <Form.Control type='text' value={pais} onChange={(e) => setCountry(e.target.value)} placeholder='País do Local' required />
                     </Form.Group>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant='secondary' className='btn-sm' onClick={handleCloseCreate}>
-                        Fechar
-                    </Button>
-                    <Button variant='success' className='btn-sm' onClick={handleCreateLocal}>
-                        Criar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            {/*Modal editar local*/}
-            <Modal show={showEdit} onHide={handleCloseEdit}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Editar Local</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
                     <Alert show={showAlert} variant='danger' onClose={closeAlert} dismissible>
                         É necessário preencher todos os campos do cadastro!
                     </Alert>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Nome</Form.Label>
-                        <Form.Control type='text' value={nome} onChange={(e) => setLocalName(e.target.value)} placeholder='Nome do Local' required />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Endereço</Form.Label>
-                        <Form.Control type='text' value={endereco} onChange={(e) => setAddress(e.target.value)} placeholder='Endereço do Local' required />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Cidade</Form.Label>
-                        <Form.Control type='text' value={cidade} onChange={(e) => setCity(e.target.value)} placeholder='Cidade do Local' required />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Estado</Form.Label>
-                        <Form.Control type='text' value={estado} onChange={(e) => setState(e.target.value)} placeholder='Estado do Local' required />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>País</Form.Label>
-                        <Form.Control type='text' value={pais} onChange={(e) => setCountry(e.target.value)} placeholder='País do Local' required />
-                    </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant='secondary' className='btn-sm' onClick={handleCloseEdit}>
+                    <Button
+                        variant='secondary'
+                        className='btn-sm'
+                        onClick={() => {
+                            handleCloseCreate()
+                            handleCloseEdit()
+                        }}
+                    >
                         Fechar
                     </Button>
-                    <Button variant='primary' className='btn-sm' onClick={() => handleUpdateLocal(localId)}>
-                        Salvar
-                    </Button>
+                    {showCreate && (
+                        <Button variant='success' className='btn-sm' onClick={handleCreateLocal}>
+                            Criar
+                        </Button>
+                    )}
+                    {showEdit && (
+                        <Button variant='primary' className='btn-sm' onClick={() => handleUpdateLocal(localId)}>
+                            Salvar
+                        </Button>
+                    )}
                 </Modal.Footer>
             </Modal>
 
