@@ -12,6 +12,7 @@ const useAuth = () => {
     const navigate = useNavigate();
     
     useEffect(() => {
+        console.log('nasceu')
         // Busca usuário no localStorage e converte para objeto JS
         const userInfo = JSON.parse(localStorage.getItem('userInfo')); 
         
@@ -24,7 +25,7 @@ const useAuth = () => {
         }
         
         setloading(false);
-    }, [isAdmin]);
+    }, []);
     
 
      // Função para ser utilizada na página de login
@@ -38,6 +39,7 @@ const useAuth = () => {
 
                 // Add header em todas as chamadas da aplicação - ao logar
                 api.defaults.headers.common['Authorization'] = `Bearer ${response.token}`;
+
 
                 setUserLogged(true); // Altera status do usuário -> Logado
                 setIsAdmin(response.isAdmin); // Seta true/false com base no user logado
@@ -63,7 +65,7 @@ const useAuth = () => {
     };
 
     // Retorna um objeto com todas as variáveis de estado e funções
-    return { userLogged, loading, loginUser, logoutUser, isAdmin };
+    return { userLogged, loading, loginUser, logoutUser, isAdmin, setIsAdmin };
 }
 
 export default useAuth;

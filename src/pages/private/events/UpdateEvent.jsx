@@ -88,14 +88,14 @@ export const UpdateEvent = () => {
             data_fim: fieldValue.data_fim ? new Date(fieldValue.data_fim).toISOString() : ''
         }
         await updateEvent(event.id, formattedData);
-        navigate('/my-events')
+        navigate('/app/my-events')
     }
 
     return(
         <>
         <h1>
             Atualizar evento
-            <span title="Voltar" onClick={() => navigate('/my-events')}><ArrowLeftSquare /></span>
+            <span title="Voltar" onClick={() => navigate('/app/my-events')}><ArrowLeftSquare /></span>
             </h1>
         
         <form onSubmit={handleSubmit}>

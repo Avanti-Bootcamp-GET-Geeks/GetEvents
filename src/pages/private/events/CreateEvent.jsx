@@ -63,13 +63,13 @@ export const CreateEvent = () => {
             data_fim: fieldValue.data_fim ? new Date(fieldValue.data_fim).toISOString() : ''
         }
         await createEvent(formattedData);
-        navigate('/my-events')
+        navigate('/app/my-events')
     }
 
     return(
         <>
         <h1>Cadastrar evento
-        <span title="Clique para voltar" onClick={() => navigate('/my-events')}><ArrowLeftSquare /></span>
+        <span title="Clique para voltar" onClick={() => navigate('/app/my-events')}><ArrowLeftSquare /></span>
         </h1>
         
         <form onSubmit={handleSubmit} method="POST">

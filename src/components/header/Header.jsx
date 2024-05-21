@@ -17,7 +17,7 @@ import {SearchContext} from "../../context/SearchContext.jsx";
 export default function Header() {
 
   const {categories, setCategory, locals, setLocalId} = useContext(SearchContext);
-  const {userLogged, logoutUser, isAdmin} = useContext(AuthContext);
+  const {userLogged, logoutUser, isAdmin, setIsAdmin} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -30,6 +30,11 @@ export default function Header() {
     setCategory(fieldValue.categoria_id);
     setLocalId(fieldValue.local_id);
   }, [fieldValue])
+
+  useEffect(()=> {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      setIsAdmin(userInfo.isAdmin);
+  }, [])
 
 
   const handleRegister = () => {
@@ -61,11 +66,12 @@ export default function Header() {
                 <Row className="m-auto">
                   <Col md={5} xs={12} className="">
                     <label className="labelSearch">
-                      <Tag className="icon-search"/> <Form.Select name="categoria_id"
-                                                                  id="categoria"
-                                                                  value={fieldValue.categoria_id}
-                                                                  onChange={handleChange}
-                                                                  aria-label="Categorias"
+                      <Tag className="icon-search"/> 
+                      <Form.Select name="categoria_id"
+                            id="categoria"
+                            value={fieldValue.categoria_id}
+                            onChange={handleChange}
+                            aria-label="Categorias"
                     >
                       <option value="">Todas</option>
                       {categories.map(category => (
@@ -103,21 +109,19 @@ export default function Header() {
                   <div className="">
                     <Nav className="me-auto">
                       <NavDropdown title="Menu">
-                        <NavDropdown.Item as={Link} to="/create/event">Crie seu Evento</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/app/create/event">Crie seu Evento</NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to="/my-events">Meus Eventos</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/app/my-events">Meus Eventos</NavDropdown.Item>
                         
                         {isAdmin && (
                           <>
                           <NavDropdown.Divider/>
-                          <NavDropdown.Item as={Link} to="/categories">Categorias</NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to="/app/categories">Categorias</NavDropdown.Item>
                           <NavDropdown.Divider/>
-                          <NavDropdown.Item as={Link} to="/roles">Cargos</NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to="/app/roles">Cargos</NavDropdown.Item>
                           </>
                         )}
      
-
-
                       </NavDropdown>
                     </Nav>
                   </div>
@@ -125,7 +129,7 @@ export default function Header() {
                 <Col md={6} xs={2} className="">
                   <div className="d-flex justify-content-end align-content-center">
                     <Button as={Link}
-                            to="/settings"
+                            to="/app/settings"
                             className={' ms-auto text-black'}
                             variant='warning'>
                       <GearFill/>
@@ -148,11 +152,12 @@ export default function Header() {
                 <Row className="m-auto">
                   <Col md={5} xs={12} className="">
                     <label className="labelSearch">
-                      <Tag className="icon-search"/> <Form.Select name="categoria_id"
-                                                                  id="categoria"
-                                                                  value={fieldValue.categoria_id}
-                                                                  onChange={handleChange}
-                                                                  aria-label="Categorias"
+                      <Tag className="icon-search"/> 
+                      <Form.Select name="categoria_id"
+                          id="categoria"
+                          value={fieldValue.categoria_id}
+                          onChange={handleChange}
+                          aria-label="Categorias"
                     >
                       <option value="">Todas</option>
                       {categories.map(category => (
@@ -189,7 +194,7 @@ export default function Header() {
                 <Col>
                   <div className="p-2 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between w-100">
                     <Nav className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                      <Nav.Link as={Link} to="/create/event" className="mb-2 mb-md-0 me-md-2 text-center text-md-start">Crie seu Evento</Nav.Link>
+                      <Nav.Link as={Link} to="/app/create/event" className="mb-2 mb-md-0 me-md-2 text-center text-md-start">Crie seu Evento</Nav.Link>
                       <Nav.Link as={Link} to="/login" className="mb-2 mb-md-0 me-md-2 text-center text-md-start">Login</Nav.Link>
                     </Nav>
                     <Button variant="outline-primary" onClick={handleRegister} className="mb-2 mb-md-0 ms-md-auto">Cadastre-se</Button>

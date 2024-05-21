@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
 
     // Importa o hooks com suas funcionalidades de forma desestruturada
-    const { userLogged, loading, loginUser, logoutUser, isAdmin  } = useAuth();
+    const { userLogged, loading, loginUser, logoutUser, isAdmin, setIsAdmin  } = useAuth();
 
     // Enquanto estiver carregando, renderiza o spinner, ao finalizar carrega os componentes children
     if (loading) {
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         // Indica o que será provido por meio da propriedade value
-        <AuthContext.Provider value={{ userLogged, loading, loginUser, logoutUser, isAdmin }}>
+        <AuthContext.Provider value={{ userLogged, loading, loginUser, logoutUser, isAdmin, setIsAdmin }}>
             {children}
         </AuthContext.Provider>
     );

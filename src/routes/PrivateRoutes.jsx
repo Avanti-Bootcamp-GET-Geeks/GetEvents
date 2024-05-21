@@ -6,6 +6,7 @@ import Roles from '../pages/private/roles/Roles';
 import { CreateEvent } from '../pages/private/events/CreateEvent';
 import { UpdateEvent } from '../pages/private/events/UpdateEvent';
 import { ProtectedRoute } from './ProtectedRoute';
+import NotFound from "../pages/public/notFound/NotFound.jsx";
 
 const PrivateRoutes = () => (
     <Routes>
@@ -22,6 +23,8 @@ const PrivateRoutes = () => (
 
         {/* Rotas para usuário */}
         <Route path='/settings' element={<ProtectedRoute> <Settings /> </ProtectedRoute>} />
+
+        <Route path="/*" element={<NotFound />} />
     </Routes>
 );
 

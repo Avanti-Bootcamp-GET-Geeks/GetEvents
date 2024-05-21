@@ -11,8 +11,7 @@ const PublicRoutes = () => (
     <Route path='/event-info/:id' element={<EventInfo />} />
     <Route path='/register' element={<Register />} />
     <Route path='/login' element={<Login />} />
-    <Route path='/404' element={<NotFound />} />
-    <Route path="/*" element={<Navigate to="/404" />} />
+    <Route path="/*" element={<NotFound />} />
   </Routes>
 );
 
