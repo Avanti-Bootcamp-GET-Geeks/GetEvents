@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 import Form from "react-bootstrap/Form"
 import { PencilSquare, Trash } from "react-bootstrap-icons"
-// import "../../../Global.css"
 import { Col, Container } from "react-bootstrap"
 
 function removeAccents(str) {

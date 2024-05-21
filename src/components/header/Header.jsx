@@ -114,6 +114,8 @@ export default function Header() {
                         <NavDropdown.Item as={Link} to="/app/create/event">Crie seu Evento</NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to="/app/my-events">Meus Eventos</NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to="/app/locations">Locais</NavDropdown.Item>
                         
                         {isAdmin && (
                           <>

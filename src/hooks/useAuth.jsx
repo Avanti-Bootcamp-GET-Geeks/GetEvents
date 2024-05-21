@@ -42,14 +42,12 @@ const useAuth = () => {
 
                 setUserLogged(true); // Altera status do usuário -> Logado
                 setIsAdmin(response.isAdmin); // Seta true/false com base no user logado
-                navigate('/'); // Redireciona para home - listagem de eventos
+                navigate('/', {state: `Seja bem vindo(a), ${getFirstName(response.name)}!`}); // Redireciona para home - listagem de eventos (Exibe o nome do usuário logado)
             }
 
         } catch (error) {
-            const message = error.response.data.message;
-            const status = error.response.status;
-            // console.log(status);
-            alert(error.response.data.message);
+            const message = error.response.data.message; // msg de erro do back
+            const status = error.response.status; // status da resposta
             navigate('/login', {state: {message, status}}); // Chama a rota de login com a message  de erro
         }
     };
@@ -62,6 +60,14 @@ const useAuth = () => {
         setIsAdmin(false);
         navigate('/login'); // Redireciona para pág login
     };
+
+    function getFirstName(fullName) {
+        // Divide a string em partes usando o espaço como separador
+        const nameParts = fullName.split(' ');
+      
+        // Retorna a primeira parte do array
+        return nameParts[0];
+      }
 
     // Retorna um objeto com todas as variáveis de estado e funções
     return { userLogged, loading, loginUser, logoutUser, isAdmin, setIsAdmin };
