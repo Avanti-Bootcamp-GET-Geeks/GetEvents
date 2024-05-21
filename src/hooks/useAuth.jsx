@@ -12,7 +12,6 @@ const useAuth = () => {
     const navigate = useNavigate();
     
     useEffect(() => {
-        console.log('nasceu')
         // Busca usuário no localStorage e converte para objeto JS
         const userInfo = JSON.parse(localStorage.getItem('userInfo')); 
         

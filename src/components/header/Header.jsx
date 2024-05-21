@@ -32,7 +32,7 @@ export default function Header() {
   }, [fieldValue])
 
   useEffect(()=> {
-      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      const userInfo = JSON.parse(localStorage.getItem('userInfo')) || false;
       setIsAdmin(userInfo.isAdmin);
   }, [])
 
@@ -46,6 +46,8 @@ export default function Header() {
       ...fieldValue,
       [event.target.name]: event.target.value
     });
+
+    navigate("/");  // Navega para a página inicial ao selecionar uma categoria ou local
   };
 
 
@@ -194,7 +196,7 @@ export default function Header() {
                 <Col>
                   <div className="p-2 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between w-100">
                     <Nav className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                      <Nav.Link as={Link} to="/app/create/event" className="mb-2 mb-md-0 me-md-2 text-center text-md-start">Crie seu Evento</Nav.Link>
+                      {/* <Nav.Link as={Link} to="/app/create/event" className="mb-2 mb-md-0 me-md-2 text-center text-md-start">Crie seu Evento</Nav.Link> */}
                       <Nav.Link as={Link} to="/login" className="mb-2 mb-md-0 me-md-2 text-center text-md-start">Login</Nav.Link>
                     </Nav>
                     <Button variant="outline-primary" onClick={handleRegister} className="mb-2 mb-md-0 ms-md-auto">Cadastre-se</Button>
