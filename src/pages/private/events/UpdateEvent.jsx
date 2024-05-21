@@ -159,9 +159,10 @@ export const UpdateEvent = () => {
             data_fim: fieldValue.data_fim ? new Date(fieldValue.data_fim).toISOString() : ''
         }
 
+        
         try {
             await updateEvent(event.id, formattedData);
-            navigate('/my-events', {state: `Evento "${fieldValue.nome}" atualizado com sucesso!`})
+            navigate('/app/my-events', {state: `Evento "${fieldValue.nome}" atualizado com sucesso!`})
         } catch (error) {
             const {message, status} = error.response;
             status >= 400 && showToast({ type: 'success', message: message });
@@ -175,7 +176,7 @@ export const UpdateEvent = () => {
 
         <h1>
             Atualizar evento
-            <span title="Voltar" onClick={() => navigate('/my-events')}><ArrowLeftSquare /></span>
+            <span title="Voltar" onClick={() => navigate('/app/my-events')}><ArrowLeftSquare /></span>
             </h1>
         
         <form onSubmit={handleSubmit}>

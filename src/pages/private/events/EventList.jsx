@@ -55,7 +55,7 @@ export const EventListByUser = () => {
             <ToastAnimated />
 
             <div>
-                <button className="btn btn-primary mb-5 float-end" onClick={() => navigate('/create/event')}>Cadastrar evento</button>
+                <button className="btn btn-primary mb-5 float-end" onClick={() => navigate('/app/create/event')}>Cadastrar evento</button>
             </div>
 
             <EventList>

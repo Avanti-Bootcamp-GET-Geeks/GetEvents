@@ -13,12 +13,28 @@
     --color-light: #fff;
     --color-secondary: #757679;
     --color-shadow: #BDC2C9;
-    max-width: 1280px;
+    /*max-width: 1280px;*/
     margin: 0 auto;
-    padding: 2rem;
+   /* padding: 2rem;*/
+    height: 100%;
+    width: 100%;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 60px;
@@ -28,7 +44,7 @@ main {
 main section {
     width: 100%;
     max-width: 600px;
-    margin: auto;
+    margin: 0 auto;
 }
 
 h1.titulo {

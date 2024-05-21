@@ -135,7 +135,7 @@ export const CreateEvent = () => {
 
         try {
             await createEvent(formattedData);
-            navigate('/my-events', {state: `Evento "${fieldValue.nome}" cadastrado com sucesso!`})          
+            navigate('/app/my-events', {state: `Evento "${fieldValue.nome}" cadastrado com sucesso!`})          
         } catch (error) {
             const {message, status} = error.response;
             status >= 400 && showToast({ type: 'success', message: message });
@@ -148,7 +148,7 @@ export const CreateEvent = () => {
         <ToastAnimated />
 
         <h1>Cadastrar evento
-        <span title="Clique para voltar" onClick={() => navigate('/my-events')}><ArrowLeftSquare /></span>
+        <span title="Clique para voltar" onClick={() => navigate('/app/my-events')}><ArrowLeftSquare /></span>
         </h1>
         
         <form onSubmit={handleSubmit} method="POST">

@@ -95,6 +95,7 @@ export default function Settings() {
     };
 
     return (
+      <section>
           <Container>
               <h1 className="titulo">Minha Conta</h1>
               <Form onSubmit={handleSubmit}>
@@ -181,5 +182,6 @@ export default function Settings() {
                   </Button>
               </Form>
           </Container>
+      </section>
     );
 }
