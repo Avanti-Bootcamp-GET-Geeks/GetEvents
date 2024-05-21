@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 import Form from "react-bootstrap/Form"
 import Alert from "react-bootstrap/Alert"
-import { PencilSquare, Trash, Funnel} from "react-bootstrap-icons"
+import { PencilSquare, Trash, Funnel, GlobeAmericas, Flag, Geo, GeoAlt, TextareaT} from "react-bootstrap-icons"
 import { Col, Row, Container } from "react-bootstrap"
 import Paginationn from "../../../components/pagination/Paginationn.jsx"
 
@@ -317,23 +317,23 @@ export default function Locations() {
                         É necessário preencher todos os campos do cadastro!
                     </Alert>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Nome</Form.Label>
+                        <Form.Label><TextareaT /> Nome</Form.Label>
                         <Form.Control type='text' value={nome} onChange={(e) => setLocalName(e.target.value)} placeholder='Nome do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Endereço</Form.Label>
+                        <Form.Label><GeoAlt /> Endereço</Form.Label>
                         <Form.Control type='text' value={endereco} onChange={(e) => setAddress(e.target.value)} placeholder='Endereço do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Cidade</Form.Label>
+                        <Form.Label><Geo /> Cidade</Form.Label>
                         <Form.Control type='text' value={cidade} onChange={(e) => setCity(e.target.value)} placeholder='Cidade do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Estado</Form.Label>
+                        <Form.Label><Flag /> Estado</Form.Label>
                         <Form.Control type='text' value={estado} onChange={(e) => setState(e.target.value)} placeholder='Estado do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>País</Form.Label>
+                        <Form.Label><GlobeAmericas /> País</Form.Label>
                         <Form.Control type='text' value={pais} onChange={(e) => setCountry(e.target.value)} placeholder='País do Local' required />
                     </Form.Group>
                 </Modal.Body>
@@ -357,23 +357,23 @@ export default function Locations() {
                         É necessário preencher todos os campos do cadastro!
                     </Alert>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Nome</Form.Label>
+                        <Form.Label><TextareaT /> Nome</Form.Label>
                         <Form.Control type='text' value={nome} onChange={(e) => setLocalName(e.target.value)} placeholder='Nome do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Endereço</Form.Label>
+                        <Form.Label><GeoAlt /> Endereço</Form.Label>
                         <Form.Control type='text' value={endereco} onChange={(e) => setAddress(e.target.value)} placeholder='Endereço do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Cidade</Form.Label>
+                        <Form.Label><Geo /> Cidade</Form.Label>
                         <Form.Control type='text' value={cidade} onChange={(e) => setCity(e.target.value)} placeholder='Cidade do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Estado</Form.Label>
+                        <Form.Label><Flag /> Estado</Form.Label>
                         <Form.Control type='text' value={estado} onChange={(e) => setState(e.target.value)} placeholder='Estado do Local' required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>País</Form.Label>
+                        <Form.Label><GlobeAmericas /> País</Form.Label>
                         <Form.Control type='text' value={pais} onChange={(e) => setCountry(e.target.value)} placeholder='País do Local' required />
                     </Form.Group>
                 </Modal.Body>

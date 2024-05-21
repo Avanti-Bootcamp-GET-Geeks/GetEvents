@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
-import {BoxArrowRight, GearFill, PinMap, Tag} from "react-bootstrap-icons";
+import {BoxArrowRight, GearFill, GeoAlt, Tag} from "react-bootstrap-icons";
 import {Col, NavDropdown, Row} from "react-bootstrap";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {SearchContext} from "../../context/SearchContext.jsx";
@@ -85,7 +85,7 @@ export default function Header() {
 
                   <Col md={7} xs={12}>
                     <label className="labelSearch">
-                      <PinMap className="icon-search"/>
+                      <GeoAlt className="icon-search"/>
                       <Form.Select
                         name="local_id"
                         id="local"
@@ -173,7 +173,7 @@ export default function Header() {
 
                   <Col md={7} xs={12}>
                     <label className="labelSearch">
-                      <PinMap className="icon-search"/>
+                      <GeoAlt className="icon-search"/>
                       <Form.Select
                         name="local_id"
                         id="local"

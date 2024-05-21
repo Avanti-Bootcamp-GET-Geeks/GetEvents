@@ -6,6 +6,7 @@ import { findUserById, updateUser, deleteUser } from "../../../services/userServ
 import { findAllRoles } from "../../../services/roleService";
 import { AuthContext } from "../../../context/AuthContext";
 import MaskedInput from "react-text-mask";
+import { EnvelopeAt, Lock, Telephone, TextareaT } from "react-bootstrap-icons";
 
 export default function Settings() {
     const { logoutUser } = useContext(AuthContext);
@@ -102,7 +103,7 @@ export default function Settings() {
 
                   {/* Campo para o nome */}
                   <Form.Group className="mb-3" controlId="formNome">
-                      <Form.Label>Nome</Form.Label>
+                      <Form.Label><TextareaT /> Nome</Form.Label>
                       <Form.Control
                         type="text"
                         placeholder="Digite seu nome"
@@ -115,7 +116,7 @@ export default function Settings() {
 
                   {/* Campo para o email */}
                   <Form.Group className="mb-3" controlId="formEmail">
-                      <Form.Label>Email</Form.Label>
+                      <Form.Label><EnvelopeAt /> Email</Form.Label>
                       <Form.Control
                         type="email"
                         placeholder="Digite seu email"
@@ -128,7 +129,7 @@ export default function Settings() {
 
                   {/* Campo para o telefone com máscara */}
                   <Form.Group className="mb-3" controlId="formTelefone">
-                      <Form.Label>Telefone</Form.Label>
+                      <Form.Label><Telephone /> Telefone</Form.Label>
                       <MaskedInput
                         mask={getMask(formData.telefone)}
                         className="form-control"
@@ -142,7 +143,7 @@ export default function Settings() {
 
                   {/* Campo para a senha */}
                   <Form.Group className="mb-3" controlId="formPassword">
-                      <Form.Label>Senha</Form.Label>
+                      <Form.Label><Lock /> Senha</Form.Label>
                       <Form.Control
                         type="password"
                         placeholder="Digite sua senha"

@@ -53,7 +53,7 @@ export const CardPrivate = ({event, handleDelete}) => {
                         <Eye className={EVENT_CLOSED ? 'icon-eye text-dark' : 'icon-eye'} onClick={() => navigate(`/event-info/${event.id}`, {state: event})} title='Visualizar na visão do público' />
                     </div>
                     <div className={EVENT_CLOSED ? 'd-none' : 'col-3 text-center'}>
-                        <PencilSquare className={EVENT_CLOSED ? 'icon-edit text-dark' : 'icon-edit'} onClick={() => navigate(`/update/event/${event.id}`)} title='Editar' />
+                        <PencilSquare className={EVENT_CLOSED ? 'icon-edit text-dark' : 'icon-edit'} onClick={() => navigate(`/app/update/event/${event.id}`)} title='Editar' />
                     </div>
                     <div className="col-3 text-center">
                         <Trash3 className={EVENT_CLOSED ? 'icon-trash text-dark' : 'icon-trash'} onClick={() => handleDelete(event.id)} title='Excluir' /> 
