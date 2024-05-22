@@ -20,9 +20,9 @@ const findAllEvents = async (nome, categoria, local, data, limit, offset) => {
     }
 }
 
-const findAllEventsByUserId = async (id, nome, limit, offset) => {
+const findAllEventsByUserId = async (id, nome, encerrados, limit, offset) => {
     try {
-        const response = await api.get(`/events/user/${id}?nome=${nome}&limit=${limit}&offset=${offset}`);
+        const response = await api.get(`/events/user/${id}?nome=${nome}&encerrados=${encerrados}&limit=${limit}&offset=${offset}`);
         return response.data;
     } catch (error) {
         console.error(error.message)
