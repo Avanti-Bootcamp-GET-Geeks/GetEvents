@@ -111,7 +111,7 @@ export default function Header() {
                   <div className="">
                     <Nav className="me-auto">
                       <NavDropdown title="Menu">
-                        <NavDropdown.Item as={Link} to="/app/create/event">Crie seu Evento</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/app/create/event" className={''}>Crie seu Evento</NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to="/app/my-events">Meus Eventos</NavDropdown.Item>
                         <NavDropdown.Divider/>
@@ -120,7 +120,7 @@ export default function Header() {
                         {isAdmin && (
                           <>
                           <NavDropdown.Divider/>
-                          <NavDropdown.Item as={Link} to="/app/categories">Categorias</NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to="/app/categories" >Categorias</NavDropdown.Item>
                           <NavDropdown.Divider/>
                           <NavDropdown.Item as={Link} to="/app/roles">Cargos</NavDropdown.Item>
                           </>
@@ -131,7 +131,7 @@ export default function Header() {
                   </div>
                 </Col>
                 <Col md={6} xs={2} className="">
-                  <div className="d-flex justify-content-end align-content-center">
+                  <div className="d-flex justify-content-end align-content-center buttons">
                     <Button as={Link}
                             to="/app/settings"
                             className={' ms-auto text-black'}

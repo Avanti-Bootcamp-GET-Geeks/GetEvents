@@ -9,7 +9,7 @@ import MaskedInput from "react-text-mask";
 import { EnvelopeAt, Lock, Telephone, TextareaT } from "react-bootstrap-icons";
 
 export default function Settings() {
-    const { logoutUser } = useContext(AuthContext);
+    const {logoutUser, isAdmin, setIsAdmin} = useContext(AuthContext);
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
     const [roles, setRoles] = useState([]);
@@ -25,6 +25,11 @@ export default function Settings() {
         getRoles();
         loadUserData();
     }, []);
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')) || false;
+        setIsAdmin(userInfo.isAdmin);
+    }, [])
 
     const getRoles = async () => {
         try {
@@ -153,24 +158,26 @@ export default function Settings() {
                         required
                       />
                   </Form.Group>
-
+                  
                   {/* Campos para selecionar o cargo usando radio buttons */}
-                  <Form.Group className="mb-3" controlId="formRadio">
-                      {roles.map((role) => (
-                        role.nome !== 'admin' && (
-                          <Form.Check
-                            key={role.id}
-                            label={role.nome}
-                            name="cargo_id"
-                            type="radio"
-                            id={role.id}
-                            value={role.id}
-                            checked={formData.cargo_id === role.id}
-                            onChange={handleRadioChange}
-                          />
-                        )
-                      ))}
-                  </Form.Group>
+                  {!isAdmin && (
+                    <Form.Group className="mb-3" controlId="formRadio">
+                        {roles.map((role) => (
+                          role.nome !== 'admin' && (
+                            <Form.Check
+                              key={role.id}
+                              label={role.nome}
+                              name="cargo_id"
+                              type="radio"
+                              id={role.id}
+                              value={role.id}
+                              checked={formData.cargo_id === role.id}
+                              onChange={handleRadioChange}
+                            />
+                          )
+                        ))}
+                    </Form.Group>
+                  )}
 
                   {/* Botão para salvar as alterações */}
                   <Button variant="primary" type="submit" className="btn btn-sm me-2">
