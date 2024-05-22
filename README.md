@@ -1,8 +1,40 @@
-# React + Vite
+# GetEvents - Plataforma de Gerenciamento de Eventos
+ℹ️ Sobre
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GetEvents é uma plataforma de gerenciamento de eventos, projetada para simplificar a visualização e o cadastramento de eventos. Com uma interface intuitiva, oferece acesso personalizado para organizadores, visitantes e administradores. Na página inicial, são exibidos cards com todos os eventos cadastrados, permitindo que os usuários cliquem nos cards para visualizar detalhes como localização, horário e outras informações relevantes.
 
-Currently, two official plugins are available:
+Os administradores têm um acesso exclusivo via login, onde podem gerenciar todos os aspectos da plataforma, incluindo a criação, edição e exclusão de locais, cargos e categorias de eventos. Os organizadores, após se cadastrarem e efetuarem login, podem criar, editar e excluir eventos e locais. Já os visitantes têm acesso apenas à visualização e detalhes dos eventos. Além disso, a plataforma possui campos de busca que permitem filtrar eventos por categoria e local.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+💻 Tecnologias e ferramentas utilizadas
+
+As seguintes tecnologias e ferramentas foram utilizadas no desenvolvimento da plataforma GetEvents:
+
+- Front-end:
+  - HTML5
+  - CSS3
+  - JavaScript
+  - React.js
+
+- Back-end:
+  - Node.js
+  - Express.js
+  - Prisma
+
+- Banco de Dados:
+  - PostgreSQL
+
+- Autenticação e Autorização:
+  - JWT (JSON Web Tokens)
+  - bcrypt.js (para hash de senhas)
+
+- Versionamento de Código:
+  - Git
+  - GitHub
+
+- Outras Ferramentas:
+  - Insomnia (para testes de API)
+  - VS Code (editor de código)
+  - Intellij (editor de código)
+
+
+
