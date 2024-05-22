@@ -13,6 +13,8 @@
     --color-light: #fff;
     --color-secondary: #757679;
     --color-shadow: #BDC2C9;
+    --color-text:#757679;
+    --color-title2: #464646;
     /*max-width: 1280px;*/
     margin: 0 auto;
    /* padding: 2rem;*/
@@ -71,6 +73,12 @@ a {
 @media (max-width: 768px) {
     main {
         padding: 30px 20px;
+    }
+    h1.titulo {
+        color: #0097FF;
+        font-weight: bold;
+        margin: 0 0 20px 0;
+        padding: 0;
     }
 }
 
