@@ -85,4 +85,4 @@ Com o repositório clonado, execute os seguintes comandos no diretório do proje
 
 ## ✅ Resultados obtidos
 
-
+![img.png](src/assets/img/img.png)
