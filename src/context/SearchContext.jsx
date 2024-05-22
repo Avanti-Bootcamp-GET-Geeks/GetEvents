@@ -7,10 +7,10 @@ export const SearchContext = createContext();
 // Responsável em fornecer/Prover os dados
 export const SearchProvider = ({children}) => {
     
-    const { getAllEvents, events, eventsFound, setEventsFound, currentPage, handlePageChange, categories, setCategory, locals, setLocalId, setDate  } = useSearch();
+    const { getAllEvents, events, eventsFound, setEventsFound, currentPage, handlePageChange, setEventName, categories, setCategory, locals, setLocalId, setDate  } = useSearch();
 
     return (
-        <SearchContext.Provider value={{ getAllEvents, events, eventsFound, setEventsFound, currentPage, handlePageChange, categories, setCategory, locals, setLocalId, setDate }}>
+        <SearchContext.Provider value={{ getAllEvents, events, eventsFound, setEventsFound, currentPage, handlePageChange, setEventName, categories, setCategory, locals, setLocalId, setDate }}>
             {children}
         </SearchContext.Provider>
     );

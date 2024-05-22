@@ -8,9 +8,11 @@ const useSearch = () => {
     const [events, setEvents] = useState([]);
     const [eventsFound, setEventsFound] = useState([]);
 
+    const [eventName, setEventName] = useState("");
+
     const [categories, setCategories] = useState([])
     const [category, setCategory] = useState("");
-
+    
     const [locals, setLocals] = useState([]);
     const [localId, setLocalId] = useState("");
 
@@ -19,7 +21,7 @@ const useSearch = () => {
  
     useEffect(() => {
         getAllEvents();
-    }, [currentPage, category, localId, date]); // Busca eventos sempre que houver uma alteração na página os parâmetros de filtragem
+    }, [currentPage, eventName, category, localId, date]); // Busca eventos sempre que houver uma alteração na página os parâmetros de filtragem
 
     useEffect(() => {
         getAllCategories();
@@ -32,7 +34,7 @@ const useSearch = () => {
         const offset = (currentPage - 1) * limit;
         
         try {
-            const response = await findAllEvents(category, localId, date, limit, offset);
+            const response = await findAllEvents(eventName, category, localId, date, limit, offset);
             if(response) {
                 setEvents(response);
             } else setEvents([]);
@@ -65,7 +67,7 @@ const useSearch = () => {
     }
    
     // Retorna um objeto com todas as variáveis de estado e funções
-    return { getAllEvents, events, eventsFound, setEventsFound, currentPage, handlePageChange, categories, setCategory, locals, setLocalId };
+    return { getAllEvents, events, eventsFound, setEventsFound, currentPage, handlePageChange, setEventName, categories, setCategory, locals, setLocalId };
 }
 
 export default useSearch;
