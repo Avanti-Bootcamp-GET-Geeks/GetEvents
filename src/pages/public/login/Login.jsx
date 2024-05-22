@@ -3,6 +3,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { useLocation } from "react-router-dom";
 import ToastAnimated, {showToast} from "../../../components/ui-lib/Toast";
 import {verifyEmail, verifyPassword} from '../../../components/formValidation/loginValidation';
+import { EnvelopeAt, Lock } from "react-bootstrap-icons";
 import '../../../components/formValidation/formValidation.css';
 
 export default function Login() {
@@ -78,7 +79,7 @@ export default function Login() {
          <h1 className="titulo">Login</h1>   
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                     <label htmlFor="inputLogin" className="form-label">E-mail</label>
+                     <label htmlFor="inputLogin" className="form-label"><EnvelopeAt /> E-mail</label>
                      <input type="text" 
                      className={`form-control ${fieldErrors.email && 'input-error'}`} 
                      name="email" 
@@ -90,7 +91,7 @@ export default function Login() {
                  </div>
 
                  <div className="mb-3">
-                     <label htmlFor="inputSenha" className="form-label">Senha</label>
+                     <label htmlFor="inputSenha" className="form-label"><Lock /> Senha</label>
                      <input type="password" 
                         className={`form-control ${fieldErrors.senha && 'input-error'}`} 
                         name="senha"

@@ -6,7 +6,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { verifyURL, verifyEventName, verifyEventDescription, verifyDateStart, verifyDateEnd } from "../../../components/formValidation/eventValidation";
 import ToastAnimated, {showToast} from "../../../components/ui-lib/Toast";
 import { ArrowLeftSquare, CalendarEvent, FileImage, FileText, PinMap, Tag, TextareaT } from "react-bootstrap-icons";
-import './events.css';
 import '../../../components/formValidation/formValidation.css';
 
 export const UpdateEvent = () => {

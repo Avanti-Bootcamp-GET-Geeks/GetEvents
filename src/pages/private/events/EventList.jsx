@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { EventList } from "../../../components/eventList/EventList";
 import { CardPrivate } from "../../../components/card/CardPrivate";
 import ToastAnimated, {showToast} from "../../../components/ui-lib/Toast";
-import './events.css';
 
 export const EventListByUser = () => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo')); // pega info do usuário logado no localStorage
