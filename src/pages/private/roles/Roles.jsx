@@ -145,7 +145,7 @@ export default function Roles() {
                     <Modal.Title>Criar Cargo</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Control type='text' id='cargo' value={role} onChange={(e) => setRole(e.target.value)} aria-describedby='cargo' />
+                    <Form.Control type='text' id='cargo' value={role} onChange={(e) => setRole(e.target.value)} aria-describedby='cargo' placeholder="Informe um nome para o cargo" />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant='secondary' className='btn-sm' onClick={handleCloseCreate}>

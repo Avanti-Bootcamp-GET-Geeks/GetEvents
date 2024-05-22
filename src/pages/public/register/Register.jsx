@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Modal from "react-bootstrap/Modal"
+import { EnvelopeAt, Lock, Telephone, TextareaT } from "react-bootstrap-icons";
 
 import MaskedInput from "react-text-mask"
 
@@ -82,11 +83,11 @@ export default function Register() {
                 <h1 className='titulo'>Cadastre-se</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Nome</Form.Label>
+                        <Form.Label><TextareaT /> Nome</Form.Label>
                         <Form.Control type='text' placeholder='Digite seu nome' value={nome} onChange={(e) => setName(e.target.value)} required />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label><EnvelopeAt /> E-mail</Form.Label>
                         <Form.Control
                             type='email'
                             className={verifyErrorEmail.class}
@@ -101,7 +102,7 @@ export default function Register() {
                         {verifyErrorEmail.message && <div className='invalid-feedback'>{verifyErrorEmail.message}</div>}
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Telefone</Form.Label>
+                        <Form.Label><Telephone /> Telefone</Form.Label>
                         <MaskedInput
                             mask={getMask(telefone)}
                             className='form-control'
@@ -112,7 +113,7 @@ export default function Register() {
                         />
                     </Form.Group>
                     <Form.Group className='mb-3'>
-                        <Form.Label>Senha</Form.Label>
+                        <Form.Label><Lock /> Senha</Form.Label>
                         <Form.Control type='password' minLength='7' placeholder='Digite sua senha' value={senha} onChange={(e) => setPassword(e.target.value)} required />
                     </Form.Group>
 

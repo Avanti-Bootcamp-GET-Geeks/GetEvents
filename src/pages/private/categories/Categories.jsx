@@ -153,6 +153,7 @@ export default function Categories() {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         aria-describedby="categoria"
+                        placeholder="Informe um nome para categoria"
                     />
                 </Modal.Body>
                 <Modal.Footer>
