@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { useLocation } from "react-router-dom";
 import ToastAnimated, {showToast} from "../../../components/ui-lib/Toast";
@@ -9,13 +9,20 @@ import '../../../components/formValidation/formValidation.css';
 export default function Login() {
     
     const { loginUser } = useContext(AuthContext);
-    const {state} = useLocation(); // está sendo utilizada para pegar os erros e mensagens da requisição
+    const location = useLocation();
+    
+    const {message,status} = location.state || {}; // está sendo utilizada para pegar os erros e mensagens da requisição
+
+    useEffect(()=>{
+        showToast({ type: 'info', message: message });
+    }, [])
 
     // Utilizado para o preenchimento dos campos
     const [fieldValue, setFieldValue] = useState({
         email: "",
         senha: ""
     });
+
 
     // Utilizado para as validações
     const [fieldErrors, setFieldErrors] = useState({
@@ -64,11 +71,12 @@ export default function Login() {
                 return; // encerra execução do código caso os campos não tenham sido preenchidos corretamente
         }
 
-        // Chama a função de login (do context) e passa os valores do form
-        await loginUser(fieldValue); 
-
-        // Validações (erros do back)
-        state.status >= 400 && showToast({ type: 'error', message: state.message });                
+        try {
+            // Chama a função de login (do context) e passa os valores do form
+            await loginUser(fieldValue);          
+        } catch (error) {
+            showToast({ type: 'error', message: error.response.data.message });
+        }             
     }
 
     return(

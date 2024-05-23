@@ -78,14 +78,16 @@ export const EventListByUser = () => {
             </div>
 
             <EventList>
-
                 {events.length > 0 ? events.map(event => (<CardPrivate event={event} key={event.id} handleDelete={removeEvent} />))
-                    : (<p style={{ color: '#757679' }}>Nenhum evento cadastrado.</p>)
+                    : (<p style={{ color: '#757679' }}>Nenhum evento cadastrado {eventName && 'com o nome'} <strong>{eventName && `"${eventName}"`}</strong>.</p>)
                 }
             </EventList>
 
-            {/* Botões para paginação */}
-            <Pagination currentPage={currentPage} handlePageChange={handlePageChange} totalLimit={10} events={events} />
+            {
+                events.length &&
+                //  Botões para paginação 
+                <Pagination currentPage={currentPage} handlePageChange={handlePageChange} totalLimit={10} events={events} />
+            }
         </>
     )
 }

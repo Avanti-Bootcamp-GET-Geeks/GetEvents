@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import ToastAnimated, {showToast} from "../../../components/ui-lib/Toast";
 
 export default function Home() {
-    const {events, eventsFound, currentPage, handlePageChange} = useContext(SearchContext);
+    const {events, eventsFound, eventName, currentPage, handlePageChange} = useContext(SearchContext);
     const {state} = useLocation();
 
     useEffect(()=> {
@@ -26,12 +26,15 @@ export default function Home() {
                         ? eventsFound.map(event => (<Card event={event} key={event.id} />))
                         : events.length > 0
                             ? events.map(event => (<Card event={event} key={event.id} />))
-                            : <p style={{ color: '#757679' }}>Nenhum evento encontrado.</p>
+                            : <p style={{ color: '#757679' }}>Nenhum evento encontrado {eventName && 'com o nome'} <strong>{eventName && `"${eventName}`}</strong>.</p>
                     }
                 </EventList>
 
-                {/* Botões para paginação */}
-                <Pagination currentPage={currentPage} handlePageChange={handlePageChange} totalLimit={10} events={events} />
+                {
+                    events.length > 0 &&
+                    // Botões para paginação
+                    <Pagination currentPage={currentPage} handlePageChange={handlePageChange} totalLimit={10} events={events} />
+                }
             </div>
         </>
     )

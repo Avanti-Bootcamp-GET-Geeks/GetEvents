@@ -4,12 +4,12 @@ export function verifyURL(url) {
 }
 
 export function verifyEventName(name) {
-    const pattern = /^[\s|\S]{20,40}$/
+    const pattern = /^[\s|\S]{5,40}$/
     return pattern.test(name.trim());
 }
 
 export function verifyEventDescription(description) {
-    const pattern = /^[\s|\S]{1000,6000}$/
+    const pattern = /^[\s|\S]{500,1500}$/
     return pattern.test(description.trim());
 }
 

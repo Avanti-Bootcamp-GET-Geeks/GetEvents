@@ -161,7 +161,7 @@ export const CreateEvent = () => {
                 <div className="row mt-5 mb-3">
                     <div className="col-md-6 mb-3">
                         <label htmlFor="imagem" className="form-label"><FileImage /> Imagem
-                        <sup><PatchQuestionFill style={{color: '#f00', fontSize: '.8rem'}} title="Escolha uma imagem de alta resolução no formato paisagem (largura > altura), para garantir a melhor qualidade visual na publicação dos seus eventos. Ex.: 1200 x 400." /></sup> 
+                        <sup><PatchQuestionFill style={{color: '#f00', fontSize: '.8rem'}} title="Escolha uma imagem de alta resolução no formato paisagem (largura > altura), para garantir a melhor qualidade visual na publicação dos seus eventos. Ex.: 1200 x 400. Sua imagem deve ser enviada por meio de link - confira se a mesma foi inserida corretamente por meio da prévia da imagem." /></sup> 
                         </label>
                         <input type="text" 
                         className={`form-control ${fieldErrors.imagem && 'input-error'}`} 
@@ -180,7 +180,7 @@ export const CreateEvent = () => {
                         value={fieldValue.nome} 
                         id="nome" onChange={handleChange} />
 
-                        {fieldErrors.nome && <div className="error-message">O nome do evento deve conter de 20 a 40 caracteres. <strong>Total de carecteres digitados: {fieldValue.nome.length}.</strong>
+                        {fieldErrors.nome && <div className="error-message">O nome do evento deve conter de 5 a 40 caracteres. <strong>Total de carecteres digitados: {fieldValue.nome.length}.</strong>
                         </div> }
                     </div>
                 </div>
@@ -193,7 +193,7 @@ export const CreateEvent = () => {
                             id="descricao" 
                             value={fieldValue.descricao} rows={5} onChange={handleChange}></textarea>
 
-                            {fieldErrors.descricao && <div className="error-message">A descrição deve conter de 1000 a 6000 caracteres. <strong>Total de carecteres digitados: {fieldValue.descricao.length}.</strong>
+                            {fieldErrors.descricao && <div className="error-message">A descrição deve conter de 500 a 1500 caracteres. <strong>Total de carecteres digitados: {fieldValue.descricao.length}.</strong>
                             </div>}
                         </div>
                 </div>

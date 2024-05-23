@@ -11,14 +11,14 @@ import NotFound from "../pages/public/notFound/NotFound.jsx";
 
 const PrivateRoutes = () => (
     <Routes>
-        {/* Rotas para categorias */}
-        <Route path='/categories' element={<ProtectedRoute> <Categories /> </ProtectedRoute>} />
+        {/* Rotas para categorias - restrita a admin */}
+        <Route path='/categories' element={<ProtectedRoute roleIsAdmin={true}> <Categories /> </ProtectedRoute>} />
 
         {/* Rotas para locais */}
         <Route path='/locations' element={<ProtectedRoute> <Locations /> </ProtectedRoute>} />
 
-        {/* Rotas para cargos */}
-        <Route path='/roles' element={<ProtectedRoute> <Roles /> </ProtectedRoute>} />
+        {/* Rotas para cargos - restrita a admin */}
+        <Route path='/roles' element={<ProtectedRoute roleIsAdmin={true}> <Roles /> </ProtectedRoute>} />
         
         {/* Rotas para eventos */}
         <Route path='/my-events' element={<ProtectedRoute> <EventListByUser /> </ProtectedRoute>} />

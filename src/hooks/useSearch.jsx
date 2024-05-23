@@ -67,7 +67,7 @@ const useSearch = () => {
     }
    
     // Retorna um objeto com todas as variáveis de estado e funções
-    return { getAllEvents, events, eventsFound, setEventsFound, currentPage, handlePageChange, setEventName, categories, setCategory, locals, setLocalId };
+    return { getAllEvents, events, eventsFound, setEventsFound, currentPage, handlePageChange, eventName, setEventName, categories, setCategory, locals, setLocalId };
 }
 
 export default useSearch;
