@@ -20,6 +20,7 @@ GetEvents atende às necessidades dos organizadores de eventos culturais, facili
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white "Framework CSS")
 ![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white "Versionamento de código")
 ![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white "Versionamento de código")
+<img src="https://logospng.org/download/vite-js/vite-js-256-logo.png"  width="30" alt="Vite" title="Servidor local" />
 ![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white "Utilizado para subir a aplicação em servidor local e para baixar dependências")
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg" width="40" alt="Gerenciador de dependências" title="Gerenciador de dependências" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt='vscode' width="30" alt="IDE vs code" title="IDE vs code" />
