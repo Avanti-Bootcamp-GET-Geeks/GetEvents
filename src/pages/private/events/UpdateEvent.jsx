@@ -189,7 +189,7 @@ export const UpdateEvent = () => {
                 <div className="row mt-5 mb-3">
                     <div className="col-md-6 mb-3">
                         <label htmlFor="imagem" className="form-label"><FileImage /> Imagem
-                        <sup><PatchQuestionFill style={{color: '#f00', fontSize: '.8rem'}} title="Escolha uma imagem de alta resolução no formato paisagem (largura > altura), para garantir a melhor qualidade visual na publicação dos seus eventos. Ex.: 1200 x 400." /></sup>
+                        <sup><PatchQuestionFill style={{color: '#f00', fontSize: '.8rem'}} title="Escolha uma imagem de alta resolução no formato paisagem (largura > altura), para garantir a melhor qualidade visual na publicação dos seus eventos. Ex.: 1200 x 400. Sua imagem deve ser enviada por meio de link - confira se a mesma foi inserida corretamente por meio da prévia da imagem." /></sup> 
                         </label>
                         <input type="text" 
                         className={`form-control ${fieldErrors.imagem && 'input-error'}`}
