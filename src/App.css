@@ -97,6 +97,56 @@ form, .modal {
     }
 }
 
+/* events busca */
+div.searchByName {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    color: var(--color-title);
+    font-size: 1.6rem;
+    margin: 0 auto 2.3rem auto;
+    gap: .5rem;
+    
+    label {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        min-width: 15rem;
+        gap: .4rem;
+        
+        span.seeEventsFinished {
+            font-size: 1.2rem;
+            color: var(--color-primary);
+
+        }
+
+        & [type='checkbox'] {
+            display: inline-block;
+            accent-color: var(--color-secondary);
+            width: 2rem;
+        }
+    }
+
+    input {
+        color: var(--color-secondary) !important;
+        transition: all .5s ease-in-out;
+
+        &:focus {
+            color: var(--color-primary) !important;
+            box-shadow: none !important;
+            font-weight: 500;
+            border: .12rem solid var(--color-primary);
+        }
+    }
+
+    & svg {
+        color: var(--color-primary);
+    }
+
+}
+
 a {
     color: #0097FF !important;
     text-transform: uppercase;

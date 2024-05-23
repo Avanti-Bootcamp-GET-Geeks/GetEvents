@@ -5,7 +5,7 @@ import { getCategories } from "../../../services/categoryService";
 import { useNavigate, useParams } from "react-router-dom";
 import { verifyURL, verifyEventName, verifyEventDescription, verifyDateStart, verifyDateEnd } from "../../../components/formValidation/eventValidation";
 import ToastAnimated, {showToast} from "../../../components/ui-lib/Toast";
-import { ArrowLeftSquare, CalendarEvent, FileImage, FileText, PinMap, Tag, TextareaT } from "react-bootstrap-icons";
+import { ArrowLeftSquare, CalendarEvent, FileImage, FileText, PatchQuestionFill, PinMap, Tag, TextareaT } from "react-bootstrap-icons";
 import '../../../components/formValidation/formValidation.css';
 
 export const UpdateEvent = () => {
@@ -188,7 +188,9 @@ export const UpdateEvent = () => {
                 
                 <div className="row mt-5 mb-3">
                     <div className="col-md-6 mb-3">
-                        <label htmlFor="imagem" className="form-label"><FileImage /> Imagem</label>
+                        <label htmlFor="imagem" className="form-label"><FileImage /> Imagem
+                        <sup><PatchQuestionFill style={{color: '#f00', fontSize: '.8rem'}} title="Escolha uma imagem de alta resolução no formato paisagem (largura > altura), para garantir a melhor qualidade visual na publicação dos seus eventos. Ex.: 1200 x 400." /></sup>
+                        </label>
                         <input type="text" 
                         className={`form-control ${fieldErrors.imagem && 'input-error'}`}
                         name="imagem" 
