@@ -2,11 +2,11 @@
 
 ## ℹ️ Sobre
 
-GetEvents é uma plataforma completa para o gerenciamento de eventos culturais, projetada para simplificar a organização, visualização e o cadastramento de eventos. Com uma interface intuitiva, fácil de usar e responsiva, a plataforma oferece acesso personalizado para organizadores, visitantes e administradores.
+GetEvents é uma **plataforma completa para o gerenciamento de eventos culturais**, projetada para simplificar a organização, visualização e o cadastramento de eventos. Com uma interface intuitiva, fácil de usar e responsiva, a plataforma oferece acesso personalizado para organizadores, visitantes e administradores.
 
 Na página inicial, os usuários podem visualizar todos os eventos cadastrados através de cards que mostram detalhes como localização e horário. A plataforma possui um front-end robusto e um back-end seguro desenvolvido por nossa equipe, garantindo desempenho e segurança.
 
-Administradores, via login, podem gerenciar locais, cargos e categorias de eventos, além de criar, editar e excluir eventos. Organizadores, após se cadastrarem, podem criar, editar e excluir eventos e locais. Visitantes têm acesso à visualização e detalhes dos eventos. A plataforma também permite filtrar eventos por nome do evento, categoria e local.
+**Administradores**, via login, podem gerenciar locais, cargos e categorias de eventos, além de criar, editar e excluir eventos. **Organizadores**, após se cadastrarem, podem criar, editar e excluir eventos e locais. **Visitantes** têm acesso à visualização e detalhes dos eventos. A plataforma também permite filtrar eventos por nome do evento, categoria e local.
 
 GetEvents atende às necessidades dos organizadores de eventos culturais, facilitando a gestão de todas as etapas, desde a criação até a promoção dos eventos.
 
@@ -14,39 +14,16 @@ GetEvents atende às necessidades dos organizadores de eventos culturais, facili
 
 
 ## 💻 Tecnologias e ferramentas utilizadas
-As seguintes tecnologias e ferramentas foram utilizadas no desenvolvimento da plataforma GetEvents:
-
-- Front-end:
-  - HTML5
-  - CSS3
-  - JavaScript
-  - React.js
-
-
-- Back-end:
-  - Node.js
-  - Express.js
-  - Prisma
-
-
-- Banco de Dados:
-  - PostgreSQL
-
-
-- Autenticação e Autorização:
-  - JWT (JSON Web Tokens)
-  - bcrypt.js (para hash de senhas)
-
-
-- Versionamento de Código:
-  - Git
-  - GitHub
-
-
-- Outras Ferramentas:
-  - Insomnia (para testes de API)
-  - VS Code (editor de código)
-  - Intellij (editor de código)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB "Framework front-end")
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black "Linguagem de programação")
+![CSS](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white "Linguagem de estilização")
+![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white "Framework CSS")
+![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white "Versionamento de código")
+![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white "Versionamento de código")
+![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white "Utilizado para subir a aplicação em servidor local e para baixar dependências")
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg" width="40" alt="Gerenciador de dependências" title="Gerenciador de dependências" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt='vscode' width="30" alt="IDE vs code" title="IDE vs code" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg"  width="30" alt="IDE intellij" title="IDE intellij" />
 
 
 ## Pré-requisitos para executar a aplicação
