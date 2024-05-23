@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
-import {BoxArrowRight, GearFill, GeoAlt, Tag} from "react-bootstrap-icons";
+import {BoxArrowRight, GearFill, GeoAlt, Tag, TextareaT} from "react-bootstrap-icons";
 import {Col, NavDropdown, Row} from "react-bootstrap";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {SearchContext} from "../../context/SearchContext.jsx";
@@ -16,17 +16,19 @@ import {SearchContext} from "../../context/SearchContext.jsx";
 
 export default function Header() {
 
-  const {categories, setCategory, locals, setLocalId} = useContext(SearchContext);
+  const {setEventName, categories, setCategory, locals, setLocalId} = useContext(SearchContext);
   const {userLogged, logoutUser, isAdmin, setIsAdmin} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const [fieldValue, setFieldValue] = useState({
+    nome: "",
     categoria_id: "",
     local_id: ""
   });
 
   useEffect(() => {
+    setEventName(fieldValue.nome);
     setCategory(fieldValue.categoria_id);
     setLocalId(fieldValue.local_id);
   }, [fieldValue])
@@ -66,7 +68,14 @@ export default function Header() {
             <>
               <Form>
                 <Row className="m-auto">
-                  <Col md={5} xs={12} className="">
+                <Col md={5} xs={12} className="">
+                    <label className="labelSearch">
+                      <TextareaT className="icon-search"/> 
+                      <Form.Control name="nome" value={fieldValue.nome} onChange={handleChange} placeholder="Buscar por nome" />
+                    </label>
+                  </Col>
+                  
+                  <Col md={3} xs={12} className="">
                     <label className="labelSearch">
                       <Tag className="icon-search"/> 
                       <Form.Select name="categoria_id"
@@ -83,7 +92,7 @@ export default function Header() {
                     </label>
                   </Col>
 
-                  <Col md={7} xs={12}>
+                  <Col md={4} xs={12}>
                     <label className="labelSearch">
                       <GeoAlt className="icon-search"/>
                       <Form.Select
@@ -106,7 +115,7 @@ export default function Header() {
                 </Row>
               </Form>
 
-              <Row className="col-lg-6 p-2 ms-auto">
+              <Row className="p-2 ms-auto">
                 <Col md={6} xs={10}>
                   <div className="">
                     <Nav className="me-auto">
@@ -156,6 +165,13 @@ export default function Header() {
                 <Row className="m-auto">
                   <Col md={5} xs={12} className="">
                     <label className="labelSearch">
+                      <TextareaT className="icon-search"/> 
+                      <Form.Control name="nome" value={fieldValue.nome} onChange={handleChange} placeholder="Buscar por nome" />
+                    </label>
+                  </Col>
+
+                  <Col md={3} xs={12} className="">
+                    <label className="labelSearch">
                       <Tag className="icon-search"/> 
                       <Form.Select name="categoria_id"
                           id="categoria"
@@ -171,7 +187,7 @@ export default function Header() {
                     </label>
                   </Col>
 
-                  <Col md={7} xs={12}>
+                  <Col md={4} xs={12}>
                     <label className="labelSearch">
                       <GeoAlt className="icon-search"/>
                       <Form.Select

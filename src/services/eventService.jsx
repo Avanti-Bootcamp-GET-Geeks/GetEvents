@@ -10,9 +10,9 @@ const createEvent = async (event) => {
     }
 }
 
-const findAllEvents = async (categoria, local, data, limit, offset) => {
+const findAllEvents = async (nome, categoria, local, data, limit, offset) => {
     try {
-        const response = await api.get(`/events?categoria_id=${categoria}&local_id=${local}&data=${data}&limit=${limit}&offset=${offset}`);
+        const response = await api.get(`/events?nome=${nome}&categoria_id=${categoria}&local_id=${local}&data=${data}&limit=${limit}&offset=${offset}`);
         return response.data; 
     } catch(error) {
         console.error(error.message);
@@ -20,9 +20,9 @@ const findAllEvents = async (categoria, local, data, limit, offset) => {
     }
 }
 
-const findAllEventsByUserId = async (id, limit, offset) => {
+const findAllEventsByUserId = async (id, nome, encerrados, limit, offset) => {
     try {
-        const response = await api.get(`/events/user/${id}?limit=${limit}&offset=${offset}`);
+        const response = await api.get(`/events/user/${id}?nome=${nome}&encerrados=${encerrados}&limit=${limit}&offset=${offset}`);
         return response.data;
     } catch (error) {
         console.error(error.message)
