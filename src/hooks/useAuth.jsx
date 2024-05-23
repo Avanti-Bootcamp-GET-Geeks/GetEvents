@@ -34,7 +34,7 @@ const useAuth = () => {
                     setSessionExpired(true); // Seta a mensagem de sessão expirada
                 }
             }
-        }, 30000); // Verifica a cada minuto (60000 ms)
+        }, 60000); // Verifica a cada minuto (60000 ms)
         
         return () => clearInterval(tokenCheckInterval);
     }, [userInfo]);
