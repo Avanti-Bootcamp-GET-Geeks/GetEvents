@@ -178,7 +178,7 @@ export const CreateEvent = () => {
                         value={fieldValue.nome} 
                         id="nome" onChange={handleChange} />
 
-                        {fieldErrors.nome && <div className="error-message">O nome do evento deve conter de 20 a 40 caracteres. <strong>Total de carecteres digitados: {fieldValue.nome.length}.</strong>
+                        {fieldErrors.nome && <div className="error-message">O nome do evento deve conter de 5 a 40 caracteres. <strong>Total de carecteres digitados: {fieldValue.nome.length}.</strong>
                         </div> }
                     </div>
                 </div>
@@ -191,7 +191,7 @@ export const CreateEvent = () => {
                             id="descricao" 
                             value={fieldValue.descricao} rows={5} onChange={handleChange}></textarea>
 
-                            {fieldErrors.descricao && <div className="error-message">A descrição deve conter de 1000 a 6000 caracteres. <strong>Total de carecteres digitados: {fieldValue.descricao.length}.</strong>
+                            {fieldErrors.descricao && <div className="error-message">A descrição deve conter de 500 a 1500 caracteres. <strong>Total de carecteres digitados: {fieldValue.descricao.length}.</strong>
                             </div>}
                         </div>
                 </div>
