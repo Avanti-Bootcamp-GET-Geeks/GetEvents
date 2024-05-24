@@ -26,7 +26,7 @@ export default function Home() {
                         ? eventsFound.map(event => (<Card event={event} key={event.id} />))
                         : events.length > 0
                             ? events.map(event => (<Card event={event} key={event.id} />))
-                            : <p style={{ color: '#757679' }}>Nenhum evento encontrado {eventName && 'com o nome'} <strong>{eventName && `"${eventName}`}</strong>.</p>
+                            : <p style={{ color: '#757679' }}>Nenhum evento encontrado {eventName && 'com o nome'} <strong>{eventName && `"${eventName}"`}</strong>.</p>
                     }
                 </EventList>
 
