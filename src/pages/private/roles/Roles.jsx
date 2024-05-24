@@ -23,18 +23,26 @@ export default function Roles() {
     const [showMessageDelete, setShowMessageDelete] = useState(false)
     const [idToDelete, setIdToDelete] = useState(null) // Estado para armazenar o ID do cargo a ser excluído
 
+    const [verifyErrorRole, setVerifyErrorRole] = useState({ class: "", message: "" })
+
+    const clearVerifyErrorRole = () => setVerifyErrorRole({ class: "", message: "" })
+
     const handleCloseCreate = () => setShowCreate(false)
     const handleShowCreate = () => {
         setShowCreate(true)
+        setShowEdit(false)
         setRole("") // Limpar o valor do input
         setRoleId(null) // Limpar o ID do cargo
+        clearVerifyErrorRole()
     }
 
     const handleCloseEdit = () => setShowEdit(false)
     const handleShowEdit = (role) => {
         setShowEdit(true)
-        setRole(role.nome)
+        setShowCreate(false)
+        setRole(role.nome.charAt(0).toUpperCase() + role.nome.slice(1))
         setRoleId(role.id) // Definir o ID do cargo
+        clearVerifyErrorRole()
     }
 
     const handleCloseMessage = () => setShowMessage({ show: false, message: "" })
@@ -55,45 +63,66 @@ export default function Roles() {
         setFilteredRoles(filtered)
     }, [roles, search])
 
+    useEffect(() => {
+        clearVerifyErrorRole()
+    }, [role])
+
     async function getAllRoles() {
         try {
             const response = await findAllRoles()
             setRoles(response)
         } catch (error) {
-            console.log(error.message)
+            console.error(error.message)
         }
     }
 
     async function handleCreateRole(newName) {
+        if (!newName.trim()) {
+            setVerifyErrorRole({ class: "is-invalid", message: "O nome do cargo não pode estar vazio." })
+            return
+        }
+
+        const roleExists = roles.some((role) => removeAccents(role.nome.toLowerCase()) === removeAccents(newName.toLowerCase()))
+
+        if (roleExists) {
+            setVerifyErrorRole({ class: "is-invalid", message: "Esse cargo já existe." })
+            return
+        }
+
         try {
             // Criar cargo
             await createRole({ nome: newName.toLowerCase() })
             await getAllRoles()
             handleCloseCreate()
         } catch (error) {
-            handleShowMessage("Este cargo já foi criado.")
-            console.log(error.message)
+            console.error(error.message)
         }
     }
 
     async function handleUpdateRole(id, newName) {
-        try {
-            const VerifyRoleName = roles.find((role) => role.nome.toLowerCase() === newName.toLowerCase())
-            let VerifyRoleId = false;
+        if (!newName.trim()) {
+            setVerifyErrorRole({ class: "is-invalid", message: "O nome do cargo não pode estar vazio." })
+            return
+        }
 
-            if (VerifyRoleName) {
-                VerifyRoleId = (VerifyRoleName.id === id);
+        const roleSame = roles.some((role) => ((role.id === id ) && (removeAccents(role.nome.toLowerCase()) === removeAccents(newName.toLowerCase()))))
+
+        if (!roleSame) {
+            const roleExists = roles.some((role) => removeAccents(role.nome.toLowerCase()) === removeAccents(newName.toLowerCase()))
+    
+            if (roleExists) {
+                setVerifyErrorRole({ class: "is-invalid", message: "Esse cargo já existe." })
+                return
             }
-            if (!VerifyRoleName || VerifyRoleId) {
-                await updateRole(id, { nome: newName.toLowerCase() })
-                // Atualizar a lista dos cargos após a edição
-                await getAllRoles()
-                handleCloseEdit()
-            } else {
-                handleShowMessage("Este nome de cargo já foi criado.")
-            }
+        }
+
+        try {
+            await updateRole(id, { nome: newName.toLowerCase() })
+            // Atualizar a lista dos cargos após a edição
+            await getAllRoles()
+            handleCloseEdit()
         } catch (error) {
-            console.log(error.message)
+            console.error(error.message)
         }
     }
 
@@ -105,7 +134,7 @@ export default function Roles() {
             setRoles(updatedRoles)
         } catch (error) {
             handleShowMessage("Este cargo está associado a usuários e não pode ser excluído.") // Abre o modal de mensagem de erro
-            console.log(error.message)
+            console.error(error.message)
         }
     }
 
@@ -116,8 +145,7 @@ export default function Roles() {
             <Form.Control type='text' className='mb-3' aria-describedby='search' placeholder='Pesquisar...' value={search} onChange={(e) => setSearch(e.target.value)} />
 
             <Button className='btn btn-success btn-sm mb-3' onClick={() => handleShowCreate()}>
-                {" "}
-                Criar{" "}
+                Criar
             </Button>
 
             {/*Listagem de cargos*/}
@@ -139,40 +167,50 @@ export default function Roles() {
                 ))}
             </ListGroup>
 
-            {/*Modal Criar cargo*/}
-            <Modal show={showCreate} onHide={handleCloseCreate}>
+            {/*Modal Criar ou Editar cargo*/}
+            <Modal
+                show={showCreate || showEdit}
+                onHide={() => {
+                    handleCloseCreate()
+                    handleCloseEdit()
+                }}
+            >
                 <Modal.Header closeButton>
-                    <Modal.Title>Criar Cargo</Modal.Title>
+                    <Modal.Title>{(showCreate && "Criar Cargo") || (showEdit && "Editar Cargo")}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Control type='text' id='cargo' value={role} onChange={(e) => setRole(e.target.value)} aria-describedby='cargo' placeholder="Informe um nome para o cargo" />
+                    <Form.Control
+                        type='text'
+                        id='cargo'
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        aria-describedby='cargo'
+                        placeholder='Informe um nome para o cargo'
+                        className={verifyErrorRole.class}
+                    />
+                    {verifyErrorRole.message && <Form.Text className='invalid-feedback'>{verifyErrorRole.message}</Form.Text>}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant='secondary' className='btn-sm' onClick={handleCloseCreate}>
+                    <Button
+                        variant='secondary'
+                        className='btn-sm'
+                        onClick={() => {
+                            handleCloseCreate()
+                            handleCloseEdit()
+                        }}
+                    >
                         Fechar
                     </Button>
-                    <Button variant='success' className='btn-sm' onClick={() => handleCreateRole(role)}>
-                        Criar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            {/*Modal editar cargo*/}
-            <Modal show={showEdit} onHide={handleCloseEdit}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Editar Cargo</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form.Control type='text' id='cargo' value={role} onChange={(e) => setRole(e.target.value)} aria-describedby='cargo' />
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant='secondary' className='btn-sm' onClick={handleCloseEdit}>
-                        {" "}
-                        Fechar
-                    </Button>
-                    <Button variant='primary' className='btn-sm' onClick={() => handleUpdateRole(roleId, role)}>
-                        Salvar
-                    </Button>
+                    {(showCreate && (
+                        <Button variant='success' className='btn-sm' onClick={() => handleCreateRole(role)}>
+                            Criar
+                        </Button>
+                    )) ||
+                        (showEdit && (
+                            <Button variant='primary' className='btn-sm' onClick={() => handleUpdateRole(roleId, role)}>
+                                Salvar
+                            </Button>
+                        ))}
                 </Modal.Footer>
             </Modal>
 
@@ -197,7 +235,6 @@ export default function Roles() {
                 <Modal.Body>Tem certeza que deseja excluir esse cargo? </Modal.Body>
                 <Modal.Footer>
                     <Button variant='secondary' className='btn-sm' onClick={handleCloseMessageDelete}>
-                        {" "}
                         Não
                     </Button>
                     <Button variant='success' className='btn-sm' onClick={() => handleDeleteRole(idToDelete)}>
