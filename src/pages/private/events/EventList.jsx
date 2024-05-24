@@ -84,7 +84,7 @@ export const EventListByUser = () => {
             </EventList>
 
             {
-                events.length &&
+                events.length > 0 &&
                 //  Botões para paginação 
                 <Pagination currentPage={currentPage} handlePageChange={handlePageChange} totalLimit={10} events={events} />
             }
