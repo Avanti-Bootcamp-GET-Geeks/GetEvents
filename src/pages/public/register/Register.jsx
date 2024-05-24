@@ -88,41 +88,46 @@ export default function Register() {
         // Validação do nome
         if (!nome.trim()) {
             setVerifyErrorName({ class: "is-invalid", message: "O nome não pode estar vazio." })
+            return
         } else if (nome.trim().length < 3) {
             setVerifyErrorName({ class: "is-invalid", message: "O nome deve ter pelo menos 3 caracteres." })
+            return
         }
 
         // Validação do e-mail
         if (!email.trim()) {
             setVerifyErrorEmail({ class: "is-invalid", message: "O e-mail não pode estar vazio." })
+            return
         } else if (!isValidEmail(email)) {
             setVerifyErrorEmail({ class: "is-invalid", message: "O e-mail é inválido." })
+            return
         }
 
         // Validação do telefone
         if (!telefone.trim()) {
             setVerifyErrorPhone({ class: "is-invalid", message: "O número de telefone não pode estar vazio." })
+            return
         } else if (telefone.includes("_")) {
             setVerifyErrorPhone({ class: "is-invalid", message: "O número de telefone está incompleto." })
+            return
         }
 
         // Validação da senha
         if (!senha.trim()) {
             setVerifyErrorPassword({ class: "is-invalid", message: "A senha não pode estar vazia." })
+            return
         } else if (senha.includes(" ")) {
             setVerifyErrorPassword({ class: "is-invalid", message: "A senha não deve conter espaços." })
+            return
         } else if (senha.length < 7 || senha.length > 20) {
             setVerifyErrorPassword({ class: "is-invalid", message: "A senha deve ter entre 7 e 20 caracteres." })
+            return
         }
 
         // Validação do cargo
         if (!cargo_id) {
             setVerifyErrorRole({ class: "is-invalid", message: "Selecione um cargo." })
-        }
-
-        // Verificação final
-        if (verifyErrorName.class || verifyErrorEmail.class || verifyErrorPassword.class || verifyErrorPhone.class || verifyErrorRole.class) {
-            return // Impede o envio do formulário
+            return
         }
 
         try {
@@ -182,14 +187,7 @@ export default function Register() {
                             (role) =>
                                 role.nome !== "admin" && (
                                     <div key={role.id} className={`form-check ${verifyErrorRole.class}`}>
-                                        <input
-                                            className={`form-check-input ${verifyErrorRole.class}`}
-                                            type='radio'
-                                            name='cargo_id'
-                                            id={role.id}
-                                            value={role.id}
-                                            onChange={() => setRole(role.id)}
-                                        />
+                                        <input className={`form-check-input ${verifyErrorRole.class}`} type='radio' name='cargo_id' id={role.id} value={role.id} onChange={() => setRole(role.id)} />
                                         <label className='form-check-label' htmlFor={role.id}>
                                             {role.nome.charAt(0).toUpperCase() + role.nome.slice(1)}
                                         </label>
