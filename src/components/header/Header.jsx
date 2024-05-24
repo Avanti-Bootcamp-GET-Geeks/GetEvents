@@ -17,10 +17,11 @@ import {SearchContext} from "../../context/SearchContext.jsx";
 export default function Header() {
 
   const {setEventName, categories, setCategory, locals, setLocalId} = useContext(SearchContext);
-  const {userLogged, logoutUser, isAdmin, setIsAdmin} = useContext(AuthContext);
+  const {userLogged, logoutUser, isAdmin, userInfo} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
+  const [roleIsVisitor, setRoleIsVisitor] = useState(false);
   const [fieldValue, setFieldValue] = useState({
     nome: "",
     categoria_id: "",
@@ -34,9 +35,13 @@ export default function Header() {
   }, [fieldValue])
 
   useEffect(()=> {
-      const userInfo = JSON.parse(localStorage.getItem('userInfo')) || false;
-      setIsAdmin(userInfo.isAdmin);
-  }, [])
+      //  Optional Chaining ('?.') -> antes de setar o valor verifica se ele foi definido, evitando erros
+      const roleN = userInfo?.role?.nome?.toLowerCase();
+
+      if(roleN === 'visitante' || roleN === 'público') {
+        setRoleIsVisitor(true);
+      } else setRoleIsVisitor(false)
+  }, [userInfo])
 
 
   const handleRegister = () => {
@@ -116,6 +121,10 @@ export default function Header() {
               </Form>
 
               <Row className="p-2 ms-auto">
+                
+              {roleIsVisitor ?
+                <Col md={6} xs={10}></Col>
+                :
                 <Col md={6} xs={10}>
                   <div className="">
                     <Nav className="me-auto">
@@ -139,6 +148,9 @@ export default function Header() {
                     </Nav>
                   </div>
                 </Col>
+
+                  }
+
                 <Col md={6} xs={2} className="">
                   <div className="d-flex justify-content-end align-content-center buttons">
                     <Button as={Link}
