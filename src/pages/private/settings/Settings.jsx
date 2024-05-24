@@ -9,7 +9,7 @@ import MaskedInput from "react-text-mask";
 import { EnvelopeAt, Lock, Telephone, TextareaT } from "react-bootstrap-icons";
 
 export default function Settings() {
-    const {logoutUser, isAdmin, setIsAdmin} = useContext(AuthContext);
+    const {logoutUser, isAdmin} = useContext(AuthContext);
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
     const [roles, setRoles] = useState([]);
@@ -25,11 +25,6 @@ export default function Settings() {
         getRoles();
         loadUserData();
     }, []);
-
-    useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo')) || false;
-        setIsAdmin(userInfo.isAdmin);
-    }, [])
 
     const getRoles = async () => {
         try {

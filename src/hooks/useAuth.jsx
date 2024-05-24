@@ -99,7 +99,7 @@ const useAuth = () => {
       }
 
     // Retorna um objeto com todas as variáveis de estado e funções
-    return { userLogged, loading, loginUser, logoutUser, isAdmin, setIsAdmin };
+    return { userLogged, loading, loginUser, logoutUser, isAdmin, userInfo };
 }
 
 export default useAuth;

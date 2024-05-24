@@ -15,15 +15,15 @@ const PrivateRoutes = () => (
         <Route path='/categories' element={<ProtectedRoute roleIsAdmin={true}> <Categories /> </ProtectedRoute>} />
 
         {/* Rotas para locais */}
-        <Route path='/locations' element={<ProtectedRoute> <Locations /> </ProtectedRoute>} />
+        <Route path='/locations' element={<ProtectedRoute roleIsVisitor={'visitante'}> <Locations /> </ProtectedRoute>} />
 
         {/* Rotas para cargos - restrita a admin */}
         <Route path='/roles' element={<ProtectedRoute roleIsAdmin={true}> <Roles /> </ProtectedRoute>} />
         
         {/* Rotas para eventos */}
-        <Route path='/my-events' element={<ProtectedRoute> <EventListByUser /> </ProtectedRoute>} />
-        <Route path='/create/event' element={<ProtectedRoute> <CreateEvent /> </ProtectedRoute>} />
-        <Route path='/update/event/:id' element={<ProtectedRoute> <UpdateEvent /> </ProtectedRoute>} />
+        <Route path='/my-events' element={<ProtectedRoute roleIsVisitor={'visitante'}> <EventListByUser /> </ProtectedRoute>} />
+        <Route path='/create/event' element={<ProtectedRoute roleIsVisitor={'visitante'}> <CreateEvent /> </ProtectedRoute>} />
+        <Route path='/update/event/:id' element={<ProtectedRoute roleIsVisitor={'visitante'}> <UpdateEvent /> </ProtectedRoute>} />
 
         {/* Rotas para usuário */}
         <Route path='/settings' element={<ProtectedRoute> <Settings /> </ProtectedRoute>} />
